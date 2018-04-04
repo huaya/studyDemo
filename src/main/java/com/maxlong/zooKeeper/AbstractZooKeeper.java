@@ -1,0 +1,38 @@
+package com.maxlong.zooKeeper;
+
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.Watcher.Event.KeeperState;
+import org.apache.zookeeper.ZooKeeper;
+
+/**
+ * @author 作者 maxlong:
+ * @version 创建时间：2016年6月28日 下午3:39:05
+ * 类说明
+ */
+public class AbstractZooKeeper implements Watcher{
+
+    private static final int SESSION_TIME   = 2000;
+    protected ZooKeeper zooKeeper;
+    protected CountDownLatch countDownLatch=new CountDownLatch(1);
+
+    public void connect(String hosts) throws IOException, InterruptedException{
+        zooKeeper = new ZooKeeper(hosts,SESSION_TIME,this);
+        countDownLatch.await();
+    }
+
+    @Override
+    public void process(WatchedEvent event) {
+        if(event.getState()==KeeperState.SyncConnected){
+            countDownLatch.countDown();
+        }
+    }
+
+    public void close() throws InterruptedException{
+        zooKeeper.close();
+    }
+}
+ 
