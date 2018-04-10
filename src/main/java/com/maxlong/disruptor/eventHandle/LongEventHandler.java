@@ -3,16 +3,16 @@ package com.maxlong.disruptor.eventHandle;
 import com.lmax.disruptor.EventHandler;
 import com.maxlong.disruptor.event.LongEvent;
 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ27ÈÕ ÉÏÎç10:39:02 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ27æ—¥ ä¸Šåˆ10:39:02
+ * ç±»è¯´æ˜
+ */
 public class LongEventHandler implements EventHandler<LongEvent>{
 
 	@Override
 	public void onEvent(LongEvent event, long sequence, boolean endOfBatch) throws Exception {
-		 System.out.println(event.getValue()); 
+		System.out.println(event.getValue());
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.maxlong.camel; 
+package com.maxlong.camel;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -6,11 +6,11 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.main.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ24ÈÕ ÉÏÎç10:01:48 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ24æ—¥ ä¸Šåˆ10:01:48
+ * ç±»è¯´æ˜
+ */
 public class TimerMain {
 	static Logger LOG = LoggerFactory.getLogger(TimerMain.class);
 	public static void main(String[] args) throws Exception {
@@ -34,11 +34,11 @@ public class TimerMain {
 
 		waitForStop();
 	}
-	
+
 	RouteBuilder createRouteBuilder() {
 		return new TimerRouteBuilder();
 	}
-	
+
 	void waitForStop() {
 		while (true) {
 			try {
