@@ -1,9 +1,9 @@
 package com.maxlong.redis;
 
+import redis.clients.jedis.Jedis;
+
 import java.util.Iterator;
 import java.util.Set;
-
-import redis.clients.jedis.Jedis;
 
 /**
  * @author 作者 maxlong:
