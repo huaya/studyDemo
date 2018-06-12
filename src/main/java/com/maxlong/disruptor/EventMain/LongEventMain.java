@@ -11,11 +11,7 @@ import com.maxlong.disruptor.eventFactory.LongEventFactory;
 import com.maxlong.disruptor.eventHandle.LongEventHandler;
 import com.maxlong.disruptor.eventProducer.LongEventProducer;
 
-/** 
-* @author 作者 maxlong: 
-* @version 创建时间：2016年6月27日 上午10:51:04 
-* 类说明 
-*/
+
 public class LongEventMain {
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static void main(String[] args) {
