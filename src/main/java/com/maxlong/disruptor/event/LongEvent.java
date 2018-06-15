@@ -1,9 +1,5 @@
-package com.maxlong.disruptor.event; 
-/** 
-* @author 作者 maxlong: 
-* @version 创建时间：2016年6月27日 上午10:33:19 
-* 类说明 
-*/
+package com.maxlong.disruptor.event;
+
 public class LongEvent {
 	private long value;
 

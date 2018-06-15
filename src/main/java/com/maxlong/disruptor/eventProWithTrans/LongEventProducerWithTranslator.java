@@ -6,11 +6,6 @@ import com.lmax.disruptor.EventTranslatorOneArg;
 import com.lmax.disruptor.RingBuffer;
 import com.maxlong.disruptor.event.LongEvent;
 
-/** 
-* @author 作者 maxlong: 
-* @version 创建时间：2016年6月27日 上午10:45:37 
-* 类说明 
-*/
 public class LongEventProducerWithTranslator {
 
     private static final EventTranslatorOneArg<LongEvent, ByteBuffer> TRANSLATOR = 
