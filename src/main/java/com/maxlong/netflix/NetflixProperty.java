@@ -33,27 +33,24 @@ public class NetflixProperty {
 			Semaphore semaphore = new Semaphore(20);
 			for(int i = 0 ;i<5000 ;i ++) {
 				semaphore.acquire();
-				executorService.execute(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							Field cachField = DefaultPropertyContainer.class.getDeclaredField("cache");
-							cachField.setAccessible(true);
+				executorService.execute(() -> {
+                    try {
+                        Field cachField = DefaultPropertyContainer.class.getDeclaredField("cache");
+                        cachField.setAccessible(true);
 
-							DefaultPropertyContainer container = (DefaultPropertyContainer) defaultPropertyFactory.getProperty("maxlong");
-							CopyOnWriteArrayList cashList = (CopyOnWriteArrayList) cachField.get(container);
+                        DefaultPropertyContainer container = (DefaultPropertyContainer) defaultPropertyFactory.getProperty("maxlong");
+                        CopyOnWriteArrayList cashList = (CopyOnWriteArrayList) cachField.get(container);
 
-							Property<String> property = container.asString(null);
-							System.out.println("元素大小：" + cashList.size() + "属相值： " + property.get());
+                        Property<String> property = container.asString(null);
+                        System.out.println("元素大小：" + cashList.size() + "属相值： " + property.get());
 
-						} catch (NoSuchFieldException e) {
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
-							e.printStackTrace();
-						}
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
 
-					}
-				});
+                });
 				semaphore.release();
 			}
 
