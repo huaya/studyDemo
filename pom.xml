@@ -170,17 +170,12 @@
 		  <artifactId>commons-net</artifactId>
 		  <version>3.1</version>
 	  </dependency>
-
       <dependency>
-          <groupId>com.sand.abacus</groupId>
-          <artifactId>abacus-config</artifactId>
-          <version>2.0.0</version>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.16.12</version>
+          <scope>compile</scope>
       </dependency>
-	  <dependency>
-		  <groupId>cn.com.sand.component.config</groupId>
-		  <artifactId>sand-config-properties</artifactId>
-		  <version>1.0.1</version>
-	  </dependency>
   </dependencies>
   
   <build>
