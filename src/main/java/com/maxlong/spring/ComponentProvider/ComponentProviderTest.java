@@ -1,10 +1,10 @@
 package com.maxlong.spring.ComponentProvider;
 
-import java.util.Set;
-
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AssignableTypeFilter;
+
+import java.util.Set;
 
 /**
  * @author 作者 maxlong:
@@ -15,7 +15,7 @@ public class ComponentProviderTest {
 
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		String packagePath = "com.maxlong.spring.ComponentProvider";
+		String packagePath = "com.maxlong.service.ComponentProvider";
 		ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
 		provider.addIncludeFilter(new AssignableTypeFilter(IWarmup.class));
 		Set<BeanDefinition> beanDefinitions = provider.findCandidateComponents(packagePath);
