@@ -9,19 +9,19 @@ import org.apache.camel.impl.DefaultCamelContext;
 import com.maxlong.camel.route.api.Route;
 import com.maxlong.camel.route.api.Rule;
 
-/** 
-* @author ◊˜’ﬂ maxlong: 
-* @version ¥¥Ω® ±º‰£∫2016ƒÍ6‘¬23»’ œ¬ŒÁ4:23:40 
-* ¿‡Àµ√˜ 
-*/
+/**
+ * @author ‰ΩúËÄÖ maxlong:
+ * @version ÂàõÂª∫Êó∂Èó¥Ôºö2016Âπ¥6Êúà23Êó• ‰∏ãÂçà4:23:40
+ * Á±ªËØ¥Êòé
+ */
 public abstract class CamelRoute implements Route{
 
-    private  CamelContext camelContext = new DefaultCamelContext();
-    
-    public CamelRoute() {
-    	this.init();
+	private  CamelContext camelContext = new DefaultCamelContext();
+
+	public CamelRoute() {
+		this.init();
 	}
-    
+
 	@Override
 	public void init() {
 		try {
@@ -30,39 +30,39 @@ public abstract class CamelRoute implements Route{
 			e.printStackTrace();
 		}
 	}
-	
-    public abstract RouteBuilder getRouteBuilder();
+
+	public abstract RouteBuilder getRouteBuilder();
 
 	@Override
 	public <T> T route(Rule rule, Class<T> clazz) {
-        try {
-            Endpoint endpoint = camelContext.hasEndpoint(rule.getRule());
-            if(endpoint == null){
-            	return null;
-            }
-            return ProxyHelper.createProxy(endpoint, clazz);
-        } catch (Exception e) { 
-        	e.printStackTrace();
-        }
+		try {
+			Endpoint endpoint = camelContext.hasEndpoint(rule.getRule());
+			if(endpoint == null){
+				return null;
+			}
+			return ProxyHelper.createProxy(endpoint, clazz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public void start() {
-        try {
-            this.camelContext.start();
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+		try {
+			this.camelContext.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void stop() {
-        try {
-            this.camelContext.stop();
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+		try {
+			this.camelContext.stop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

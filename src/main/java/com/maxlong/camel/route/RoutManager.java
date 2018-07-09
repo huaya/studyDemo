@@ -2,29 +2,29 @@ package com.maxlong.camel.route;
 
 import com.maxlong.camel.route.api.Route;
 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ24ÈÕ ÏÂÎç5:07:27 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ24æ—¥ ä¸‹åˆ5:07:27
+ * ç±»è¯´æ˜
+ */
 public class RoutManager {
 	public static RoutManager routManager;
-	
+
 	public static Route route;
-	
+
 	public static RoutManager getInstance(){
 		if(routManager==null){
 			synchronized(RoutManager.class){
-                if(routManager==null){
-                	routManager=new RoutManager();
-                }
-            }
+				if(routManager==null){
+					routManager=new RoutManager();
+				}
+			}
 		}
 		return routManager;
 	}
-	
+
 	public void setRoute(Route route){
-		RoutManager.route = route;  
+		RoutManager.route = route;
 	}
 }
  

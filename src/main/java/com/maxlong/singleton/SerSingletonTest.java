@@ -1,11 +1,11 @@
 package com.maxlong.singleton;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import org.junit.jupiter.api.Test;
 
 /**
  * @author 作者 maxlong:
@@ -28,5 +28,13 @@ public class SerSingletonTest{
 		FileInputStream fis = new FileInputStream("SerSingleton.txt");
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		s1 = (SerSingleton) ois.readObject();
+	}
+
+	@Test
+	public void test_1(){
+
+		InnerSingleton singleton1 = InnerSingleton.getInstance();
+		InnerSingleton singleton2 = InnerSingleton.getInstance();
+		System.out.println(singleton1==singleton2);
 	}
 }

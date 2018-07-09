@@ -4,11 +4,11 @@ import org.apache.camel.builder.NoErrorHandlerBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import com.maxlong.spring.factory.Springfactory;
 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ23ÈÕ ÏÂÎç4:46:04 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ23æ—¥ ä¸‹åˆ4:46:04
+ * ç±»è¯´æ˜
+ */
 public class ServiceCamelRoute extends CamelRoute {
 
 	@Override
@@ -17,17 +17,17 @@ public class ServiceCamelRoute extends CamelRoute {
 
 			@Override
 			public void configure() throws Exception {
-				 Object bean = getBean("com.maxlong.camel.CamelTestService");
-				 String route = "direct://maxlong_camelTestService";
-				 from(route)
-		            .bean(bean)
-		            .setErrorHandlerBuilder(new NoErrorHandlerBuilder());
+				Object bean = getBean("com.maxlong.camel.CamelTestService");
+				String route = "direct://maxlong_camelTestService";
+				from(route)
+						.bean(bean)
+						.setErrorHandlerBuilder(new NoErrorHandlerBuilder());
 			}
 
 			private Object getBean(String string) {
 				return Springfactory.getBean(string);
 			}
-			
+
 		};
 	}
 
