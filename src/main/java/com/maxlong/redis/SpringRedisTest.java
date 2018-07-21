@@ -1,14 +1,11 @@
 package com.maxlong.redis;
 
-import java.io.UnsupportedEncodingException;
-
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-
 import redis.clients.jedis.JedisPoolConfig;
+
+import java.io.UnsupportedEncodingException;
 
 /** 
 * @author ���� maxlong: 
@@ -32,16 +29,13 @@ public class SpringRedisTest {
 		conFactory.afterPropertiesSet();
 		redisTemplate.setConnectionFactory(conFactory);
 		redisTemplate.afterPropertiesSet();
-		String sdsd = redisTemplate.execute(new RedisCallback<String>(){
-			@Override
-			public String doInRedis(RedisConnection conn) throws DataAccessException {
-				try {
-					return new String(conn.get("w3ckey".getBytes()),redisCode);
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-				return "";
+		String sdsd = redisTemplate.execute((RedisCallback<String>) conn -> {
+			try {
+				return new String(conn.get("w3ckey".getBytes()),redisCode);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
 			}
+			return "";
 		});
 		System.out.println(sdsd);
 	}
