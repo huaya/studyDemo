@@ -1,4 +1,4 @@
-package com.maxlong.meiju;
+package com.maxlong.enums;
 
 /**
  * @author 作者 maxlong:
@@ -7,7 +7,6 @@ package com.maxlong.meiju;
  */
 public enum BusiType {
     STAND_DPAY("010001", "标准支付"),
-
     COLLECT_PAY("010002", "收款");
 
     String code;
@@ -26,11 +25,5 @@ public enum BusiType {
         return name;
     }
 
-    public static void main(String[] args) {
-        BusiType[] types = values();
-        for(BusiType type : types){
-            System.out.println(type.getName());
-        }
-    }
 }
  

@@ -1,4 +1,4 @@
-package com.maxlong.camel.service;
+package com.maxlong.service;
 
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;

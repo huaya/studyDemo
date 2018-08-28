@@ -9,26 +9,27 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Springfactory{
 
-	public Springfactory springfactory;
+	private ClassPathXmlApplicationContext context;
 
-	public static ClassPathXmlApplicationContext context;
+	private Springfactory(){}
 
-	public Springfactory getInstance(){
-		if(springfactory==null){
-			synchronized(Springfactory.class){
-				if(springfactory==null){
-					springfactory=new Springfactory();
-				}
-			}
-		}
-		return springfactory;
+	private static class SpringfactoryHolder{
+		public static Springfactory springfactory = new Springfactory();
 	}
 
-	public static void setContext(ClassPathXmlApplicationContext context){
-		Springfactory.context = context;
+	public static Springfactory getInstance(){
+		return SpringfactoryHolder.springfactory;
 	}
 
-	public static <T> T getBean(String beanName) {
+	public void setContext(ClassPathXmlApplicationContext context){
+		this.context = context;
+	}
+
+	public ClassPathXmlApplicationContext getContext() {
+		return context;
+	}
+
+	public <T> T getBean(String beanName) {
 		if (null != context) {
 			return (T) context.getBean(beanName);
 		}

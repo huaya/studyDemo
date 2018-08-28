@@ -1,4 +1,4 @@
-package com.maxlong.thread;
+package com.maxlong.currency;
 /**
  * @author 作者 maxlong:
  * @version 创建时间：2016年6月27日 下午1:45:22

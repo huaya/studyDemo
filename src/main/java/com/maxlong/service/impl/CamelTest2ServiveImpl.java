@@ -1,8 +1,8 @@
-package com.maxlong.camel.service.impl;
+package com.maxlong.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.maxlong.camel.route.RouteMapping;
-import com.maxlong.camel.service.BaseCamelService;
+import com.maxlong.service.BaseCamelService;
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;
 import org.slf4j.Logger;

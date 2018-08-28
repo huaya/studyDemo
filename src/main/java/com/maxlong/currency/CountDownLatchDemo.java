@@ -1,4 +1,4 @@
-package com.maxlong.thread;
+package com.maxlong.currency;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -2,7 +2,7 @@ package com.maxlong.thrift.service.impl;
 
 import com.maxlong.camel.route.RoutManager;
 import com.maxlong.camel.route.api.CamelEndpointRule;
-import com.maxlong.camel.service.BaseCamelService;
+import com.maxlong.service.BaseCamelService;
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;
 import com.maxlong.thrift.demo.SharedService;

@@ -1,4 +1,4 @@
-package com.maxlong.greedy;
+package com.maxlong.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.maxlong.proxy;
+package com.maxlong.service;
 
 /**
  * Created by IntelliJ IDEA.
@@ -8,7 +8,8 @@ package com.maxlong.proxy;
  * 类说明:
  */
 public interface UserService {
-    public String getName(int id);
 
-    public Integer getAge(int id);
+    String getName(int id);
+
+    Integer getAge(int id);
 }

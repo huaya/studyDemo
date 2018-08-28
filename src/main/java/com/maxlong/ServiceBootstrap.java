@@ -26,7 +26,7 @@ public class ServiceBootstrap {
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("appclitionContext.xml");
             context.start();
 
-            Springfactory.setContext(context);
+            Springfactory.getInstance().setContext(context);
             Route route = new ServiceCamelRoute();
             route.start();
             RoutManager.getInstance().setRoute(route);

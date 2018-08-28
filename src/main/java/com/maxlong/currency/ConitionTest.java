@@ -1,4 +1,4 @@
-package com.maxlong.thread;
+package com.maxlong.currency;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;

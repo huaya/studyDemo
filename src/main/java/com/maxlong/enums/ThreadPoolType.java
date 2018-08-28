@@ -1,4 +1,4 @@
-package com.maxlong.currency;
+package com.maxlong.enums;
 
 /**
  * Created by IntelliJ IDEA.

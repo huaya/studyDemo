@@ -1,6 +1,8 @@
-package com.maxlong.proxy;
+package com.maxlong.service.impl;
 
+import com.maxlong.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * 类说明:
  */
 @Slf4j
+@Service
 public class UserServiceImpl implements UserService {
 
 

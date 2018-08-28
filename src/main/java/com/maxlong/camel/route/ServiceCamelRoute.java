@@ -35,14 +35,14 @@ public class ServiceCamelRoute extends CamelRoute {
             }
 
             private Object getBean(String string) {
-                return Springfactory.getBean(string);
+                return Springfactory.getInstance().getBean(string);
             }
 
         };
     }
 
     private Map<String, String> getAnnotationRoute() {
-        Map<String, Object> annotationRouteMap = Springfactory.context.getBeansWithAnnotation(RouteMapping.class);
+        Map<String, Object> annotationRouteMap = Springfactory.getInstance().getContext().getBeansWithAnnotation(RouteMapping.class);
         Map<String, String> routeMapping = new HashMap<>();
         for (String key : annotationRouteMap.keySet()) {
             RouteMapping routeMap = annotationRouteMap.get(key).getClass().getAnnotation(RouteMapping.class);

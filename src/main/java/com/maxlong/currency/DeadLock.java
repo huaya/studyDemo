@@ -14,45 +14,37 @@ public class DeadLock {
 
     public static void main(String[] args) {
 
-        new Thread(){
+        new Thread(() -> {
+            synchronized (o1){
 
-            @Override
-            public void run(){
-                synchronized (o1){
-
-                    System.out.println("【thread1】get lock o1");
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    synchronized (o2){
-                        System.out.println("【thread1】get lock o2");
-                    }
+                System.out.println("【thread1】get lock o1");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }
-        }.start();
 
-        new Thread(){
-
-            @Override
-            public void run(){
                 synchronized (o2){
-
-                    System.out.println("【thread2】get lock o2");
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    synchronized (o1){
-                        System.out.println("【thread2】get lock o1");
-                    }
+                    System.out.println("【thread1】get lock o2");
                 }
             }
-        }.start();
+        }).start();
+
+        new Thread(() -> {
+            synchronized (o2){
+
+                System.out.println("【thread2】get lock o2");
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                synchronized (o1){
+                    System.out.println("【thread2】get lock o1");
+                }
+            }
+        }).start();
 
     }
 

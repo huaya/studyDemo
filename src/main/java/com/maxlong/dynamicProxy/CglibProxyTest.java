@@ -1,4 +1,4 @@
-package com.maxlong.proxy;
+package com.maxlong.dynamicProxy;
 
 
 import net.sf.cglib.proxy.Enhancer;
