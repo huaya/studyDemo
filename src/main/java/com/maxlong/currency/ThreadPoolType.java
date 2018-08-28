@@ -12,5 +12,5 @@ public enum ThreadPoolType {
     CACHE,
     FIXED,
     SCHEDULED,
-    SINGLE;
+    SINGLE
 }

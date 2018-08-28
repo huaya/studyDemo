@@ -2,39 +2,38 @@ package com.maxlong.spring.factory;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ23ÈÕ ÏÂÎç5:02:27 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ23æ—¥ ä¸‹åˆ5:02:27
+ * ç±»è¯´æ˜
+ */
 public class Springfactory{
-	
+
 	public Springfactory springfactory;
-	
+
 	public static ClassPathXmlApplicationContext context;
-	
+
 	public Springfactory getInstance(){
 		if(springfactory==null){
 			synchronized(Springfactory.class){
-                if(springfactory==null){
-                	springfactory=new Springfactory();
-                }
-            }
+				if(springfactory==null){
+					springfactory=new Springfactory();
+				}
+			}
 		}
 		return springfactory;
 	}
-	
+
 	public static void setContext(ClassPathXmlApplicationContext context){
-		Springfactory.context = context;  
+		Springfactory.context = context;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static <T> T getBean(String beanName) {  
-        if (null != context) {  
-            return (T) context.getBean(beanName);  
-        }  
-        return null;  
-    }
-	
+
+	public static <T> T getBean(String beanName) {
+		if (null != context) {
+			return (T) context.getBean(beanName);
+		}
+		return null;
+	}
+
 }
  

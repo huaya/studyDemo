@@ -8,30 +8,30 @@ import java.io.InputStreamReader;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
-/** 
-* @author ◊˜’ﬂ maxlong: 
-* @version ¥¥Ω® ±º‰£∫2016ƒÍ6‘¬23»’ œ¬ŒÁ3:03:22 
-* ¿‡Àµ√˜ 
-*/
-public class FileConvertProcessor implements Processor{  
-    @Override  
-    public void process(Exchange exchange) throws Exception {      
-        try {  
-            InputStream body = exchange.getIn().getBody(InputStream.class);  
-            BufferedReader in = new BufferedReader(new InputStreamReader(body));  
-            StringBuffer strbf = new StringBuffer("");  
-            String str = null;  
-            str = in.readLine();  
-            while (str != null) {                  
-                System.out.println(str);  
-                strbf.append(str + " ");  
-                str = in.readLine();                  
-            }  
-            exchange.getOut().setHeader(Exchange.FILE_NAME, "converted.txt");  
+/**
+ * @author ‰ΩúËÄÖ maxlong:
+ * @version ÂàõÂª∫Êó∂Èó¥Ôºö2016Âπ¥6Êúà23Êó• ‰∏ãÂçà3:03:22
+ * Á±ªËØ¥Êòé
+ */
+public class FileConvertProcessor implements Processor{
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        try {
+            InputStream body = exchange.getIn().getBody(InputStream.class);
+            BufferedReader in = new BufferedReader(new InputStreamReader(body));
+            StringBuffer strbf = new StringBuffer("");
+            String str = null;
+            str = in.readLine();
+            while (str != null) {
+                System.out.println(str);
+                strbf.append(str + " ");
+                str = in.readLine();
+            }
+            exchange.getOut().setHeader(Exchange.FILE_NAME, "converted.txt");
             // set the output to the file  
-            exchange.getOut().setBody(strbf.toString());  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-    }  
+            exchange.getOut().setBody(strbf.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }  

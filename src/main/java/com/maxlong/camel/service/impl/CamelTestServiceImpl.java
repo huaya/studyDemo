@@ -1,25 +1,31 @@
 package com.maxlong.camel.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.maxlong.camel.route.RouteMapping;
+import com.maxlong.camel.service.BaseCamelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import com.maxlong.camel.service.CamelTestService;
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;
 
-/** 
-* @author ◊˜’ﬂ maxlong: 
-* @version ¥¥Ω® ±º‰£∫2016ƒÍ6‘¬24»’ …œŒÁ10:56:25 
-* ¿‡Àµ√˜ 
-*/
-@Service(value = "com.maxlong.camel.CamelTestService")
-public class CamelTestServiceImpl implements CamelTestService{
+/**
+ * @author ‰ΩúËÄÖ maxlong:
+ * @version ÂàõÂª∫Êó∂Èó¥Ôºö2016Âπ¥6Êúà24Êó• ‰∏äÂçà10:56:25
+ * Á±ªËØ¥Êòé
+ */
+@RouteMapping(routeKey = "direct://maxlong_camelTestService")
+@Service(value = "com.maxlong.camel.CamelTestServiceImpl")
+public class CamelTestServiceImpl implements BaseCamelService {
+
+	private static final Logger logger = LoggerFactory.getLogger(CamelTestServiceImpl.class);
 
 	@Override
 	public ResponseStruct execute(RequestStruct request) {
-		System.out.println("Hello world");
+		logger.info("received request : {}", JSONObject.toJSONString(request));
 		ResponseStruct res = new ResponseStruct();
 		res.setRequestId(request.getRequestId());
-		res.setResponseData("hello world!");
+		res.setResponseData("hello world! --by CamelTestServiveImpl");
 		return res;
 	}
 

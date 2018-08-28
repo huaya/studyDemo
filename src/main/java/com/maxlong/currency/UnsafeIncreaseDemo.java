@@ -22,7 +22,7 @@ public class UnsafeIncreaseDemo {
 
     public static int threadTotal = 200;
 
-//    public static int count = 0;
+    //    public static int count = 0;
     public static AtomicInteger count = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
@@ -31,7 +31,7 @@ public class UnsafeIncreaseDemo {
         final Semaphore semaphore = new Semaphore(threadTotal);
         final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
 
-        for(int i=0; i<clientTotal; i++){
+        for (int i = 0; i < clientTotal; i++) {
             executorService.execute(() -> {
                 try {
                     semaphore.acquire();

@@ -1,23 +1,23 @@
 package com.maxlong.camel.route.api;
 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ23ÈÕ ÏÂÎç4:18:38 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ23æ—¥ ä¸‹åˆ4:18:38
+ * ç±»è¯´æ˜
+ */
 public interface Route {
-	
+
     /**  init the route */
-    public void init();
+    void init();
 
     /**  route a processer bean */
-    public <T> T route(Rule rule,Class<T> clazz);
+    <T> T route(Rule rule,Class<T> clazz);
 
     /**  start the route */
-    public void start();
+    void start();
 
     /**  stop the route */
-    public void stop();
+    void stop();
 
 }
  

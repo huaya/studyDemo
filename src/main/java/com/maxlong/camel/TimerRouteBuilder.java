@@ -1,24 +1,20 @@
-package com.maxlong.camel; 
+package com.maxlong.camel;
 
 import org.slf4j.*;
 import org.apache.camel.*;
 import org.apache.camel.builder.*;
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ24ÈÕ ÉÏÎç9:44:31 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ24æ—¥ ä¸Šåˆ9:44:31
+ * ç±»è¯´æ˜Ž
+ */
 
- 
+
 public class TimerRouteBuilder extends RouteBuilder {
 	static Logger LOG = LoggerFactory.getLogger(TimerRouteBuilder.class);
 	public void configure() {
 		from("timer://timer1?period=1000")
-		.process(new Processor() {
-			public void process(Exchange msg) {
-				System.out.println("Processing {}" + msg);
-			}
-		});
+				.process(msg -> LOG.info("Processing {}", msg));
 	}
 }
  

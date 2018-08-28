@@ -3,7 +3,6 @@ package com.maxlong.camel;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.main.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -22,15 +21,13 @@ public class TimerMain {
 		camelContext.setTracing(true);
 		camelContext.start();
 
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				try {
-					camelContext.stop();
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			try {
+				camelContext.stop();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			}
-		});
+		}));
 
 		waitForStop();
 	}

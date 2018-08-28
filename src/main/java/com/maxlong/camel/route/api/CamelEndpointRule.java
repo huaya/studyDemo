@@ -1,14 +1,14 @@
 package com.maxlong.camel.route.api;
 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ23ÈÕ ÏÂÎç5:49:56 
-* ÀàËµÃ÷ 
-*/
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ23æ—¥ ä¸‹åˆ5:49:56
+ * ç±»è¯´æ˜
+ */
 public class CamelEndpointRule implements Rule {
-	
+
 	private String rule;
-	
+
 	public void setRule(String rule){
 		this.rule = rule;
 	}

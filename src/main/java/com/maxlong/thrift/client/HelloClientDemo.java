@@ -4,6 +4,7 @@ package com.maxlong.thrift.client;
  * @version 创建时间：2016年6月24日 下午6:06:00
  * 类说明
  */
+
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TCompactProtocol;
@@ -15,49 +16,51 @@ import org.apache.thrift.transport.TTransportException;
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;
 import com.maxlong.thrift.demo.SharedService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by amosli on 14-8-12.
  */
 public class HelloClientDemo {
 
-  public static final String SERVER_IP = "localhost";
-  public static final int SERVER_PORT = 5568;
-  public static final int TIMEOUT = 30000;
+    public static final String SERVER_IP = "localhost";
 
-  /**
-   * @param args
-   */
-  public static void main(String[] args) {
-    HelloClientDemo client = new HelloClientDemo();
-    client.startClient("amosli");
+    public static final int SERVER_PORT = 5568;
 
-  }
+    public static final int TIMEOUT = 30000;
 
-  /**
-   * @param userName
-   */
-  public void startClient(String userName) {
-    TTransport transport = null;
-    try {
-      transport = new TSocket(SERVER_IP, SERVER_PORT, TIMEOUT);
-      TProtocol protocol = new TCompactProtocol(transport);
-      SharedService.Client client = new SharedService.Client(protocol);
-      transport.open();
-      RequestStruct request = new RequestStruct();
-      request.setRequestId("direct://maxlong_camelTestService");
-      request.setRequestData("direct://maxlong_camelTestService");
-      ResponseStruct result = client.SendReceive(request);
-      System.out.println("Thrift client result =: " + result);
-    } catch (TTransportException e) {
-      e.printStackTrace();
-    } catch (TException e) {
-      e.printStackTrace();
-    } finally {
-      if (null != transport) {
-        transport.close();
-      }
+    private final static Logger logger = LoggerFactory.getLogger(HelloClientDemo.class);
+
+    public static void main(String[] args) {
+        HelloClientDemo client = new HelloClientDemo();
+        client.startClient("amosli");
     }
-  }
+
+    /**
+     * @param userName
+     */
+    public void startClient(String userName) {
+        TTransport transport = null;
+        try {
+            transport = new TSocket(SERVER_IP, SERVER_PORT, TIMEOUT);
+            TProtocol protocol = new TCompactProtocol(transport);
+            SharedService.Client client = new SharedService.Client(protocol);
+            transport.open();
+            RequestStruct request = new RequestStruct();
+            request.setRequestId("direct://maxlong_camelTest3Service");
+            request.setRequestData("direct://maxlong_camelTestService");
+            ResponseStruct result = client.SendReceive(request);
+            logger.info("Thrift client result =: " + result);
+        } catch (TTransportException e) {
+            e.printStackTrace();
+        } catch (TException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != transport) {
+                transport.close();
+            }
+        }
+    }
 
 }

@@ -1,9 +1,9 @@
-package com.maxlong.camel.route.api; 
-/** 
-* @author ×÷Õß maxlong: 
-* @version ´´½¨Ê±¼ä£º2016Äê6ÔÂ23ÈÕ ÏÂÎç4:19:34 
-* ÀàËµÃ÷ 
-*/
+package com.maxlong.camel.route.api;
+/**
+ * @author ä½œè€… maxlong:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2016å¹´6æœˆ23æ—¥ ä¸‹åˆ4:19:34
+ * ç±»è¯´æ˜
+ */
 public interface Rule {
 
     /** get rule */
