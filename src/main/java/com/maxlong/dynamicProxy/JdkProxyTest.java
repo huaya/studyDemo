@@ -1,5 +1,8 @@
 package com.maxlong.dynamicProxy;
 
+import com.maxlong.service.UserService;
+import com.maxlong.service.impl.UserServiceImpl;
+
 import java.lang.reflect.*;
 
 /**

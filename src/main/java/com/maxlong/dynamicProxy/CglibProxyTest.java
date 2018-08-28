@@ -1,6 +1,8 @@
 package com.maxlong.dynamicProxy;
 
 
+import com.maxlong.service.UserService;
+import com.maxlong.service.impl.UserServiceImpl;
 import net.sf.cglib.proxy.Enhancer;
 
 import java.lang.reflect.Field;
