@@ -1,5 +1,7 @@
 package com.maxlong.jdbc;
 
+import com.maxlong.study.utils.DynamicPropertyHelper;
+import org.springframework.util.Assert;
 import java.sql.*;
 
 /**
@@ -12,48 +14,32 @@ import java.sql.*;
 public class PreparedstatementTest {
 
     public static void main(String[] args) {
-        String driver = "oracle.jdbc.pool.OracleDataSource";
-        String url = "jdbc:oracle:thin:@127.0.0.1:1521:MAXLONG";
-        String userName = "study_m";
-        String passWd = "123456";
+        String databasetype = DynamicPropertyHelper.getStringProperty("databasetype");
+
+        String driver = DynamicPropertyHelper.getStringProperty(databasetype + ".jdbc.driver");
+        Assert.notNull(driver, "driver can not bean null");
+
+        String url = DynamicPropertyHelper.getStringProperty(databasetype + ".jdbc.url");
+        Assert.notNull(url, "url can not bean null");
+
+        String userName = DynamicPropertyHelper.getStringProperty(databasetype + ".jdbc.username");
+        Assert.notNull(userName, "userName can not bean null");
+
+        String password = DynamicPropertyHelper.getStringProperty(databasetype + ".jdbc.password");
+        Assert.notNull(password, "password can not bean null");
+
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
             Class.forName(driver);
-            connection = DriverManager.getConnection(url,userName,passWd);
+            connection = DriverManager.getConnection(url,userName,password);
 
-//            statement = connection.prepareStatement("insert into MXL_ORCL_STUDY (s_date,s_varchar,s_num) VALUES (?,?,?)");
-            statement = connection.prepareStatement("select * from ACC_BAL_CFIT_RELATION");
-
-//            statement.setDate(1,new Date(new java.util.Date().getTime()));
-//            statement.setString(2,"20180705");
-//            statement.setInt(3,1000);
-
+            statement = connection.prepareStatement("select * from spot_cfg");
             statement.executeQuery();
-//            boolean result = statement.execute();
-
             ResultSet result = statement.getResultSet();
-            ResultSetMetaData metaData = result.getMetaData();
-            int countNum = metaData.getColumnCount();
-            int row = 1;
-            System.out.print("|     ROWNUM      ");
-            for(int i =1 ;i <= countNum; i++){
-                System.out.print("|         " + metaData.getColumnName(i) + "           ");
-            }
-            System.out.print("|");
-            System.out.println();
-
-            while (result.next()){
-                System.out.print("|     " + row + "     ");
-                for(int i =1 ;i <= countNum; i++){
-                    String colName = metaData.getColumnName(i);
-                    System.out.print("|           " + result.getObject(colName) + "           ");
-                }
-                row ++;
-                System.out.print("|");
-                System.out.println();
-            }
+            DbObjectPrint dbObjectPrint = new DbObjectPrint(result);
+            dbObjectPrint.print();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
