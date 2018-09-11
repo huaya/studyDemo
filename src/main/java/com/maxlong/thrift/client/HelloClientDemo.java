@@ -48,7 +48,7 @@ public class HelloClientDemo {
             SharedService.Client client = new SharedService.Client(protocol);
             transport.open();
             RequestStruct request = new RequestStruct();
-            request.setRequestId("direct://maxlong_camelTest3Service");
+            request.setRequestId("direct://maxlong_camelTest2Service");
             request.setRequestData("direct://maxlong_camelTestService");
             ResponseStruct result = client.SendReceive(request);
             logger.info("Thrift client result =: " + result);

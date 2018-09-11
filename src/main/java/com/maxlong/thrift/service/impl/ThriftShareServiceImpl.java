@@ -24,7 +24,7 @@ public class ThriftShareServiceImpl implements SharedService.Iface {
         String reqId = request.getRequestId();
         CamelEndpointRule camelEndpointRule = new CamelEndpointRule();
         camelEndpointRule.setRule(reqId);
-        BaseCamelService baseCamelService = RoutManager.route.route(camelEndpointRule, BaseCamelService.class);
+        BaseCamelService baseCamelService = RoutManager.getInstance().getRoute().route(camelEndpointRule, BaseCamelService.class);
         if (baseCamelService == null) {
             logger.error("get camelService fail,routekey:{}", reqId);
             responseStruct = new ResponseStruct();

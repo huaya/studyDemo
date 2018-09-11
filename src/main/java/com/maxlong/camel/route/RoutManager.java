@@ -8,23 +8,24 @@ import com.maxlong.camel.route.api.Route;
  * 类说明
  */
 public class RoutManager {
-	public static RoutManager routManager;
 
-	public static Route route;
+	private RoutManager() {}
 
+	private static Route route;
+
+	private static class RoutManagerHolder{
+		public static RoutManager routManager = new RoutManager();
+	}
 	public static RoutManager getInstance(){
-		if(routManager==null){
-			synchronized(RoutManager.class){
-				if(routManager==null){
-					routManager=new RoutManager();
-				}
-			}
-		}
-		return routManager;
+		return RoutManagerHolder.routManager;
 	}
 
 	public void setRoute(Route route){
 		RoutManager.route = route;
+	}
+
+	public Route getRoute() {
+		return route;
 	}
 }
  
