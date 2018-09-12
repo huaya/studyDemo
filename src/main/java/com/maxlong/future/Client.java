@@ -11,12 +11,10 @@ public class Client {
 
         final FutureData futureData = new FutureData();
 
-        new Thread(){
-          public void run(){
-              RealData realData = new RealData(name);
-              futureData.setRealData(realData);
-          }
-        }.start();
+        new Thread(() -> {
+            RealData realData = new RealData(name);
+            futureData.setRealData(realData);
+        }).start();
 
         return futureData;
     }

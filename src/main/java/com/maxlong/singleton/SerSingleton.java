@@ -17,6 +17,7 @@ public class SerSingleton implements java.io.Serializable{
     }
 
     private static SerSingleton instance = new SerSingleton();
+
     public static SerSingleton getInstance() {
         return instance;
     }

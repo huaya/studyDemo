@@ -38,7 +38,7 @@ public class ServiceBootstrap {
             config.setWorkthreads(5);
             config.setAcceptqueuesizeterthread(100);
             config.setFixedThreadPoolSize(100);
-            boolean success = thriftShareService.start(config);
+            thriftShareService.start(config);
             logger.info("start camel service success.");
         } catch (Exception e){
             e.printStackTrace();

@@ -8,12 +8,8 @@ import com.maxlong.disruptor.event.LongEvent;
 
 public class LongEventProducerWithTranslator {
 
-    private static final EventTranslatorOneArg<LongEvent, ByteBuffer> TRANSLATOR = 
-            new EventTranslatorOneArg<LongEvent, ByteBuffer>() { 
-                public void translateTo(LongEvent event, long sequence, ByteBuffer bb) { 
-                    event.setValue(bb.getLong(0)); 
-                } 
-            };
+    private static final EventTranslatorOneArg<LongEvent, ByteBuffer> TRANSLATOR =
+            (event, sequence, bb) -> event.setValue(bb.getLong(0));
             
     private final RingBuffer<LongEvent> ringBuffer;
     

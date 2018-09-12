@@ -24,12 +24,10 @@ public class SpringRetryMain {
 
 		SpringRetryService service = new SpringRetryService();
 
-		RecoveryCallback<Object> recoveryCallback = new RecoveryCallback<Object>() {
-			public Object recover(RetryContext context) throws Exception {
-				System.out.println("do recory operation");
-				System.out.println(context.getAttribute("key1"));
-				return "Callback";
-			}
+		RecoveryCallback<Object> recoveryCallback = context -> {
+			System.out.println("do recory operation");
+			System.out.println(context.getAttribute("key1"));
+			return "Callback";
 		};
 
 		String df = (String) retryTemplate.execute(service,recoveryCallback);
