@@ -29,7 +29,7 @@ public class DatePrice {
         try {
             Date date = DateUtil.strToDate("2015-05-21 12:30:00", DATEFORMAT);
             DBManger dbManger = DBManger.getInstance();
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 3000000; i++) {
                 String sql = "insert into t_date_price values(?,?)";
                 dbManger.addParameter(date);
                 dbManger.addParameter(new BigDecimal(new Random().nextInt(MaxPrice)).divide(DIVIDE));
