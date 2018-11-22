@@ -20,14 +20,14 @@ public class KafkaCustom {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "13.114.31.179:9092");
-        props.put("group.id", "test");
+        props.put("bootstrap.servers", "139.224.15.79:9092");
+        props.put("group.id", "test-consumer-group");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList("test"), new ConsumerRebalanceListener() {
+        consumer.subscribe(Arrays.asList("TOPIC_SPOT_PRICE_CHNGE_NOTICE"), new ConsumerRebalanceListener() {
             public void onPartitionsRevoked(Collection<TopicPartition> collection) {
             }
 
