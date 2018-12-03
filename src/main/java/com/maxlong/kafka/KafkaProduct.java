@@ -31,9 +31,11 @@ public class KafkaProduct {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(props);
-        for (int i = 0; i < 5; i++) {
-            producer.send(new ProducerRecord<>("test", Integer.toString(i), Integer.toString(i)));
-        }
+//        for (int i = 0; i < 5; i++) {
+//            producer.send(new ProducerRecord<>("test", Integer.toString(i), Integer.toString(i)));
+//        }
+        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CALCATE_NOTICE", "1294"));
+
         producer.close();
     }
 }
