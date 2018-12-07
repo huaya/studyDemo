@@ -36,5 +36,7 @@ public @interface FirstAnnotation {
 
 	public String id() default "";
 
+	public String[] names() default "";
+
 }
  
