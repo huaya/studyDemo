@@ -21,7 +21,7 @@ public class KafkaProduct {
     public static void main(String[] args) {
         logger.info("KafkaProduct");
         Properties props = new Properties();
-        props.put("bootstrap.servers", "172.16.12.45:9092");
+        props.put("bootstrap.servers", "13.114.31.179:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -31,11 +31,9 @@ public class KafkaProduct {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(props);
-//        for (int i = 0; i < 5; i++) {
-//            producer.send(new ProducerRecord<>("test", Integer.toString(i), Integer.toString(i)));
-//        }
-        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CALCATE_NOTICE", "1288"));
 
+        String msd = "{\"configId\":\"1288\",\"sortOutBeginDate\":\"2018-12-17\"}";
+        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CALCATE_NOTICE", msd));
         producer.close();
     }
 }
