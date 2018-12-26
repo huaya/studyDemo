@@ -32,6 +32,14 @@ public class UserInfo implements Serializable {
 		this.userName = userName;
 	}
 
+	public UserInfo() {
+	}
+
+	public UserInfo(String userId, String userName) {
+		this.userId = userId;
+		this.userName = userName;
+	}
+
 	public byte[] codeC(ByteBuffer buffer) {
 		buffer.clear();
 		buffer = ByteBuffer.allocate(1024);
@@ -45,6 +53,14 @@ public class UserInfo implements Serializable {
 		byte[] resule = new byte[buffer.remaining()];
 		buffer.get(resule);
 		return resule;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfo{" +
+				"userId='" + userId + '\'' +
+				", userName='" + userName + '\'' +
+				'}';
 	}
 
 
