@@ -15,8 +15,7 @@ public class PreparedstatementTest {
 
         try {
             DBManger dbManger = DBManger.getInstance();
-            dbManger.addParameter(1031L);
-            ResultSet result = dbManger.executeQuery("select * from spot_cfg where id = ?");
+            ResultSet result = dbManger.executeQuery("select count(*) from product_price");
             DbObjectPrint dbObjectPrint = new DbObjectPrint(result);
             dbObjectPrint.print();
         } catch (SQLException e) {

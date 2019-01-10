@@ -84,8 +84,6 @@ public class PdfGenerate {
             }
 
         }
-
-
     }
 
     public static File[] getOrderFiles() throws Exception {
