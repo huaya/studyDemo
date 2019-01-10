@@ -1,4 +1,4 @@
-package com.maxlong.zooKeeper;
+package com.maxlong.zookeeper;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;

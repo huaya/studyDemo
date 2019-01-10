@@ -1,4 +1,4 @@
-package com.maxlong.zooKeeper;
+package com.maxlong.zookeeper;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;

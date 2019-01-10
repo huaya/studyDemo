@@ -27,7 +27,7 @@ public abstract class CamelRoute implements Route{
 		try {
 			this.camelContext.addRoutes(this.getRouteBuilder());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//
 		}
 	}
 
