@@ -18,7 +18,6 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 		req = ("QUERY TIME ORDER" + System.getProperty("line.separator")).getBytes();
 	}
 
-	@Override
 	public void channelActive(ChannelHandlerContext ctc){
 		System.out.println("This is TimeClientHandler's channelActive");
 		ByteBuf message;
@@ -29,7 +28,6 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 		}
 	}
 
-	@Override
 	public void channelRead(ChannelHandlerContext ctx,Object msg) throws Exception {
 		System.out.println("this is TimeServerHandler's channelRead");
 		//ByteBuf buf = (ByteBuf) msg;
