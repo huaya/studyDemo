@@ -3,7 +3,8 @@ package com.maxlong.itextpdf;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -15,8 +16,9 @@ import java.net.MalformedURLException;
  * @version 创建时间：2018/7/22 18:14
  * 类说明:
  */
-@Slf4j
 public class PdfGenerate {
+
+    private static final Logger log = LoggerFactory.getLogger(PdfGenerate.class);
 
     public final static String PAPER_DIIR = "C:\\Users\\huaya\\Desktop\\风云全集";
 

@@ -1,7 +1,6 @@
 package com.maxlong.service.impl;
 
 import com.maxlong.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
  * @version 创建时间：2018/6/19 21:55
  * 类说明:
  */
-@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 

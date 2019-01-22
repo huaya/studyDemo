@@ -1,5 +1,6 @@
 package com.maxlong.kafka;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -21,7 +22,9 @@ public class KafkaProduct {
     public static void main(String[] args) {
         logger.info("KafkaProduct");
         Properties props = new Properties();
-        props.put("bootstrap.servers", "13.114.31.179:9092");
+//        props.put("bootstrap.servers", "13.114.31.179:9092");
+        props.put("bootstrap.servers", "172.16.80.141:9092,172.16.80.142:9092,172.16.80.143:9092");
+        props.put("group.id", "test-consumer-group");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -32,8 +35,19 @@ public class KafkaProduct {
 
         Producer<String, String> producer = new KafkaProducer<>(props);
 
-        String msd = "{\"configId\":\"1288\",\"sortOutBeginDate\":\"2018-12-17\"}";
-        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CALCATE_NOTICE", msd));
+//        String msd = "{\"configId\":\"1288\",\"sortOutBeginDate\":\"2018-12-17\"}";
+//        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CALCATE_NOTICE", msd));
+        SpotPriceNoiceMsg spotPriceNoiceMsg = new SpotPriceNoiceMsg();
+        spotPriceNoiceMsg.setCfgId("1045");
+        spotPriceNoiceMsg.setLow("100");
+        spotPriceNoiceMsg.setHigh("200");
+        spotPriceNoiceMsg.setMiddle("150");
+        spotPriceNoiceMsg.setPublishPoint("10:15");
+        spotPriceNoiceMsg.setPublishDate("2019-01-21");
+        spotPriceNoiceMsg.setPublishTime("10:15:00");
+        spotPriceNoiceMsg.setContract("ZN1907");
+
+        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CHNGE_NOTICE", JSONObject.toJSONString(spotPriceNoiceMsg)));
         producer.close();
     }
 }

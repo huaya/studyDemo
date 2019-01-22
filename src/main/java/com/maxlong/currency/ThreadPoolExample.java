@@ -1,7 +1,6 @@
 package com.maxlong.currency;
 
 import com.maxlong.enums.ThreadPoolType;
-import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -12,7 +11,6 @@ import java.util.concurrent.Executors;
  * @version 创建时间：2018/6/16 20:21
  * 类说明:
  */
-@Slf4j
 public class ThreadPoolExample {
 
     private static ExecutorService executorService;

@@ -1,6 +1,8 @@
 package com.maxlong.currency;
 
-import lombok.extern.slf4j.Slf4j;
+import com.maxlong.itextpdf.PdfGenerate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -15,8 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 创建时间：2018/6/15 21:48
  * 类说明:
  */
-@Slf4j
 public class UnsafeIncreaseDemo {
+
+    private static final Logger log = LoggerFactory.getLogger(PdfGenerate.class);
 
     public static int clientTotal = 5000;
 

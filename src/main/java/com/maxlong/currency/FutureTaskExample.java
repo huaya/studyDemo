@@ -1,7 +1,7 @@
 package com.maxlong.currency;
 
-import lombok.extern.slf4j.Slf4j;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,8 +14,9 @@ import java.util.concurrent.FutureTask;
  * @version 创建时间：2018/6/16 11:36
  * 类说明:
  */
-@Slf4j
 public class FutureTaskExample {
+
+    private static final Logger log = LoggerFactory.getLogger(FutureTaskExample.class);
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 

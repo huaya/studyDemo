@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration status="WARN" monitorInterval="30">
+<configuration monitorInterval="30">
 
     <appenders>
         <console name="Console" target="SYSTEM_OUT">
@@ -21,9 +21,8 @@
     <loggers>
         <logger name="org.springframework" level="INFO"/>
         <logger name="org.mybatis" level="INFO"/>
-        <logger name="java.sql.PreparedStatement" level="DEBUG"/>
-        <logger name="org.apache.kafka" level="INFO"/>
-
+        <logger name="java.sql.PreparedStatement" level="INFO"/>
+        <logger name="org.apache.kafka.clients" level="INFO"/>
         <root level="INFO">
             <appender-ref ref="Console"/>
             <appender-ref ref="studyDemo"/>

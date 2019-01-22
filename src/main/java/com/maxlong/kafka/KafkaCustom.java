@@ -5,6 +5,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,21 +20,22 @@ import java.util.Properties;
  */
 public class KafkaCustom {
 
+    private static final Logger logger = LoggerFactory.getLogger(KafkaCustom.class);
+
     public static void main(String[] args) {
         Properties props = new Properties();
 //        props.put("bootstrap.servers", "139.224.15.79:9092");
-        props.put("bootstrap.servers", "13.114.31.179:9092");
+        props.put("bootstrap.servers", "172.16.80.141:9092,172.16.80.142:9092,172.16.80.143:9092");
         props.put("group.id", "test-consumer-group");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-//        consumer.subscribe(Arrays.asList("TOPIC_SPOT_PRICE_CHNGE_NOTICE"), new ConsumerRebalanceListener() {
-        consumer.subscribe(Arrays.asList("test"), new ConsumerRebalanceListener() {
+        consumer.subscribe(Arrays.asList("TOPIC_SPOT_PRICE_CHNGE_NOTICE"), new ConsumerRebalanceListener() {
+//        consumer.subscribe(Arrays.asList("test"), new ConsumerRebalanceListener() {
             public void onPartitionsRevoked(Collection<TopicPartition> collection) {
             }
-
             public void onPartitionsAssigned(Collection<TopicPartition> collection) {
                 //将偏移设置到最开始
                 consumer.seekToBeginning(collection);
@@ -41,7 +44,7 @@ public class KafkaCustom {
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records)
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+                logger.error("offset = {}, key = {}, value = {}", record.offset(), record.key(), record.value());
         }
     }
 }
