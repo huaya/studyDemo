@@ -2,367 +2,337 @@
   "code": "000000",
   "message": "SUCCESS",
   "data": {
-    "descUrl": "/QuoteExplain",
-    "priceList": [
-      {
-        "lcfgId": "541",
-        "cfgId": "1105",
-        "name": "电解铜",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "47070",
-        "high": "47260",
-        "middle": "47165",
-        "change": "+15",
-        "contract": null,
-        "points": [
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          }
-        ],
-        "premium": false
+    "permissionId": "1001",
+    "name": "普通用户登录权限",
+    "platformAuthMap": {
+      "webEn": {
+        "platform": null,
+        "resourceTree": [],
+        "record": [],
+        "api": []
       },
-      {
-        "lcfgId": "547",
-        "cfgId": "1099",
-        "name": "AAA级(升水铜)升贴水",
-        "publishDate": "01/25",
-        "publishTime": "14:30",
-        "low": "-100",
-        "high": "-70",
-        "middle": "-85",
-        "change": "0",
-        "contract": "沪铜1902",
-        "points": [
+      "appEn": {
+        "platform": null,
+        "resourceTree": [],
+        "record": [],
+        "api": []
+      },
+      "appZh": {
+        "platform": null,
+        "resourceTree": [],
+        "record": [],
+        "api": []
+      },
+      "alphaMetal": {
+        "platform": null,
+        "resourceTree": [],
+        "record": [],
+        "api": []
+      },
+      "webZh": {
+        "platform": null,
+        "resourceTree": [
           {
-            "pointCode": "09:30",
-            "pointName": "09:30"
+            "resourceId": "1000",
+            "name": "数据中心",
+            "platform": "webZh",
+            "allow": "Y",
+            "childs": [
+              {
+                "resourceId": "1001",
+                "name": "上海金属网现货报价",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1011",
+                    "name": "铜",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1012",
+                    "name": "铝",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1013",
+                    "name": "铅",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1014",
+                    "name": "锌",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1015",
+                    "name": "镍",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1016",
+                    "name": "锡",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1017",
+                    "name": "稀贵金属",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1018",
+                    "name": "小金属",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1019",
+                    "name": "金属加工材料",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1020",
+                    "name": "金属化合物",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1021",
+                    "name": "合金产品",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1022",
+                    "name": "金属粉末",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1023",
+                    "name": "铁合金、炉料",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1002",
+                "name": "上海金属网现货指数",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1024",
+                    "name": "SHMETX",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1003",
+                "name": "交易所行情",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1025",
+                    "name": "LME收盘价",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1026",
+                    "name": "上期所收盘价",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1004",
+                "name": "库存",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1027",
+                    "name": "LME库存",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  },
+                  {
+                    "resourceId": "1028",
+                    "name": "上期所库存",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1005",
+                "name": "金川镍价",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1029",
+                    "name": "金川镍价",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1006",
+                "name": "长江报价",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1030",
+                    "name": "长江报价",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1007",
+                "name": "南储报价",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1031",
+                    "name": "南储报价",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1008",
+                "name": "中铝报价",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1032",
+                    "name": "中铝报价",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              },
+              {
+                "resourceId": "1009",
+                "name": "欧洲小金属",
+                "platform": null,
+                "allow": "Y",
+                "childs": [
+                  {
+                    "resourceId": "1033",
+                    "name": "欧洲小金属",
+                    "platform": null,
+                    "allow": "Y",
+                    "childs": []
+                  }
+                ]
+              }
+            ]
           },
           {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          },
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          },
-          {
-            "pointCode": "14:30",
-            "pointName": "14:30"
+            "resourceId": "1034",
+            "name": "快讯",
+            "platform": "webZh",
+            "allow": "N",
+            "childs": [
+              {
+                "resourceId": "1035",
+                "name": "vip快讯",
+                "platform": null,
+                "allow": "N",
+                "childs": []
+              }
+            ]
           }
         ],
-        "premium": true
-      },
-      {
-        "lcfgId": "548",
-        "cfgId": "1097",
-        "name": "AA级(好平水)升贴水",
-        "publishDate": "01/25",
-        "publishTime": "14:30",
-        "low": "-130",
-        "high": "-110",
-        "middle": "-120",
-        "change": "0",
-        "contract": "沪铜1902",
-        "points": [
+        "record": [
           {
-            "pointCode": "09:30",
-            "pointName": "09:30"
+            "recordId": "1000",
+            "name": "数据中心数据权限",
+            "allow": "Y",
+            "conditions": {
+              "allowDays": "1",
+              "allowBegin": null,
+              "allowEnd": null
+            }
           },
           {
-            "pointCode": "10:30",
-            "pointName": "10:30"
+            "recordId": "1001",
+            "name": "阿尔法metal历史数据",
+            "allow": "N",
+            "conditions": {
+              "allowDays": null,
+              "allowBegin": null,
+              "allowEnd": null
+            }
+          }
+        ],
+        "api": [
+          {
+            "apiId": "1000",
+            "name": "测试",
+            "url": "/admin",
+            "allow": "Y",
+            "conditions": {
+              "allowSize": "5"
+            }
           },
           {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          },
-          {
-            "pointCode": "14:30",
-            "pointName": "14:30"
+            "apiId": "1001",
+            "name": "测试2",
+            "url": "/test2",
+            "allow": "N",
+            "conditions": {
+              "allowSize": null
+            }
           }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "549",
-        "cfgId": "1101",
-        "name": "A级(平水铜)升贴水",
-        "publishDate": "01/25",
-        "publishTime": "14:30",
-        "low": "-160",
-        "high": "-130",
-        "middle": "-145",
-        "change": "-15",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "09:30",
-            "pointName": "09:30"
-          },
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          },
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          },
-          {
-            "pointCode": "14:30",
-            "pointName": "14:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "550",
-        "cfgId": "1095",
-        "name": "A-级(差平水)升贴水",
-        "publishDate": "01/25",
-        "publishTime": "14:30",
-        "low": "-180",
-        "high": "-150",
-        "middle": "-165",
-        "change": "+10",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "09:30",
-            "pointName": "09:30"
-          },
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          },
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          },
-          {
-            "pointCode": "14:30",
-            "pointName": "14:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "551",
-        "cfgId": "1103",
-        "name": "B级(略低品质铜)升贴水",
-        "publishDate": "01/25",
-        "publishTime": "14:30",
-        "low": "-250",
-        "high": "-200",
-        "middle": "-225",
-        "change": "0",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "09:30",
-            "pointName": "09:30"
-          },
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          },
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          },
-          {
-            "pointCode": "14:30",
-            "pointName": "14:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "542",
-        "cfgId": "1100",
-        "name": "AAA级(升水铜)定盘升贴水",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "-100",
-        "high": "-60",
-        "middle": "-80",
-        "change": "+50",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "543",
-        "cfgId": "1098",
-        "name": "AA级(好平水)定盘升贴水",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "-150",
-        "high": "-100",
-        "middle": "-125",
-        "change": "+15",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "544",
-        "cfgId": "1102",
-        "name": "A级(平水铜)定盘升贴水",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "-160",
-        "high": "-120",
-        "middle": "-140",
-        "change": "+30",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "545",
-        "cfgId": "1096",
-        "name": "A-级(差平水)定盘升贴水",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "-180",
-        "high": "-140",
-        "middle": "-160",
-        "change": "+30",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "546",
-        "cfgId": "1104",
-        "name": "B级(略低品质铜)定盘升贴水",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "-250",
-        "high": "-200",
-        "middle": "-225",
-        "change": "+25",
-        "contract": "沪铜1902",
-        "points": [
-          {
-            "pointCode": "11:30",
-            "pointName": "11:30"
-          }
-        ],
-        "premium": true
-      },
-      {
-        "lcfgId": "552",
-        "cfgId": "1093",
-        "name": "铜CIF上海(火法)",
-        "publishDate": "01/25",
-        "publishTime": "10:30",
-        "low": "65",
-        "high": "75",
-        "middle": "70",
-        "change": "0",
-        "contract": null,
-        "points": [
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          }
-        ],
-        "premium": false
-      },
-      {
-        "lcfgId": "553",
-        "cfgId": "1092",
-        "name": "铜CIF上海(湿法)",
-        "publishDate": "01/25",
-        "publishTime": "10:30",
-        "low": "60",
-        "high": "65",
-        "middle": "62.5",
-        "change": "0",
-        "contract": null,
-        "points": [
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          }
-        ],
-        "premium": false
-      },
-      {
-        "lcfgId": "554",
-        "cfgId": "1091",
-        "name": "保税仓单(火法)",
-        "publishDate": "01/25",
-        "publishTime": "10:30",
-        "low": "70",
-        "high": "80",
-        "middle": "75",
-        "change": "0",
-        "contract": null,
-        "points": [
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          }
-        ],
-        "premium": false
-      },
-      {
-        "lcfgId": "555",
-        "cfgId": "1090",
-        "name": "保税仓单(湿法)",
-        "publishDate": "01/25",
-        "publishTime": "10:30",
-        "low": "65",
-        "high": "70",
-        "middle": "67.5",
-        "change": "0",
-        "contract": null,
-        "points": [
-          {
-            "pointCode": "10:30",
-            "pointName": "10:30"
-          }
-        ],
-        "premium": false
-      },
-      {
-        "lcfgId": "556",
-        "cfgId": "1094",
-        "name": "铜精矿TC/RC",
-        "publishDate": "01/25",
-        "publishTime": "11:30",
-        "low": "85",
-        "high": "89",
-        "middle": "87",
-        "change": "-1",
-        "contract": null,
-        "points": [],
-        "premium": false
+        ]
       }
-    ]
+    },
+    "status": "N"
   }
 }
