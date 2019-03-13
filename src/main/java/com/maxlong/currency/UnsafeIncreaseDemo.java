@@ -25,8 +25,8 @@ public class UnsafeIncreaseDemo {
 
     public static int threadTotal = 200;
 
-    //    public static int count = 0;
-    public static AtomicInteger count = new AtomicInteger(0);
+    public static volatile int count = 0;
+//    public static AtomicInteger count = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -55,8 +55,8 @@ public class UnsafeIncreaseDemo {
     }
 
     private static void add() {
-//        count++;
-        count.incrementAndGet();
+        count++;
+//        count.incrementAndGet();
     }
 
 

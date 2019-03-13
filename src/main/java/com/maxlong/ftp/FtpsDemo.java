@@ -31,7 +31,7 @@ public class FtpsDemo {
 
             ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
 
-            File file = new File("D:\\Program Files\\workspace\\studyDemo\\src\\main\\java\\com\\maxlong\\ftp\\test.txt");
+            File file = new File("D:\\workspace-mxl\\studyDemo\\src\\main\\resources\\files\\test.txt");
             FileInputStream input =new FileInputStream(file);
 
             ftp.changeWorkingDirectory("mxl");

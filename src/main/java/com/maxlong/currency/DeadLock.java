@@ -1,8 +1,11 @@
 package com.maxlong.currency;
 
 /**
+ * 避免死锁的几种方式：
+ *  1、注意加锁顺序
+ *  2、使用Lock加锁，可以自主控制加锁、解锁
+ *  3、死锁检测(过于复杂且不可靠)
  * Created by IntelliJ IDEA.
- *
  * @author 作者: maxlong E-mail: hu5624548@163.com
  * @version 创建时间：2018/6/16 21:42
  * 类说明:
