@@ -22,4 +22,18 @@ public class HashCodeTest {
         System.out.println(abc.hashCode());
 
     }
+
+    @Test
+    public void substring() {
+        String content = "ShowIPAddr('222.65.31.91','上海市浦东新区 电信','未知操作系统 未知浏览器 ');";
+        int leftBracketIdx = content.indexOf("(");
+        int rightBracketIdx = content.indexOf(")");
+        String iPAddr = content.substring(leftBracketIdx + 1, rightBracketIdx);
+        String[] iPAddrColumn = iPAddr.split(",");
+        String fromArea = iPAddrColumn[1].replace("'","");
+
+        System.out.println(fromArea);
+
+    }
+
 }

@@ -33,7 +33,7 @@ public class ReadLog {
                     values.add("'" + fild + "'");
                 } else {
                     int p = fild.lastIndexOf(":");
-                    values.add("'" + fild.substring(1,p) + "'");
+                    values.add("'" + fild.substring(0,p) + "'");
                     values.add("'" + fild.substring(p + 1) + "'");
                 }
             }
