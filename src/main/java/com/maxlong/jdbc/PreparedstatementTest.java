@@ -15,7 +15,7 @@ public class PreparedstatementTest {
 
         try {
             DBManger dbManger = DBManger.getInstance();
-            ResultSet result = dbManger.executeQuery("select count(*) from product_price");
+            ResultSet result = dbManger.executeQuery("select * from proxy_log");
             DbObjectPrint dbObjectPrint = new DbObjectPrint(result);
             dbObjectPrint.print();
         } catch (SQLException e) {
