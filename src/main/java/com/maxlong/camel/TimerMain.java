@@ -1,20 +1,21 @@
 package com.maxlong.camel;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * @author 作者 maxlong:
  * @version 创建时间：2016年6月24日 上午10:01:48
  * 类说明
  */
+@Log4j2
 public class TimerMain {
-	static Logger LOG = LoggerFactory.getLogger(TimerMain.class);
+
 	public static void main(String[] args) throws Exception {
 		new TimerMain().run();
 	}
+
 	void run() throws Exception {
 		final CamelContext camelContext = new DefaultCamelContext();
 		camelContext.addRoutes(createRouteBuilder());

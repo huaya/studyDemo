@@ -1,12 +1,10 @@
 package com.maxlong.kafka;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Properties;
 
 /**
@@ -15,12 +13,11 @@ import java.util.Properties;
  * 版本： 1.0.0
  * 时间： 2018-8-18 13:21
  */
+@Log4j2
 public class KafkaProduct {
 
-    private static final Logger logger = LoggerFactory.getLogger(KafkaProduct.class);
-
     public static void main(String[] args) {
-        logger.info("KafkaProduct");
+        log.info("KafkaProduct");
         Properties props = new Properties();
 //        props.put("bootstrap.servers", "13.114.31.179:9092");
         props.put("bootstrap.servers", "172.16.80.141:9092,172.16.80.142:9092,172.16.80.143:9092");

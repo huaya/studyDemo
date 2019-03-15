@@ -1,12 +1,11 @@
 package com.maxlong.jdbc;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,9 +17,8 @@ import java.sql.SQLException;
  * @version 创建时间：2019-3-15 13:41
  * 类说明:
  */
+@Log4j2
 public class LogArea {
-
-    private static final Logger logger = LoggerFactory.getLogger(LogArea.class);
 
     public static void main(String[] args) throws SQLException, IOException {
 
@@ -56,7 +54,7 @@ public class LogArea {
                 read = bfi.read();
             }
             String content = new String(bao.toByteArray(), "GBK");
-            logger.info("id:{}, from :{}, content :{}",ids, from, content);
+            log.info("id:{}, from :{}, content :{}",ids, from, content);
             int leftBracketIdx = content.indexOf("(");
             int rightBracketIdx = content.indexOf(")");
             String iPAddr = content.substring(leftBracketIdx + 1, rightBracketIdx);

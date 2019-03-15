@@ -1,15 +1,13 @@
 package com.maxlong.httpclient;
 
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -19,9 +17,8 @@ import java.io.InputStream;
  * @author： ma.xl
  * @datetime： 2018-12-24 16:34
  */
+@Log4j2
 public class HttpClientDemo {
-
-    private static final Logger logger = LoggerFactory.getLogger(HttpClientDemo.class);
 
     public static void main(String[] args) {
         String origin = "https://demo.gjmetal.com/api/rest/querySpotValByProduct";
@@ -52,7 +49,7 @@ public class HttpClientDemo {
             httpPost.setEntity(entity);
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
-            logger.info("response code:{}", httpResponse.getStatusLine().getStatusCode());
+            log.info("response code:{}", httpResponse.getStatusLine().getStatusCode());
 
             HttpEntity httpEntity =  httpResponse.getEntity();
 
@@ -66,9 +63,9 @@ public class HttpClientDemo {
                 result = bis.read();
             }
             String content = buf.toString();
-            logger.info(content);
+            log.info(content);
         } catch (Exception e){
-            logger.error("error :{}", e);
+            log.error("error :{}", e);
         }
 
 

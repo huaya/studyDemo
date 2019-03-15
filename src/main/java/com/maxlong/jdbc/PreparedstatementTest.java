@@ -1,5 +1,7 @@
 package com.maxlong.jdbc;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.*;
 
 /**
@@ -9,6 +11,7 @@ import java.sql.*;
  * @version 创建时间：2018/7/4 23:02
  * 类说明:
  */
+@Log4j2
 public class PreparedstatementTest {
 
     public static void main(String[] args) {
@@ -19,7 +22,7 @@ public class PreparedstatementTest {
             DbObjectPrint dbObjectPrint = new DbObjectPrint(result);
             dbObjectPrint.print();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("连接异常", e);
         } finally {
             DBManger.getInstance().closeResource();
         }

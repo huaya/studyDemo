@@ -1,8 +1,7 @@
 package com.maxlong.jdbc;
 
 import com.maxlong.study.utils.DynamicPropertyHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
@@ -15,9 +14,8 @@ import java.util.List;
  * @author： ma.xl
  * @datetime： 2018-9-12 18:00
  */
+@Log4j2
 public class DBManger {
-
-    private static final Logger logger = LoggerFactory.getLogger(LogArea.class);
 
     private Connection connection;
 
@@ -59,10 +57,10 @@ public class DBManger {
             connection = DriverManager.getConnection(url, userName, password);
             connection.setAutoCommit(autoCommit);
         } catch (ClassNotFoundException e) {
-            logger.error("连接异常, 原因:{}", e);
+            log.error("连接异常, 原因:", e);
             closeConnection();
         } catch (SQLException e) {
-            logger.error("连接异常, 原因:{}", e);
+            log.error("连接异常, 原因:", e);
             closeConnection();
         }
     }

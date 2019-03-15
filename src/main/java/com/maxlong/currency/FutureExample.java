@@ -1,7 +1,6 @@
 package com.maxlong.currency;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import java.util.concurrent.*;
 
 /**
@@ -11,9 +10,8 @@ import java.util.concurrent.*;
  * @version 创建时间：2018/6/16 11:28
  * 类说明:
  */
+@Log4j2
 public class FutureExample {
-
-    private static final Logger log = LoggerFactory.getLogger(FutureExample.class);
 
     static class MyCallable implements Callable<String> {
 

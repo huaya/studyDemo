@@ -1,9 +1,7 @@
 package com.maxlong;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.maxlong.camel.route.RoutManager;
 import com.maxlong.camel.route.ServiceCamelRoute;
 import com.maxlong.camel.route.api.Route;
@@ -16,12 +14,11 @@ import com.maxlong.thrift.service.ThriftShareService;
  * @version 创建时间：2016年6月23日 下午4:08:41
  * 类说明
  */
+@Log4j2
 public class ServiceBootstrap {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServiceBootstrap.class);
-
     public static void main(String[] args) {
-        logger.info("starting camel service.");
+        log.info("starting camel service.");
         try {
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("appclitionContext.xml");
             context.start();
@@ -39,10 +36,10 @@ public class ServiceBootstrap {
             config.setAcceptqueuesizeterthread(100);
             config.setFixedThreadPoolSize(100);
             thriftShareService.start(config);
-            logger.info("start camel service success.");
+            log.info("start camel service success.");
         } catch (Exception e){
             e.printStackTrace();
-            logger.info("start camel service fail.");
+            log.info("start camel service fail.");
         }
 
     }

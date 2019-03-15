@@ -3,22 +3,18 @@ package com.maxlong.rabbitMQ;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * @author 作者 maxlong:
  * @version 创建时间：2016年6月27日 下午5:41:54
  * 类说明
  */
+@Log4j2
 public class RabbitmqChannel implements Closeable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RabbitmqChannel.class);
 
     private static String DEFAULT_LOCAL_HOST = "127.0.0.1";
 
@@ -130,11 +126,11 @@ public class RabbitmqChannel implements Closeable {
             } catch (Exception e) {
                 if (retryConnectCount.get() + 1 > 0) {
                     retryCount++;
-                    LOGGER.info("create channel failed, will retry {} times", retryCount);
+                    log.info("create channel failed, will retry {} times", retryCount);
                     try {
                         Thread.sleep(retryConnectInterval);
                     } catch (InterruptedException ie) {
-                        LOGGER.warn("retry sleep thread interrupted :{}", ie.getMessage());
+                        log.warn("retry sleep thread interrupted :{}", ie.getMessage());
                     }
                 }else {
                     throw new RuntimeException("retry failed exception",e);

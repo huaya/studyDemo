@@ -1,13 +1,11 @@
 package com.maxlong.kafka;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
@@ -18,9 +16,8 @@ import java.util.Properties;
  * 版本： 1.0.0
  * 时间： 2018-8-18 13:24
  */
+@Log4j2
 public class KafkaCustom {
-
-    private static final Logger logger = LoggerFactory.getLogger(KafkaCustom.class);
 
     public static void main(String[] args) {
         Properties props = new Properties();
@@ -44,7 +41,7 @@ public class KafkaCustom {
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records)
-                logger.error("offset = {}, key = {}, value = {}", record.offset(), record.key(), record.value());
+                log.error("offset = {}, key = {}, value = {}", record.offset(), record.key(), record.value());
         }
     }
 }

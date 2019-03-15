@@ -5,8 +5,8 @@ package com.maxlong.thrift.client;
  * 类说明
  */
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
@@ -16,12 +16,11 @@ import org.apache.thrift.transport.TTransportException;
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;
 import com.maxlong.thrift.demo.SharedService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by amosli on 14-8-12.
  */
+@Log4j2
 public class HelloClientDemo {
 
     public static final String SERVER_IP = "localhost";
@@ -29,8 +28,6 @@ public class HelloClientDemo {
     public static final int SERVER_PORT = 5568;
 
     public static final int TIMEOUT = 30000;
-
-    private final static Logger logger = LoggerFactory.getLogger(HelloClientDemo.class);
 
     public static void main(String[] args) {
         HelloClientDemo client = new HelloClientDemo();
@@ -51,7 +48,7 @@ public class HelloClientDemo {
             request.setRequestId("direct://maxlong_camelTest2Service");
             request.setRequestData("direct://maxlong_camelTestService");
             ResponseStruct result = client.SendReceive(request);
-            logger.info("Thrift client result =: " + result);
+            log.info("Thrift client result =: " + result);
         } catch (TTransportException e) {
             e.printStackTrace();
         } catch (TException e) {

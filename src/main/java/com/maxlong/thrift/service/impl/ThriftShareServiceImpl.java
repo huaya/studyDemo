@@ -6,17 +6,15 @@ import com.maxlong.service.BaseCamelService;
 import com.maxlong.thrift.demo.RequestStruct;
 import com.maxlong.thrift.demo.ResponseStruct;
 import com.maxlong.thrift.demo.SharedService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * @author 作者 maxlong:
  * @version 创建时间：2016年6月24日 下午3:31:55
  * 类说明
  */
+@Log4j2
 public class ThriftShareServiceImpl implements SharedService.Iface {
-
-    private static final Logger logger = LoggerFactory.getLogger(ThriftShareServiceImpl.class);
 
     @Override
     public ResponseStruct SendReceive(RequestStruct request) {
@@ -26,7 +24,7 @@ public class ThriftShareServiceImpl implements SharedService.Iface {
         camelEndpointRule.setRule(reqId);
         BaseCamelService baseCamelService = RoutManager.getInstance().getRoute().route(camelEndpointRule, BaseCamelService.class);
         if (baseCamelService == null) {
-            logger.error("get camelService fail,routekey:{}", reqId);
+            log.error("get camelService fail,routekey:{}", reqId);
             responseStruct = new ResponseStruct();
             responseStruct.setRequestId(reqId);
             responseStruct.setResponseData("route fail!");

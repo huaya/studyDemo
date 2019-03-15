@@ -1,11 +1,10 @@
 package com.maxlong.camel.route;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.camel.builder.NoErrorHandlerBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import com.maxlong.spring.factory.Springfactory;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +13,8 @@ import java.util.Map;
  * @version 创建时间：2016年6月23日 下午4:46:04
  * 类说明
  */
+@Log4j2
 public class ServiceCamelRoute extends CamelRoute {
-
-    private static final Logger logger = LoggerFactory.getLogger(ServiceCamelRoute.class);
 
     @Override
     public RouteBuilder getRouteBuilder() {
@@ -27,7 +25,7 @@ public class ServiceCamelRoute extends CamelRoute {
                 for (String routeKey : routeMapping.keySet()) {
                     Object bean = getBean(routeMapping.get(routeKey));
                     if (bean == null || StringUtils.isBlank(routeKey)) {
-                        logger.error("route bean or route key is null,key:{},bean:{}", routeKey, routeMapping.get(routeKey));
+                        log.error("route bean or route key is null,key:{},bean:{}", routeKey, routeMapping.get(routeKey));
                         continue;
                     }
                     from(routeKey).bean(bean).setErrorHandlerBuilder(new NoErrorHandlerBuilder());
@@ -52,7 +50,7 @@ public class ServiceCamelRoute extends CamelRoute {
                 routeValue = key;
             }
             routeMapping.put(routeKey,routeValue);
-            logger.info("start route:{}-{}",routeKey,routeValue);
+            log.info("start route:{}-{}",routeKey,routeValue);
         }
         return routeMapping;
     }
