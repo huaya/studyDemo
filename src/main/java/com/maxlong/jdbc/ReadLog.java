@@ -1,5 +1,7 @@
 package com.maxlong.jdbc;
 
+import com.maxlong.study.utils.DateFormat;
+import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
 import java.io.File;
@@ -16,6 +18,7 @@ public class ReadLog {
 
     public static void main(String[] args) {
         String insert = "INSERT INTO `proxy_log`(`request_date`, `connecting`, `connect_port`, `from`, `from_port`) VALUES (?)";
+        String maxDate = "2019-03-15 01:39:36";
         File file = new File("C:\\Users\\guojin\\Desktop\\nohup.out");
         List<String> logs = FileUtil.readLineFromFile(file, 1, "UTF-8");
         for (String log : logs) {
@@ -27,15 +30,20 @@ public class ReadLog {
             log = log.replaceAll(" from ", "|");
             List<String> values = new ArrayList<>();
             String[] filds = log.split("\\|");
+            String curDate = "";
             for (int i = 0; i < filds.length; i++) {
                 String fild = filds[i];
                 if (i == 0) {
                     values.add("'" + fild + "'");
+                    curDate = fild;
                 } else {
                     int p = fild.lastIndexOf(":");
                     values.add("'" + fild.substring(0,p) + "'");
                     values.add("'" + fild.substring(p + 1) + "'");
                 }
+            }
+            if(DateUtil.compareDate(maxDate, curDate, DateFormat.STYLE1) >= 0){
+                continue;
             }
             String value = StringUtils.join(values, ",");
             String sql = insert.replace("?", value);

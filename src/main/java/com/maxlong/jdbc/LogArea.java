@@ -24,14 +24,13 @@ public class LogArea {
 
         String origin = "http://ip.cz88.net/data.php?ip=%s";
 //        String sql = "select * from proxy_log where from_area is null";
-        String sql = "select p.from,GROUP_CONCAT(p.id) as ids from proxy_log p group by p.from ";
-        String update = "update proxy_log set from_area = ? where id in (%s)";
+        String sql = "select p.from,GROUP_CONCAT(p.id ORDER BY p.id) as ids from proxy_log p where from_area is null group by p.from ";
+        String update = "update proxy_log set from_area = ? where `from` = ? and from_area is null";
 
         DBManger dbManger = DBManger.getInstance();
         ResultSet resultSet = dbManger.executeQuery(sql);
         while (resultSet.next()){
             String from = (String) resultSet.getObject("from");
-            String ids = (String) resultSet.getObject("ids");
 
             String originUrl = String.format(origin, from);
             HttpClient httpClient = HttpClientBuilder.create().build();
@@ -54,16 +53,15 @@ public class LogArea {
                 read = bfi.read();
             }
             String content = new String(bao.toByteArray(), "GBK");
-            log.info("id:{}, from :{}, content :{}",ids, from, content);
+            log.info("from :{}, content :{}",from, content);
             int leftBracketIdx = content.indexOf("(");
             int rightBracketIdx = content.indexOf(")");
             String iPAddr = content.substring(leftBracketIdx + 1, rightBracketIdx);
             String[] iPAddrColumn = iPAddr.split(",");
             String fromArea = iPAddrColumn[1].replace("'","");
-
-            String updateF = String.format(update, ids);
             dbManger.addParameter(fromArea);
-            dbManger.executeUpdate(updateF);
+            dbManger.addParameter(from);
+            dbManger.executeUpdate(update);
         }
     }
 }
