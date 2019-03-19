@@ -4,8 +4,8 @@ import com.maxlong.study.utils.DateFormat;
 import com.maxlong.study.utils.DateUtil;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @describe：
@@ -14,27 +14,32 @@ import java.util.List;
  */
 public class FileErgodic {
 
-    static List<String> fileNames = new ArrayList<>();
+    static long begin = DateUtil.strToDate("2019-01-01 00:00:00", DateFormat.STYLE1).getTime();
+    static long end = DateUtil.strToDate("2019-01-31 00:00:00", DateFormat.STYLE1).getTime();
+    static ExecutorService service =  Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        File file = new File("D:\\桌面文件\\工作");
+        File file = new File("F:\\");
         ergodic(file);
-        for (String fileName : fileNames) {
-            System.out.println(fileName);
-        }
     }
 
-    public static List<String> ergodic(File file){
+    public static void ergodic(File file){
         if(file.isFile()){
             Long changeTime = file.lastModified();
-            String changeAt = DateUtil.longToDate(changeTime, DateFormat.STYLE1);
-            fileNames.add(changeAt + "   " + file.getName());
+            if(changeTime >= begin && changeTime <= end){
+                String changeAt = DateUtil.longToDate(changeTime, DateFormat.STYLE1);
+                System.out.println(changeAt + "   " + file.getPath());
+            }
         } else {
-            File[] files = file.listFiles();
-            for (File f : files) {
-                ergodic(f);
+            try {
+                File[] files = file.listFiles();
+                for (File f : files) {
+                    service.execute(() -> ergodic(f));
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                System.err.println("===============" + file.getPath() + "===========");
             }
         }
-        return fileNames;
     }
 }
