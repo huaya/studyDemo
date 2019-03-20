@@ -17,11 +17,11 @@ http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
         </step>
     </job>
 
-    <bean:bean id="hello" class="com.maxlong.springBatch.writeTasklet">
+    <bean:bean id="hello" class="com.maxlong.study.springBatch.writeTasklet">
         <bean:property name="message" value="Hello "></bean:property>
     </bean:bean>
 
-    <bean:bean id="world" class="com.maxlong.springBatch.writeTasklet">
+    <bean:bean id="world" class="com.maxlong.study.springBatch.writeTasklet">
         <bean:property name="message" value=" World!"></bean:property>
     </bean:bean>
 </bean:beans>

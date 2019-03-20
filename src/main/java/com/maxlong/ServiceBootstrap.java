@@ -2,12 +2,12 @@ package com.maxlong;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.maxlong.camel.route.RoutManager;
-import com.maxlong.camel.route.ServiceCamelRoute;
-import com.maxlong.camel.route.api.Route;
-import com.maxlong.spring.factory.Springfactory;
-import com.maxlong.thrift.config.ProductServerConfig;
-import com.maxlong.thrift.service.ThriftShareService;
+import com.maxlong.study.camel.route.RoutManager;
+import com.maxlong.study.camel.route.ServiceCamelRoute;
+import com.maxlong.study.camel.route.api.Route;
+import com.maxlong.study.spring.factory.Springfactory;
+import com.maxlong.study.thrift.config.ProductServerConfig;
+import com.maxlong.study.thrift.service.ThriftShareService;
 
 /**
  * @author 作者 maxlong:

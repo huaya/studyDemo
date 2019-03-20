@@ -1,0 +1,68 @@
+server:
+    port: 7001
+spring:
+    application:
+        name: studyDemo
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.128.128/maxlong?useUnicode=true&characterEncoding=utf8&useSSL=false&useOldAliasMetadataBehavior=true&rewriteBatchedStatements=true
+        username: root
+        password: 123456
+    redis:
+        url: redis://192.168.128.128:6379
+
+#    dubbo:
+#        application:
+#            name: ${spring.application.name}
+#        protocol:
+#            name: dubbo
+#            serialization: hessian2
+#            port: 20910
+#        registry:
+#            protocol: zookeeper
+#            address: 192.168.128.128:2181
+#            file: /tmp/cache/${spring.application.name}.cache
+#    druid:
+#        default:
+#            enable: true
+#            initial-size: 5
+#            max-active: 10
+#            min-idle: 5
+#            max-wait: 10
+#            filters: stat
+#            username: root
+#            password: Gj@2018
+#            default-auto-commit: true
+#    mybatis:
+#        configuration:
+#            cache-enabled: true
+#            local-cache-scope: session
+#            lazy-loading-enabled: true
+#            default-executor-type: simple
+#            map-underscore-to-camel-case: false
+#        nodes:
+#            web:
+#                order: after
+#                primary: true
+#                dialect: Mysql
+#                base-package: com.gjmetal.auth.dao
+#                mapper-package: mappers
+#                type-aliases-package: com.gjmetal.auth.domain
+#                master:
+#                    url: jdbc:mysql://172.16.80.39:3306/gjmetal_auth?useUnicode=true&characterEncoding=UTF-8
+#    redis:
+#        cluster:
+#            connection-timeout: 1000
+#            max-redirects: 3
+#            so-timeout: 1000
+#            max-attempts: 3
+#            max-total: 20
+#            max-idle: 3
+#            max-wait-millis: 300
+#            test-on-borrow: true
+#            password: 0Y0j8Zeu8iis1qIYHJUoUy2OsUD3u57JGeKosvfRKFxm75hpLa
+#            cluster-mode: false
+#            viewable: true
+#            host: 172.16.80.41
+#            port: 7777
+#
