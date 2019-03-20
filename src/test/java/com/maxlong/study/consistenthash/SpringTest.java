@@ -24,7 +24,7 @@ public class SpringTest {
     @Test
     public void testRedis(){
         ValueOperations<String, String> operations = redisTemplate.opsForValue();
-        operations.set("test", "xxxxxxxxx");
+        operations.set("test1", "2222222");
 //        String aaa = operations.get("malxong");
 //        System.out.println(aaa);
     }

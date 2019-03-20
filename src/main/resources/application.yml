@@ -9,7 +9,30 @@ spring:
         username: root
         password: 123456
     redis:
-        url: redis://192.168.128.128:6379
+        cluster:
+            connection-timeout: 1000
+            max-redirects: 3
+            so-timeout: 1000
+            max-attempts: 3
+            max-total: 20
+            max-idle: 3
+            max-wait-millis: 300
+            test-on-borrow: true
+#            password: 0Y0j8Zeu8iis1qIYHJUoUy2OsUD3u57JGeKosvfRKFxm75hpLa
+            key-serializer: org.springframework.data.redis.serializer.StringRedisSerializer
+            value-serializer: org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
+            cluster-mode: false
+            viewable: true
+            host: 192.168.128.128
+            port: 6379
+            nodes:
+                - 192.168.128.128:7000
+                - 192.168.128.128:7001
+                - 192.168.128.128:7002
+                - 192.168.128.128:7003
+                - 192.168.128.128:7004
+                - 192.168.128.128:7005
+
 
 #    dubbo:
 #        application:

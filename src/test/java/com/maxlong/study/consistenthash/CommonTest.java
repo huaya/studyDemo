@@ -1,5 +1,7 @@
 package com.maxlong.study.consistenthash;
 
+import com.maxlong.study.service.UserService;
+import com.maxlong.study.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -45,4 +47,8 @@ public class CommonTest {
         }
     }
 
+    @Test
+    public void interfaceTest () {
+        System.out.println(UserService.class.isAssignableFrom(UserServiceImpl.class));
+    }
 }
