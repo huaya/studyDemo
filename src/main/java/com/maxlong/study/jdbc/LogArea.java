@@ -23,7 +23,6 @@ public class LogArea {
     public static void main(String[] args) throws SQLException, IOException {
 
         String origin = "http://ip.cz88.net/data.php?ip=%s";
-//        String sql = "select * from proxy_log where from_area is null";
         String sql = "select p.from,GROUP_CONCAT(p.id ORDER BY p.id) as ids from proxy_log p where from_area is null group by p.from ";
         String update = "update proxy_log set from_area = ? where `from` = ? and from_area is null";
 
