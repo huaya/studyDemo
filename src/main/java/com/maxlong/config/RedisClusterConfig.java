@@ -92,8 +92,8 @@ public class RedisClusterConfig {
 
         redisTemplate.setKeySerializer(Optional.ofNullable(keySerializer).orElse(StringRedisSerializer.UTF_8));
         redisTemplate.setHashKeySerializer(Optional.ofNullable(hashKeySerializer).orElse(StringRedisSerializer.UTF_8));
-        redisTemplate.setValueSerializer(Optional.ofNullable(valueSerializer).orElseGet(() -> new JdkSerializationRedisSerializer()));
-        redisTemplate.setHashValueSerializer(Optional.ofNullable(hashValueSerializer).orElseGet(() -> new JdkSerializationRedisSerializer()));
+        redisTemplate.setValueSerializer(Optional.ofNullable(valueSerializer).orElseGet(JdkSerializationRedisSerializer :: new));
+        redisTemplate.setHashValueSerializer(Optional.ofNullable(hashValueSerializer).orElseGet(JdkSerializationRedisSerializer::new));
 
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setConnectionFactory(factory);

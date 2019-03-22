@@ -1,6 +1,11 @@
 package com.maxlong.study.serializable;
 
+import sun.misc.Unsafe;
+import sun.reflect.CallerSensitive;
+import sun.reflect.Reflection;
+
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
 /**
@@ -10,11 +15,34 @@ import java.nio.ByteBuffer;
  */
 public class UserInfo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private String  userId;
 
 	private String  userName;
+
+	private int age;
+
+	public static final sun.misc.Unsafe U;
+
+	public static final Long AGE;
+
+	public static final Long USERID;
+
+	public static final Long USERNAME;
+
+	static {
+		try {
+			Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+			theUnsafe.setAccessible(true);
+			U = (Unsafe) theUnsafe.get(null);
+			Class k = UserInfo.class;
+			USERID = U.objectFieldOffset(k.getDeclaredField("userId"));
+			USERNAME = U.objectFieldOffset(k.getDeclaredField("userName"));
+			AGE = U.objectFieldOffset(k.getDeclaredField("age"));
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+
+	}
 
 	public String getUserId() {
 		return userId;
@@ -35,9 +63,34 @@ public class UserInfo implements Serializable {
 	public UserInfo() {
 	}
 
+	public static void testCallerSensitive() {
+		Class var1 = Reflection.getCallerClass();
+		System.out.println(var1);
+	}
+
 	public UserInfo(String userId, String userName) {
 		this.userId = userId;
 		this.userName = userName;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public static Unsafe getU() {
+		return U;
+	}
+
+	public static Long getUSERID() {
+		return USERID;
+	}
+
+	public static Long getUSERNAME() {
+		return USERNAME;
 	}
 
 	public byte[] codeC(ByteBuffer buffer) {
