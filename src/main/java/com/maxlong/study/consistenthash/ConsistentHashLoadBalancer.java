@@ -16,8 +16,21 @@ public class ConsistentHashLoadBalancer implements LoadBalancer {
 
     private HashStrategy hashStrategy = new FnvHashStrategy();
 
+    private TreeMap<Integer, Server> ring;
+
     private final static int VIRTUAL_NODE_SIZE = 10;
+
     private final static String VIRTUAL_NODE_SUFFIX = "&&";
+
+    private volatile boolean init = false;
+
+    public ConsistentHashLoadBalancer() {
+    }
+
+    public ConsistentHashLoadBalancer(List<Server> servers) {
+        this.ring = buildConsistentHashRing(servers);
+        this.init = true;
+    }
 
     @Override
     public Server select(List<Server> servers, Invocation invocation) {
@@ -25,6 +38,11 @@ public class ConsistentHashLoadBalancer implements LoadBalancer {
         TreeMap<Integer, Server> ring = buildConsistentHashRing(servers);
         Server server = locate(ring, invocationHashCode);
         return server;
+    }
+
+    @Override
+    public Server select(Invocation invocation) {
+        return null;
     }
 
     private Server locate(TreeMap<Integer, Server> ring, int invocationHashCode) {

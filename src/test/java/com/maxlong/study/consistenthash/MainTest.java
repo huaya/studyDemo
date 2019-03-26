@@ -1,7 +1,5 @@
 package com.maxlong.study.consistenthash;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * @describe：
  * @author： ma.xl
@@ -9,8 +7,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class MainTest {
 
-    public static void main(String[] args) {
-        ConcurrentHashMap<String, Object> concurrentHashMap = new ConcurrentHashMap<>();
-        concurrentHashMap.put("1000", "100");
+    public static void main(String[] args) throws ClassNotFoundException {
+        StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            System.out.println(stackTraceElement.getClassName());
+        }
     }
 }

@@ -4,8 +4,7 @@ import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
-import sun.reflect.Reflection;
-
+import org.springframework.util.StopWatch;
 import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.Instant;
@@ -139,7 +138,7 @@ public class CommonTest {
 
     @Test
     public void offset2 () {
-        final long count = 1000000000L;
+        final long count = 10000000L;
         UserInfo userInfo = new UserInfo();
         Instant start = Instant.now();
         for(long i = 0; i < count; i++){
@@ -153,6 +152,26 @@ public class CommonTest {
         }
         System.out.println("Unsafe put spend :" + Duration.between(start, Instant.now()).toMillis() + "ms");
     }
+
+    @Test
+    public void offset2StopWatch () {
+        final long count = 10000000L;
+        UserInfo userInfo = new UserInfo();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("set method");
+        for(long i = 0; i < count; i++){
+            userInfo.setUserId("10000");
+        }
+        stopWatch.stop();
+
+        stopWatch.start("Unsafe put");
+        for(long i = 0; i < count; i++){
+            UserInfo.U.putObject(userInfo, UserInfo.USERID, "10000");
+        }
+        stopWatch.stop();
+        System.out.println(stopWatch.prettyPrint());
+    }
+
 
     @Test
     public void classLoad () {
