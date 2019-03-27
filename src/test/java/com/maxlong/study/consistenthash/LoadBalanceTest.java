@@ -4,6 +4,8 @@ import com.google.common.util.concurrent.AtomicLongMap;
 import com.maxlong.study.utils.FileUtil;
 import com.maxlong.study.utils.StatisticsUtil;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.StopWatch;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,11 +28,13 @@ public class LoadBalanceTest {
      */
     @Test
     public void testDistribution() {
+        StopWatch watch = new StopWatch();
+        watch.start("监控");
         List<Server> servers = new ArrayList<>();
         for (String ip : ips) {
             servers.add(new Server(ip+":8080"));
         }
-        LoadBalancer chloadBalance = new ConsistentHashLoadBalancer();
+        LoadBalancer chloadBalance = new ConsistentHashLoadBalancer(servers);
         // 构造 10000 随机请求
         List<Invocation> invocations = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
@@ -42,11 +46,13 @@ public class LoadBalanceTest {
             atomicLongMap.put(server, 0);
         }
         for (Invocation invocation : invocations) {
-            Server selectedServer = chloadBalance.select(servers, invocation);
+            Server selectedServer = chloadBalance.select(invocation);
             atomicLongMap.getAndIncrement(selectedServer);
         }
+        watch.stop();
         System.out.println(StatisticsUtil.variance(atomicLongMap.asMap().values().toArray(new Long[]{})));
         System.out.println(StatisticsUtil.standardDeviation(atomicLongMap.asMap().values().toArray(new Long[]{})));
+        System.out.println(watch.getLastTaskTimeMillis());
     }
 
     /**
@@ -54,12 +60,14 @@ public class LoadBalanceTest {
      */
     @Test
     public void testNodeAddAndRemove() {
+        StopWatch watch = new StopWatch();
+        watch.start("监控");
         List<Server> servers = new ArrayList<>();
         for (String ip : ips) {
             servers.add(new Server(ip));
         }
         List<Server> serverChanged = servers.subList(0, 80);
-        LoadBalancer chloadBalance = new ConsistentHashLoadBalancer();
+        LoadBalancer chloadBalance = new ConsistentHashLoadBalancer(servers);
         // 构造 10000 随机请求
         List<Invocation> invocations = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
@@ -67,10 +75,12 @@ public class LoadBalanceTest {
         }
         int count = 0;
         for (Invocation invocation : invocations) {
-            Server origin = chloadBalance.select(servers, invocation);
-            Server changed = chloadBalance.select(serverChanged, invocation);
+            Server origin = chloadBalance.select(invocation);
+            Server changed = chloadBalance.select(invocation);
             if (origin.getUrl().equals(changed.getUrl())) count++;
         }
+        watch.stop();
         System.out.println(count / 10000D);
+        System.out.println(watch.getLastTaskTimeMillis());
     }
 }

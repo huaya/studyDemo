@@ -1,16 +1,22 @@
 package com.maxlong.study.consistenthash;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
+import com.maxlong.study.utils.FileUtil;
+import com.maxlong.study.utils.StringUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StopWatch;
+
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -244,6 +250,94 @@ public class CommonTest {
         UserInfo userInfo = new UserInfo();
         UserInfo.U.compareAndSwapInt(userInfo, UserInfo.AGE, 0, -1);
         System.out.println(userInfo.getAge());
+    }
+
+
+    @Test
+    public void treeMap() {
+        TreeMap<String, String> treeMap = new TreeMap<String, String>(){
+            {
+                put("1","1");
+                put("2","2");
+                put("3","3");
+                put("4","4");
+                put("5","5");
+                put("6","6");
+//                put("7","7");
+//                put("8","8");
+//                put("9","9");
+//                put("10","10");
+//                put("11","11");
+//                put("12","12");
+            }
+
+        };
+        TreeMap.Entry<String, String> entry = treeMap.root;
+        Queue<TreeMap.Entry> queue = new LinkedList<>();
+        queue.offer(entry);
+
+        TreeMap.Entry<String, String> cur;
+        TreeMap.Entry<String, String> last = entry;
+        TreeMap.Entry<String, String> nlast = entry;
+        while (!queue.isEmpty()){
+            cur = queue.poll();
+            TreeMap.Entry<String, String> parent = cur.parent;
+            System.out.print((parent!=null?parent.getValue():0) + "-" + cur.getValue() + "     ");
+
+            TreeMap.Entry<String, String> left = cur.left;
+            if(left !=null ){
+                queue.offer(left);
+                nlast = left;
+            }
+            TreeMap.Entry<String, String> right = cur.right;
+            if(right!=null){
+                queue.offer(right);
+                nlast = right;
+            }
+
+            if(cur == last){
+                System.out.println();
+                last = nlast;
+            }
+
+        }
+    }
+
+    @Test
+    public void treeMap2() {
+        TreeMap<String, String> treeMap = new TreeMap<String, String>(){
+            {
+                put("1","1");
+                put("2","2");
+                put("3","3");
+                put("4","4");
+                put("5","5");
+                put("6","6");
+                put("7","7");
+                put("8","8");
+                put("9","9");
+                put("10","10");
+                put("11","11");
+                put("12","12");
+            }
+
+        };
+        System.out.println(treeMap.ceilingKey("10"));
+    }
+
+    @Test
+    public void commpare() {
+        String c1 = "11";
+        String c2 = "4";
+        System.out.println(c1.compareTo(c2));
+    }
+
+    @Test
+    public void readLines() throws IOException {
+        List<String> list = FileUtil.readLineFromFile("C:\\Users\\guojin\\Desktop\\nohup.txt", 0, "UTF-8");
+        for (String s : list) {
+            System.out.println(s);
+        }
     }
 
 }

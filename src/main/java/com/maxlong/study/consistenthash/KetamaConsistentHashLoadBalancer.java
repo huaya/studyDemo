@@ -15,6 +15,10 @@ public class KetamaConsistentHashLoadBalancer implements LoadBalancer {
 
     private static MessageDigest md5Digest;
 
+    private final TreeMap<Long, Server> ring = new TreeMap<>();
+
+    private volatile boolean init = false;
+
     static {
         try {
             md5Digest = MessageDigest.getInstance("MD5");
@@ -24,22 +28,30 @@ public class KetamaConsistentHashLoadBalancer implements LoadBalancer {
     }
 
     private final static int VIRTUAL_NODE_SIZE = 12;
+
     private final static String VIRTUAL_NODE_SUFFIX = "-";
 
+    public KetamaConsistentHashLoadBalancer(List<Server> servers) {
+        buildConsistentHashRing(servers);
+        this.init = true;
+    }
+
     @Override
-    public Server select(List<Server> servers, Invocation invocation) {
+    public Server select(Invocation invocation) {
+        if (!init) {
+            throw new Error("no server has inited");
+        }
         long invocationHashCode = getHashCode(invocation.getHashKey());
-        TreeMap<Long, Server> ring = buildConsistentHashRing(servers);
-        Server server = locate(ring, invocationHashCode);
+        Server server = locate(invocationHashCode);
         return server;
     }
 
-    private Server locate(TreeMap<Long, Server> ring, Long invocationHashCode) {
+    private Server locate(Long invocationHashCode) {
         // 向右找到第一个 key
         Map.Entry<Long, Server> locateEntry = ring.ceilingEntry(invocationHashCode);
         if (locateEntry == null) {
             // 想象成一个环，超过尾部则取第一个 key
-            locateEntry = ring.firstEntry();
+            locateEntry = this.ring.firstEntry();
         }
         return locateEntry.getValue();
     }
