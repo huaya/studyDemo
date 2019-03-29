@@ -11,19 +11,22 @@ import java.util.concurrent.Executors;
  */
 public class FileFind {
 
-    static String pattern1  = "reflect";
-    static String pattern2  = "Reflect";
-    static ExecutorService service =  Executors.newCachedThreadPool();
+    final static String pattern  = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
+    final static String path = "D:/code/abacus/";
+    final static ExecutorService service =  Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        File file = new File("D:\\code\\abacus");
+        File file = new File(path);
         ergodic(file);
+        while (service.isTerminated()){
+            service.shutdown();
+        }
     }
 
     public static void ergodic(File file){
         if(file.isFile()){
             String fileName = file.getName();
-            if(fileName.contains(pattern1) || fileName.contains(pattern2)){
+            if(fileName.matches(pattern)){
                 System.out.println(file.getPath());
             }
         } else {

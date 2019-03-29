@@ -27,39 +27,37 @@ public class DistributedLock implements Watcher{
     private static final int SESSION_TIMEOUT = 10000;
     private static final String GROUP_PATH = "/disLocks";
     private static final String SUB_PATH = "/disLocks/sub";
-    private static final String CONNECTION_STRING = "127.0.0.1:2181";
-    private static final int THREAD_NUM = 10;
+    private static final String CONNECTION_STRING = "192.168.128.128:2181";
+    private static final int THREAD_NUM = 1;
 
     //确保连接zk成功；
     private CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     //确保所有线程运行结束；
     private static final CountDownLatch threadSemaphore = new CountDownLatch(THREAD_NUM);
+
     public DistributedLock(int id) {
         this.threadId = id;
-        LOG_PREFIX_OF_THREAD = "【第"+threadId+"个线程】";
+        LOG_PREFIX_OF_THREAD = "【第" + threadId + "个线程】";
     }
     public static void main(String[] args) {
 
         for(int i=0; i < THREAD_NUM; i++){
             final int threadId = i+1;
-            new Thread(){
-                @Override
-                public void run() {
-                    try{
-                        DistributedLock dc = new DistributedLock(threadId);
-                        dc.createConnection(CONNECTION_STRING, SESSION_TIMEOUT);
-                        //GROUP_PATH不存在的话，由一个线程创建即可；
-                        synchronized (threadSemaphore){
-                            dc.createPath(GROUP_PATH, "该节点由线程" + threadId + "创建", true);
-                        }
-                        dc.getLock();
-                    } catch (Exception e){
-                        log.error("【第"+threadId+"个线程】 抛出的异常：");
-                        e.printStackTrace();
+            new Thread(() -> {
+                try{
+                    DistributedLock dc = new DistributedLock(threadId);
+                    dc.createConnection(CONNECTION_STRING, SESSION_TIMEOUT);
+                    //GROUP_PATH不存在的话，由一个线程创建即可；
+                    synchronized (threadSemaphore){
+                        dc.createPath(GROUP_PATH, "该节点由线程" + threadId + "创建", true);
                     }
+                    dc.getLock();
+                } catch (Exception e){
+                    log.error("【第"+threadId+"个线程】 抛出的异常：");
+                    e.printStackTrace();
                 }
-            }.start();
+            }).start();
         }
 
         try {
@@ -76,7 +74,7 @@ public class DistributedLock implements Watcher{
      */
     private void getLock() throws KeeperException, InterruptedException {
         selfPath = zk.create(SUB_PATH,null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-        log.info(LOG_PREFIX_OF_THREAD+"创建锁路径:"+selfPath);
+        log.info(LOG_PREFIX_OF_THREAD + "创建锁路径:" + selfPath);
         if(checkMinPath()){
             getLockSuccess();
         }
@@ -90,10 +88,7 @@ public class DistributedLock implements Watcher{
     public boolean createPath( String path, String data, boolean needWatch) throws KeeperException, InterruptedException {
         if(zk.exists(path, needWatch)==null){
             log.info( LOG_PREFIX_OF_THREAD + "节点创建成功, Path: "
-                    + this.zk.create( path,
-                    data.getBytes(),
-                    ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                    CreateMode.PERSISTENT )
+                    + this.zk.create( path, data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT )
                     + ", content: " + data );
         }
         return true;

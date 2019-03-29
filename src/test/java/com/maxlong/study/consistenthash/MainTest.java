@@ -8,9 +8,6 @@ package com.maxlong.study.consistenthash;
 public class MainTest {
 
     public static void main(String[] args) throws ClassNotFoundException {
-        StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTrace) {
-            System.out.println(stackTraceElement.getClassName());
-        }
+        System.out.println(args);
     }
 }

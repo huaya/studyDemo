@@ -1,6 +1,8 @@
 package com.maxlong.study.consistenthash;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.io.Files;
 import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
@@ -8,16 +10,19 @@ import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
 import com.maxlong.study.utils.FileUtil;
 import com.maxlong.study.utils.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StopWatch;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.sql.Array;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -340,6 +345,44 @@ public class CommonTest {
         }
     }
 
+    @Test
+    public void indexOf() throws IOException {
+        File file = new File("C:/Us ers/guojin/Desktop/nohup.txt");
+        System.out.println(file.getCanonicalPath());
+    }
+
+    @Test
+    public void stream() {
+        String mealsets = StringUtils.joinWith(",", "1008,1008", null);
+        System.out.println(mealsets);
+        mealsets = Arrays.stream(mealsets.split(",")).distinct().collect(Collectors.joining(","));
+        System.out.println(mealsets);
+    }
+
+    @Test
+    public void stream2() {
+        String mealsets = StringUtils.joinWith(",", "1008,1008", null);
+        System.out.println(mealsets);
+        mealsets = Stream.of(mealsets)
+                .flatMap(aaa -> Arrays.stream(aaa.split(",")))
+                .distinct()
+                .collect(Collectors.joining(","));
+        System.out.println(mealsets);
+    }
+
+    @Test
+    public void regex() {
+        String regex = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
+        String mealset1 = "Zookeeper.java";
+        String mealset2 = "Zookeeper111.java";
+        String mealset3 = "sdszookeeper111.java";
+        String mealset4 = "sdszk111.java";
+
+        System.out.println(mealset1.matches(regex));
+        System.out.println(mealset2.matches(regex));
+        System.out.println(mealset3.matches(regex));
+        System.out.println(mealset4.matches(regex));
+    }
 }
 
 

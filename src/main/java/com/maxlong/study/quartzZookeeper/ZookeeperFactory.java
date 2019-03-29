@@ -90,41 +90,39 @@ public class ZookeeperFactory implements InitializingBean{
      * 连接状态监听
      */
     public void addListener(){
-        zkTools.getConnectionStateListenable().addListener(new ConnectionStateListener() {
-            public void stateChanged(CuratorFramework client, ConnectionState newState) {
-                if (newState.equals(ConnectionState.CONNECTED)) {
-                    log.info("连接");
-                    connectionState = "CONNECTED";
-                    try {
-                        sessionId = zkTools.getZookeeperClient().getZooKeeper().getSessionId();
+        zkTools.getConnectionStateListenable().addListener((client, newState) -> {
+            if (newState.equals(ConnectionState.CONNECTED)) {
+                log.info("连接");
+                connectionState = "CONNECTED";
+                try {
+                    sessionId = zkTools.getZookeeperClient().getZooKeeper().getSessionId();
+                    registerMonopolyQueue();
+                } catch (Exception e) {
+                    log.error("注册独占队列失败");
+                }
+            }
+            if (newState.equals(ConnectionState.RECONNECTED)) {
+                log.info("重新连接");
+                connectionState = "CONNECTED";
+                try {
+                    if(sessionId != zkTools.getZookeeperClient().getZooKeeper().getSessionId()) {
                         registerMonopolyQueue();
-                    } catch (Exception e) {
-                        log.error("注册独占队列失败");
                     }
+                } catch (Exception e) {
+                    log.error("注册独占队列失败");
                 }
-                if (newState.equals(ConnectionState.RECONNECTED)) {
-                    log.info("重新连接");
-                    connectionState = "CONNECTED";
-                    try {
-                        if(sessionId != zkTools.getZookeeperClient().getZooKeeper().getSessionId()) {
-                            registerMonopolyQueue();
-                        }
-                    } catch (Exception e) {
-                        log.error("注册独占队列失败");
-                    }
-                }
-                if (newState.equals(ConnectionState.LOST)) {
-                    log.info("丢失");
-                    connectionState = "LOST";
-                }
-                if (newState.equals(ConnectionState.SUSPENDED)) {
-                    log.info("暂停");
-                    connectionState = "SUSPENDED";
-                }
-                if (newState.equals(ConnectionState.READ_ONLY)) {
-                    log.info("只读");
-                    connectionState = "READ_ONLY";
-                }
+            }
+            if (newState.equals(ConnectionState.LOST)) {
+                log.info("丢失");
+                connectionState = "LOST";
+            }
+            if (newState.equals(ConnectionState.SUSPENDED)) {
+                log.info("暂停");
+                connectionState = "SUSPENDED";
+            }
+            if (newState.equals(ConnectionState.READ_ONLY)) {
+                log.info("只读");
+                connectionState = "READ_ONLY";
             }
         });
     }
