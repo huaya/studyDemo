@@ -18,9 +18,9 @@ public class FileFind {
     public static void main(String[] args) {
         File file = new File(path);
         ergodic(file);
-        while (service.isTerminated()){
-            service.shutdown();
-        }
+        service.shutdown();
+        while (!service.isTerminated()){}
+        System.out.println("finished!");
     }
 
     public static void ergodic(File file){

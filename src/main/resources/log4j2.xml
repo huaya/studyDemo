@@ -22,7 +22,7 @@
         <logger name="org.springframework" level="INFO"/>
         <logger name="org.mybatis" level="INFO"/>
         <logger name="java.sql.PreparedStatement" level="INFO"/>
-        <logger name="org.apache.kafka.clients" level="INFO"/>
+        <logger name="org.apache" level="ERROR"/>
         <root level="INFO">
             <appender-ref ref="Console"/>
             <appender-ref ref="studyDemo"/>

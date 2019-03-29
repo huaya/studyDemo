@@ -6,40 +6,21 @@ package com.maxlong.study.currency;
  */
 public class ShutdownHookTest {
 	public static void main(String[] args) {
-		Runnable t1 = new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("This is thread 1;");
+		Thread thread1 = new Thread(() -> System.out.println("This is thread 1;"));
+		Thread thread2 = new Thread(() -> System.out.println("This is thread 2;"));
+		Thread shutdownThread = new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		};
+			System.out.println("This is shutdownThread;");
+		});
 
-		Runnable t2 = new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("This is thread 2;");
-			}
-		};
-
-		Runnable t3= new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				System.out.println("This is thread 3;");
-			}
-		};
-
-		Thread thread1 = new Thread(t1);
-		Thread thread2 = new Thread(t2);
-		Thread thread3 = new Thread(t3);
-
-		Runtime.getRuntime().addShutdownHook(thread3);
+		//无论是先打印thread1还是thread2，shutdownThread 线程都是最后执行的（因为这个线程是在jvm执行关闭前才会执行）。
+		Runtime.getRuntime().addShutdownHook(shutdownThread);
 		thread1.start();
 		thread2.start();
-		thread3.start();
 
 	}
 }
