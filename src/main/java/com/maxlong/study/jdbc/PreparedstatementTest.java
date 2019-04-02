@@ -2,7 +2,8 @@ package com.maxlong.study.jdbc;
 
 import lombok.extern.log4j.Log4j2;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,16 +17,12 @@ public class PreparedstatementTest {
 
     public static void main(String[] args) {
 
-        try {
-            DBManger dbManger = DBManger.getInstance();
+        try (DBManger dbManger = DBManger.getInstance()){
             ResultSet result = dbManger.executeQuery("select * from proxy_log");
             DbObjectPrint dbObjectPrint = new DbObjectPrint(result);
             dbObjectPrint.print();
         } catch (SQLException e) {
             log.error("连接异常", e);
-        } finally {
-            DBManger.getInstance().closeResource();
         }
-
     }
 }

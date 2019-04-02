@@ -47,8 +47,7 @@ public class ReadLog {
             }
             String value = StringUtils.join(values, ",");
             String sql = insert.replace("?", value);
-            DBManger dbManger = DBManger.getInstance();
-            try {
+            try (DBManger dbManger = DBManger.getInstance()){
                 dbManger.executeUpdate(sql);
             } catch (SQLException e) {
                 e.printStackTrace();

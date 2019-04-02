@@ -15,7 +15,7 @@ import java.util.List;
  * @datetime： 2018-9-12 18:00
  */
 @Log4j2
-public class DBManger {
+public class DBManger implements AutoCloseable {
 
     private Connection connection;
 
@@ -27,6 +27,12 @@ public class DBManger {
 
     private DBManger() {
         init();
+    }
+
+    @Override
+    public void close() throws SQLException {
+        this.closeResource();
+        log.info("close DBManger");
     }
 
     private static class DBMangerHolder {

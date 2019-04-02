@@ -1,4 +1,4 @@
-package com.maxlong.study.loadClass;
+package com.maxlong.study.practice;
 
 /**
  * @describe：
