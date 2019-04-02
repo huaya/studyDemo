@@ -16,11 +16,14 @@ import java.util.Properties;
 @Log4j2
 public class KafkaProduct {
 
+    static final String TOPIC = "TOPIC_SPOT_PRICE_CHNGE_NOTICE";
+    static final String servers = "192.168.128.128:9092";//172.16.80.141:9092,172.16.80.142:9092,172.16.80.143:9092
+
+
     public static void main(String[] args) {
         log.info("KafkaProduct");
         Properties props = new Properties();
-//        props.put("bootstrap.servers", "13.114.31.179:9092");
-        props.put("bootstrap.servers", "172.16.80.141:9092,172.16.80.142:9092,172.16.80.143:9092");
+        props.put("bootstrap.servers", servers);
         props.put("group.id", "test-consumer-group");
         props.put("acks", "all");
         props.put("retries", 0);
@@ -28,12 +31,9 @@ public class KafkaProduct {
         props.put("linger.ms", 1);
         props.put("buffer.memory", 33554432);
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.springframework.kafka.support.serializer.JsonSerializer");
 
-        Producer<String, String> producer = new KafkaProducer<>(props);
-
-//        String msd = "{\"configId\":\"1288\",\"sortOutBeginDate\":\"2018-12-17\"}";
-//        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CALCATE_NOTICE", msd));
+        Producer<String, SpotPriceNoiceMsg> producer = new KafkaProducer<>(props);
         SpotPriceNoiceMsg spotPriceNoiceMsg = new SpotPriceNoiceMsg();
         spotPriceNoiceMsg.setCfgId("1045");
         spotPriceNoiceMsg.setLow("100");
@@ -44,7 +44,8 @@ public class KafkaProduct {
         spotPriceNoiceMsg.setPublishTime("10:15:00");
         spotPriceNoiceMsg.setContract("ZN1907");
 
-        producer.send(new ProducerRecord<>("TOPIC_SPOT_PRICE_CHNGE_NOTICE", JSONObject.toJSONString(spotPriceNoiceMsg)));
+        producer.send(new ProducerRecord<>(TOPIC, spotPriceNoiceMsg));
+        log.info("send message：{}", JSONObject.toJSONString(spotPriceNoiceMsg));
         producer.close();
     }
 }
