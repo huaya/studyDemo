@@ -383,6 +383,11 @@ public class CommonTest {
         System.out.println(mealset3.matches(regex));
         System.out.println(mealset4.matches(regex));
     }
+    @Test
+    public void booleanTest() {
+        System.out.println(new Date(Integer.MIN_VALUE));
+    }
+
 }
 
 

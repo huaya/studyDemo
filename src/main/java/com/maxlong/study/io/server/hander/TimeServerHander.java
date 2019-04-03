@@ -1,4 +1,6 @@
-package com.maxlong.study.io.server.bio;
+package com.maxlong.study.io.server.hander;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,6 +13,7 @@ import java.util.Date;
 * @version 创建时间：2016年6月4日 下午12:24:45
 * 类说明
 */
+@Slf4j
 public class TimeServerHander implements Runnable,AutoCloseable {
 	
 	private Socket socket;
@@ -28,12 +31,14 @@ public class TimeServerHander implements Runnable,AutoCloseable {
 			while(true){
 				String body = in.readLine();
 				if(body == null)break;
-				System.out.println("The time server recevice order:" + body);
+				log.info("request :" + body);
+				Thread.sleep(1000);
 				String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body)?new Date(System.currentTimeMillis()).toString():"BAD ORDER";
 				out.println(currentTime);
+				log.info("response:" + currentTime);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("异常", e);
 		}
 	}
 

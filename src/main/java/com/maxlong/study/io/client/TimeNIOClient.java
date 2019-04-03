@@ -1,11 +1,13 @@
-package com.maxlong.study.io.client.nio;
+package com.maxlong.study.io.client;
+
+import com.maxlong.study.io.client.hander.TimeClientHandle;
 
 /**
 * @author 作者:maxlong
 * @version 创建时间：2016年6月4日 下午12:51:19
 * 类说明
 */
-public class TimeClient {
+public class TimeNIOClient {
 
 	private static final int port = 7002;
 
