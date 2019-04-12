@@ -18,7 +18,7 @@ public class ReadLog {
 
     public static void main(String[] args) {
         String insert = "INSERT INTO `proxy_log`(`request_date`, `connecting`, `connect_port`, `from`, `from_port`) VALUES (?)";
-        String maxDate = "2019-03-26 09:09:53";
+        String maxDate = "2019-03-29 18:24:51";
         File file = new File("C:\\Users\\guojin\\Desktop\\nohup.out");
         List<String> logs = FileUtil.readLineFromFile(file, 0, "UTF-8");
         for (String log : logs) {
@@ -47,7 +47,8 @@ public class ReadLog {
             }
             String value = StringUtils.join(values, ",");
             String sql = insert.replace("?", value);
-            try (DBManger dbManger = DBManger.getInstance()){
+            try {
+                DBManger dbManger = DBManger.getInstance();
                 dbManger.executeUpdate(sql);
             } catch (SQLException e) {
                 e.printStackTrace();

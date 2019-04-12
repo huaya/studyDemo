@@ -19,7 +19,7 @@ public class FileConvertProcessor implements Processor{
         try {
             InputStream body = exchange.getIn().getBody(InputStream.class);
             BufferedReader in = new BufferedReader(new InputStreamReader(body));
-            StringBuffer strbf = new StringBuffer("");
+            StringBuffer strbf = new StringBuffer();
             String str = null;
             str = in.readLine();
             while (str != null) {

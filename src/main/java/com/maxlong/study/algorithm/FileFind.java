@@ -11,16 +11,14 @@ import java.util.concurrent.Executors;
  */
 public class FileFind {
 
-    final static String pattern  = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
-    final static String path = "D:/code/abacus/";
+//    final static String pattern  = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
+    final static String pattern  = "(.*)(?i)DateUtil(.*)\\.java$";
+    final static String path = "D:\\workspace-gj";
     final static ExecutorService service =  Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
         File file = new File(path);
         ergodic(file);
-        service.shutdown();
-        while (!service.isTerminated()){}
-        System.out.println("finished!");
     }
 
     public static void ergodic(File file){

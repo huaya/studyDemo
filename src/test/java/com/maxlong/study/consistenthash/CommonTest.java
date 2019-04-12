@@ -3,6 +3,7 @@ package com.maxlong.study.consistenthash;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
@@ -21,6 +22,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -383,11 +385,16 @@ public class CommonTest {
         System.out.println(mealset3.matches(regex));
         System.out.println(mealset4.matches(regex));
     }
+
     @Test
     public void booleanTest() {
         System.out.println(new Date(Integer.MIN_VALUE));
     }
 
+    @Test
+    public void copyOnWriteArrayList() {
+        CopyOnWriteArrayList list = new CopyOnWriteArrayList(Lists.newArrayList(new Integer(1),new Integer(2),new Integer(3)));
+    }
 }
 
 
