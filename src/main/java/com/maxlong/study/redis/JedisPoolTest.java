@@ -23,20 +23,12 @@ public class JedisPoolTest {
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379);
 
         for (int i = 0; i < 50; i++) {
-            Jedis jedis = null;
-            try {
-                jedis = jedisPool.getResource();
+            try (Jedis jedis = jedisPool.getResource()){
                 jedis.ping();
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (jedis != null) {
-                    jedis.close();
-                }
             }
         }
-
         jedisPool.getResource().ping();
-
     }
 }
