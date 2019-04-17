@@ -395,6 +395,15 @@ public class CommonTest {
     public void copyOnWriteArrayList() {
         CopyOnWriteArrayList list = new CopyOnWriteArrayList(Lists.newArrayList(new Integer(1),new Integer(2),new Integer(3)));
     }
+
+    @Test
+    public void rxjava() {
+        int a=1;
+        int b = a+1;   // <= 符号只是表示a和b之间关系的操作符
+        System.out.print("b=" + b);   //  b=2
+        a=10;
+        System.out.print("b=" + b);    //  b=11
+    }
 }
 
 

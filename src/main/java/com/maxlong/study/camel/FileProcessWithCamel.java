@@ -16,12 +16,7 @@ public class FileProcessWithCamel {
         CamelContext context = new DefaultCamelContext();
         context.addRoutes(new RouteBuilder() {
             public void configure() {
-                from("timer://timer1?period=1000").process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        System.out.println("add" + exchange);
-                    }
-                });
+                from("timer://timer1?period=1000").process(exchange -> System.out.println("add" + exchange));
             }
         });
         context.start();
