@@ -4,8 +4,10 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.extern.log4j.Log4j2;
+
 import java.io.*;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 
 /**
  * Created by IntelliJ IDEA.
@@ -61,9 +63,7 @@ public class PdfGenerate {
                         log.info("加载图片失败，文件名：" + paper.getName());
                         e.printStackTrace();
                     }
-
                 }
-
             }
 
         } catch (DocumentException e) {
@@ -87,24 +87,13 @@ public class PdfGenerate {
 
     public static File[] getOrderFiles() throws Exception {
         File file = new File(PAPER_DIIR);
-
         File[] papers = file.listFiles();
-
-        for (int i = 0; i < papers.length; i++) {
-            for (int j = i + 1; j < papers.length; j++) {
-                if (compareFileName(papers[i], papers[j])) {
-                    File tmp = papers[i];
-                    papers[i] = papers[j];
-                    papers[j] = tmp;
-                }
-            }
-        }
-
+        Arrays.sort(papers, (file1, file2) -> compareFileName(file1, file2));
         return papers;
     }
 
 
-    public static boolean compareFileName(File file1, File file2) throws Exception {
+    public static int compareFileName(File file1, File file2) {
         String fileName1 = file1.getName();
         String fileName2 = file2.getName();
 
@@ -125,9 +114,9 @@ public class PdfGenerate {
             }
 
             if (Integer.valueOf(huiNum1).compareTo(Integer.valueOf(huiNum2)) > 0) {
-                return true;
+                return 1;
             } else if (Integer.valueOf(huiNum1).compareTo(Integer.valueOf(huiNum2)) < 0) {
-                return false;
+                return -1;
             } else {
                 begin1 = fileName1.indexOf("_") + 1;
                 begin2 = fileName2.indexOf("_") + 1;
@@ -144,16 +133,16 @@ public class PdfGenerate {
                     begin2++;
                 }
                 if (Integer.valueOf(huiNum1).compareTo(Integer.valueOf(huiNum2)) > 0) {
-                    return true;
+                    return 1;
                 } else if (Integer.valueOf(huiNum1).compareTo(Integer.valueOf(huiNum2)) < 0) {
-                    return false;
+                    return -1;
                 } else {
-                    throw new Exception("文件名完全相同！");
+                    return 0;
                 }
             }
 
         } else {
-            return !fileName1.substring(0, 1).equals("第");
+            return !fileName1.substring(0, 1).equals("第")? 1 : -1;
         }
 
     }
