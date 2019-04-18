@@ -18,7 +18,7 @@ public class ReadLog {
 
     public static void main(String[] args) {
         String insert = "INSERT INTO `proxy_log`(`request_date`, `connecting`, `connect_port`, `from`, `from_port`) VALUES (?)";
-        String maxDate = "2019-03-29 18:24:51";
+        String maxDate = "2019-04-11 09:20:37";
         File file = new File("C:\\Users\\guojin\\Desktop\\nohup.out");
         List<String> logs = FileUtil.readLineFromFile(file, 0, "UTF-8");
         for (String log : logs) {

@@ -5,8 +5,6 @@ import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
-import com.maxlong.study.utils.DateFormat;
-import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -395,6 +393,37 @@ public class CommonTest {
     }
 
     @Test
+    public void noCache() {
+
+        final int LINE_NUM = 1024;
+        final int COLUM_NUM = 1024;
+        long [][] array = new long[LINE_NUM][COLUM_NUM];
+
+        long startTime = System.currentTimeMillis();
+        for(int i =0;i<COLUM_NUM;++i){
+            for(int j=0;j<LINE_NUM;++j){
+                array[j][i] = i*2+j;
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("no cache time:" + (endTime - startTime));
+    }
+
+    @Test
+    public void cache() {
+        final int LINE_NUM = 1024;
+        final int COLUM_NUM = 1024;
+        long [][] array = new long[LINE_NUM][COLUM_NUM];
+
+        long startTime = System.currentTimeMillis();
+        for(int i =0;i<LINE_NUM;++i){
+            for(int j=0;j<COLUM_NUM;++j){
+                array[i][j] = i*2+j;
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long cacheTime = endTime - startTime;
+        System.out.println("cache time:" + cacheTime);
     public void rxjava() {
         int cnt = 6;
         String begin = "2019-04-17";
