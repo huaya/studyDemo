@@ -17,7 +17,6 @@ public class FutureExample {
 
         @Override
         public String call() throws Exception {
-
             log.info("do someting in callable!");
             Thread.sleep(1000);
             return "Done";
@@ -32,8 +31,6 @@ public class FutureExample {
         Thread.sleep(2000);
         String result = future.get();
         log.info("result: {}", result);
-
         executorService.shutdown();
-
     }
 }

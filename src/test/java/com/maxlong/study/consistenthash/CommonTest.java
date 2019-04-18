@@ -1,23 +1,20 @@
 package com.maxlong.study.consistenthash;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.common.io.Files;
 import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
+import com.maxlong.study.utils.DateFormat;
+import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
-import com.maxlong.study.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StopWatch;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.sql.Array;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -393,16 +390,18 @@ public class CommonTest {
 
     @Test
     public void copyOnWriteArrayList() {
-        CopyOnWriteArrayList list = new CopyOnWriteArrayList(Lists.newArrayList(new Integer(1),new Integer(2),new Integer(3)));
+        CopyOnWriteArrayList list = new CopyOnWriteArrayList(
+                Lists.newArrayList(new Integer(1),new Integer(2),new Integer(3)));
     }
 
     @Test
     public void rxjava() {
-        int a=1;
-        int b = a+1;   // <= 符号只是表示a和b之间关系的操作符
-        System.out.print("b=" + b);   //  b=2
-        a=10;
-        System.out.print("b=" + b);    //  b=11
+        int cnt = 6;
+        String begin = "2019-04-17";
+        for(int i =0; i< cnt; i++){
+            begin = DateUtil.addDay(begin, 28, DateFormat.STYLE2);
+            System.out.println(begin);
+        }
     }
 }
 

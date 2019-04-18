@@ -9,7 +9,7 @@ public class FutureData  implements Data{
 
     protected RealData realData = null;
 
-    protected boolean isReady = false;
+    protected volatile boolean isReady = false;
 
     @Override
     public synchronized String getResult() {

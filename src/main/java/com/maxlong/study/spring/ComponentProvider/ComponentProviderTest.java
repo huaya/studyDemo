@@ -13,7 +13,6 @@ import java.util.Set;
  */
 public class ComponentProviderTest {
 
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		String packagePath = "com.maxlong.study.service.ComponentProvider";
 		ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
