@@ -36,7 +36,7 @@ public class ZookeeperClusterManager implements ClusterManager{
 
 
     public ZookeeperClusterManager() {
-        framework= CuratorFrameworkFactory.newClient("192.168.122.128:2181",30000,5000,
+        framework= CuratorFrameworkFactory.newClient("192.168.128.128:2181",30000,5000,
                 new ExponentialBackoffRetry(2000,Integer.MAX_VALUE));
         framework.start();
         leaderLatch = new LeaderLatch(framework, DETAULE_ELECTION_PATH);
