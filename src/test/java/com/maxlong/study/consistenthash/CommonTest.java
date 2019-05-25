@@ -5,8 +5,6 @@ import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
-import com.maxlong.study.utils.DateFormat;
-import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -430,12 +428,15 @@ public class CommonTest {
 
     @Test
     public void rxjava() {
-        int cnt = 6;
-        String begin = "2019-04-17";
-        for(int i =0; i< cnt; i++){
-            begin = DateUtil.addDay(begin, 28, DateFormat.STYLE2);
-            System.out.println(begin);
-        }
+        int a = 6;
+        int b = 10;
+
+        b = a ^ b;
+        System.out.println(a);
+        a = a ^ b;
+        System.out.println(b);
+        b = a ^ b;
+        System.out.println("a=" + a + ", b=" + b);
     }
 }
 
