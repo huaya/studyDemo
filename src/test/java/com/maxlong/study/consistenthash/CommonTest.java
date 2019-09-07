@@ -32,6 +32,8 @@ import java.util.stream.Stream;
  */
 public class CommonTest {
 
+    private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
+
     @Test
     public void jdkHash() {
         String a = "a";
@@ -51,32 +53,32 @@ public class CommonTest {
         int rightBracketIdx = content.indexOf(")");
         String iPAddr = content.substring(leftBracketIdx + 1, rightBracketIdx);
         String[] iPAddrColumn = iPAddr.split(",");
-        String fromArea = iPAddrColumn[1].replace("'","");
+        String fromArea = iPAddrColumn[1].replace("'", "");
         System.out.println(fromArea);
     }
 
     @Test
-    public void permSize () {
+    public void permSize() {
         String aaa = "xxxxx";
-        for(int i = 0; i < Integer.MAX_VALUE; i++){
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
             String bbb = aaa + aaa;
             aaa = bbb;
         }
     }
 
     @Test
-    public void interfaceTest () {
+    public void interfaceTest() {
         System.out.println(UserService.class.isAssignableFrom(UserServiceImpl.class));
     }
 
     @Test
-    public void requireNonNull () {
+    public void requireNonNull() {
         UserInfo userInfo = new UserInfo();
         Objects.requireNonNull(userInfo, () -> userInfo.getUserId());
     }
 
     @Test
-    public void string () {
+    public void string() {
         String aa = "123456";
         String bb = "123456";
         String cc = new String("123456");
@@ -85,12 +87,12 @@ public class CommonTest {
     }
 
     @Test
-    public void capacity () {
+    public void capacity() {
         System.out.println(1 << 30);
     }
 
     @Test
-    public void hash () {
+    public void hash() {
         String key = "11111";
         int h = key.hashCode();
         int i = (key == null) ? 0 : h ^ (h >>> 16);
@@ -98,7 +100,7 @@ public class CommonTest {
     }
 
     @Test
-    public void hash2 () {
+    public void hash2() {
         String key = "74747465646656446546";
         int hash = key.hashCode();
         int i = (16 - 1) & hash;
@@ -107,14 +109,14 @@ public class CommonTest {
     }
 
     @Test
-    public void hash3 () {
+    public void hash3() {
         int key = 1200000;
         int i = 7 & key;
         System.out.println(i);
     }
 
     @Test
-    public void hash4 () {
+    public void hash4() {
         String v = "74747465646656446546";
         int h = v.hashCode();
         int key = (h ^ (h >>> 16)) & 0x7fffffff;
@@ -123,22 +125,22 @@ public class CommonTest {
 
 
     @Test
-    public void isNaN () {
+    public void isNaN() {
         System.out.println(Float.isNaN(0.0f / 0.0f));
     }
 
 
     @Test
-    public void containsKey () {
+    public void containsKey() {
         Map<String, Object> map = new HashMap<>();
         map.put("maxlong", 1111);
         Object maxlong = map.compute("maxlong", (key, value) -> 1 + 1);
         System.out.println(maxlong.toString());
         System.out.println(map.get("maxlong"));
-     }
+    }
 
     @Test
-    public void offset1 () {
+    public void offset1() {
         UserInfo userInfo = new UserInfo("1000", "maxlong");
         String userId = (String) UserInfo.U.getObjectVolatile(userInfo, UserInfo.USERID);
         String userName = (String) UserInfo.U.getObjectVolatile(userInfo, UserInfo.USERNAME);
@@ -147,35 +149,35 @@ public class CommonTest {
 
 
     @Test
-    public void offset2 () {
+    public void offset2() {
         final long count = 10000000L;
         UserInfo userInfo = new UserInfo();
         Instant start = Instant.now();
-        for(long i = 0; i < count; i++){
+        for (long i = 0; i < count; i++) {
             userInfo.setUserId("10000");
         }
         System.out.println("set method spend :" + Duration.between(start, Instant.now()).toMillis() + "ms");
 
         start = Instant.now();
-        for(long i = 0; i < count; i++){
+        for (long i = 0; i < count; i++) {
             UserInfo.U.putObject(userInfo, UserInfo.USERID, "10000");
         }
         System.out.println("Unsafe put spend :" + Duration.between(start, Instant.now()).toMillis() + "ms");
     }
 
     @Test
-    public void offset2StopWatch () {
+    public void offset2StopWatch() {
         final long count = 10000000L;
         UserInfo userInfo = new UserInfo();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("set method");
-        for(long i = 0; i < count; i++){
+        for (long i = 0; i < count; i++) {
             userInfo.setUserId("10000");
         }
         stopWatch.stop();
 
         stopWatch.start("Unsafe put");
-        for(long i = 0; i < count; i++){
+        for (long i = 0; i < count; i++) {
             UserInfo.U.putObject(userInfo, UserInfo.USERID, "10000");
         }
         stopWatch.stop();
@@ -184,17 +186,17 @@ public class CommonTest {
 
 
     @Test
-    public void classLoad () {
+    public void classLoad() {
         System.out.println(UserInfo.class.getClassLoader());
     }
 
     @Test
-    public void getCallerClass () {
+    public void getCallerClass() {
         UserInfo.testCallerSensitive();
     }
 
     @Test
-    public void tableSizeFor () {
+    public void tableSizeFor() {
         int c = 65;
         int n = c - 1;
         n |= n >>> 1;
@@ -202,44 +204,44 @@ public class CommonTest {
         n |= n >>> 4;
         n |= n >>> 8;
         n |= n >>> 16;
-        System.out.println( n);
+        System.out.println(n);
     }
 
     @Test
-    public void mapNullTest () {
+    public void mapNullTest() {
         Map<String, Object> map = new HashMap<>();
         map.put(null, null);
 
         Map<String, Object> concurrentHashMap = new ConcurrentHashMap<>();
         try {
             concurrentHashMap.put("1", null);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("concurrentHashMap value not null");
         }
         try {
             concurrentHashMap.put(null, "1");
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("concurrentHashMap key not null");
         }
         try {
             concurrentHashMap.put(null, null);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("concurrentHashMap key and value not null");
         }
 
     }
 
     @Test
-    public void test () {
+    public void test() {
         String aaa = "";
         String bbb = "";
         aaa = bbb = "xxxx";
-        System.out.println( aaa);
-        System.out.println( bbb);
+        System.out.println(aaa);
+        System.out.println(bbb);
     }
 
     @Test
-    public void sizeCtl () throws NoSuchFieldException, IllegalAccessException {
+    public void sizeCtl() throws NoSuchFieldException, IllegalAccessException {
         ConcurrentHashMap<String, Object> concurrentHashMap = new ConcurrentHashMap<>();
         concurrentHashMap.put("1000", "100");
         Field sizeCtlF = ConcurrentHashMap.class.getDeclaredField("sizeCtl");
@@ -259,14 +261,14 @@ public class CommonTest {
 
     @Test
     public void treeMap() {
-        TreeMap<String, String> treeMap = new TreeMap<String, String>(){
+        TreeMap<String, String> treeMap = new TreeMap<String, String>() {
             {
-                put("1","1");
-                put("2","2");
-                put("3","3");
-                put("4","4");
-                put("5","5");
-                put("6","6");
+                put("1", "1");
+                put("2", "2");
+                put("3", "3");
+                put("4", "4");
+                put("5", "5");
+                put("6", "6");
 //                put("7","7");
 //                put("8","8");
 //                put("9","9");
@@ -283,23 +285,23 @@ public class CommonTest {
         TreeMap.Entry<String, String> cur;
         TreeMap.Entry<String, String> last = entry;
         TreeMap.Entry<String, String> nlast = entry;
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             cur = queue.poll();
             TreeMap.Entry<String, String> parent = cur.parent;
-            System.out.print((parent!=null?parent.getValue():0) + "-" + cur.getValue() + "     ");
+            System.out.print((parent != null ? parent.getValue() : 0) + "-" + cur.getValue() + "     ");
 
             TreeMap.Entry<String, String> left = cur.left;
-            if(left !=null ){
+            if (left != null) {
                 queue.offer(left);
                 nlast = left;
             }
             TreeMap.Entry<String, String> right = cur.right;
-            if(right!=null){
+            if (right != null) {
                 queue.offer(right);
                 nlast = right;
             }
 
-            if(cur == last){
+            if (cur == last) {
                 System.out.println();
                 last = nlast;
             }
@@ -309,20 +311,20 @@ public class CommonTest {
 
     @Test
     public void treeMap2() {
-        TreeMap<String, String> treeMap = new TreeMap<String, String>(){
+        TreeMap<String, String> treeMap = new TreeMap<String, String>() {
             {
-                put("1","1");
-                put("2","2");
-                put("3","3");
-                put("4","4");
-                put("5","5");
-                put("6","6");
-                put("7","7");
-                put("8","8");
-                put("9","9");
-                put("10","10");
-                put("11","11");
-                put("12","12");
+                put("1", "1");
+                put("2", "2");
+                put("3", "3");
+                put("4", "4");
+                put("5", "5");
+                put("6", "6");
+                put("7", "7");
+                put("8", "8");
+                put("9", "9");
+                put("10", "10");
+                put("11", "11");
+                put("12", "12");
             }
 
         };
@@ -391,7 +393,7 @@ public class CommonTest {
     @Test
     public void copyOnWriteArrayList() {
         CopyOnWriteArrayList list = new CopyOnWriteArrayList(
-                Lists.newArrayList(new Integer(1),new Integer(2),new Integer(3)));
+                Lists.newArrayList(new Integer(1), new Integer(2), new Integer(3)));
     }
 
     @Test
@@ -399,12 +401,12 @@ public class CommonTest {
 
         final int LINE_NUM = 1024;
         final int COLUM_NUM = 1024;
-        long [][] array = new long[LINE_NUM][COLUM_NUM];
+        long[][] array = new long[LINE_NUM][COLUM_NUM];
 
         long startTime = System.currentTimeMillis();
-        for(int i =0;i<COLUM_NUM;++i){
-            for(int j=0;j<LINE_NUM;++j){
-                array[j][i] = i*2+j;
+        for (int i = 0; i < COLUM_NUM; ++i) {
+            for (int j = 0; j < LINE_NUM; ++j) {
+                array[j][i] = i * 2 + j;
             }
         }
         long endTime = System.currentTimeMillis();
@@ -432,10 +434,40 @@ public class CommonTest {
     public void rxjava() {
         int cnt = 6;
         String begin = "2019-04-17";
-        for(int i =0; i< cnt; i++){
+        for (int i = 0; i < cnt; i++) {
             begin = DateUtil.addDay(begin, 28, DateFormat.STYLE2);
             System.out.println(begin);
         }
+    }
+
+    @Test
+    public void hashed() {
+        String name = "陈航科";
+        long nameH = name.hashCode();
+        System.out.println(nameH);
+        nameH += 2147483647L + 1L;
+        System.out.println(nameH);
+        System.out.println(nameH % 116);
+    }
+
+    @Test
+    public void computeIfAbsent() {
+        List<UserInfo> userInfos = Lists.newArrayList(
+                new UserInfo("1", "xxx"),
+                new UserInfo("2", "xxx"),
+                new UserInfo("3", "yyy"));
+
+        Map<String, List<UserInfo>> userInfoMap = new HashMap<>();
+        userInfos.forEach(userInfo -> userInfoMap.computeIfAbsent(userInfo.getUserName(), k -> new ArrayList<>()).add(userInfo));
+        System.out.println(userInfoMap);
+    }
+
+    @Test
+    public void integerSort() {
+        List<Integer> list = Lists.newArrayList(10, 2, 5, 1000, 555, 148);
+        System.out.println(list);
+        list.sort((a, b) -> (a - b));
+        System.out.println(list);
     }
 }
 
