@@ -15,8 +15,11 @@ import org.springframework.util.StopWatch;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -469,6 +472,19 @@ public class CommonTest {
         list.sort((a, b) -> (a - b));
         System.out.println(list);
     }
+
+
+    @Test
+    public void week() {
+        LocalDate localDate = LocalDate.now();
+        LocalDate lastWeek = localDate.plusWeeks(-1);
+        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
+        int x = lastWeek.get(weekFields.weekOfWeekBasedYear());
+        System.out.println(x);
+
+    }
+
+
 }
 
 
