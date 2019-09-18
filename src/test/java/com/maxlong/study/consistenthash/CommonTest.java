@@ -15,6 +15,8 @@ import org.springframework.util.StopWatch;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
@@ -482,6 +484,17 @@ public class CommonTest {
         int x = lastWeek.get(weekFields.weekOfWeekBasedYear());
         System.out.println(x);
 
+    }
+
+    @Test
+    public void diamonds() {
+        BigDecimal diamonds = new BigDecimal("123.1122");
+        BigDecimal diamonds2 = new BigDecimal("123.5422");
+        BigDecimal diamonds3 = new BigDecimal("123.8422");
+
+        System.out.println(diamonds.intValue());
+        System.out.println(diamonds2.intValue());
+        System.out.println(diamonds3.intValue());
     }
 
 
