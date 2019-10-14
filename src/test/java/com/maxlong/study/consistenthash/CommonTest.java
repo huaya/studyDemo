@@ -14,9 +14,11 @@ import org.springframework.util.StopWatch;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.net.URLEncoder;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
@@ -480,7 +482,7 @@ public class CommonTest {
     public void week() {
         LocalDate localDate = LocalDate.now();
         LocalDate lastWeek = localDate.plusWeeks(-1);
-        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
+        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY, 1);
         int x = lastWeek.get(weekFields.weekOfWeekBasedYear());
         System.out.println(x);
 
@@ -497,7 +499,32 @@ public class CommonTest {
         System.out.println(diamonds3.intValue());
     }
 
+    @Test
+    public void multiply() {
+        BigDecimal diamonds = new BigDecimal("123.1122");
+        BigDecimal sss = diamonds.multiply(new BigDecimal(0.09)).setScale(4, BigDecimal.ROUND_HALF_DOWN);
+        System.out.println(sss.toString());
+    }
 
+    @Test
+    public void content() {
+        String content = "您成功消费%s钻石兑换%s一台";
+        System.out.println(String.format(content, "sdfsf", "qwqwqwqwew"));
+    }
+
+    @Test
+    public void encode() throws UnsupportedEncodingException {
+        String encode = URLEncoder.encode("{}", "UTF-8");
+        System.out.println(encode);
+    }
+
+
+    @Test
+    public void sub() {
+        List<String> list = Lists.newArrayList("aaaa", "bbbb", "ccccc");
+        list = list.subList(0, 2);
+        System.out.println(list);
+    }
 }
 
 
