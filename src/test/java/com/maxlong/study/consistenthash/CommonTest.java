@@ -1,6 +1,7 @@
 package com.maxlong.study.consistenthash;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Queues;
 import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
@@ -524,6 +525,15 @@ public class CommonTest {
         List<String> list = Lists.newArrayList("aaaa", "bbbb", "ccccc");
         list = list.subList(0, 2);
         System.out.println(list);
+    }
+
+    @Test
+    public void remove() {
+        List<String> list = Lists.newArrayList("aaaa", "bbbb", "ccccc");
+        Queue queue = Queues.newArrayDeque(list);
+        for (int i = 0; i < 8; i++) {
+            System.out.println(queue.poll());
+        }
     }
 }
 
