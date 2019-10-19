@@ -28,6 +28,7 @@ import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -535,6 +536,14 @@ public class CommonTest {
             System.out.println(queue.poll());
         }
     }
+
+    @Test
+    public void nextInt() {
+        for (int i = 0; i < 20; i++) {
+            System.out.println(ThreadLocalRandom.current().nextInt(5));
+        }
+    }
+
 }
 
 

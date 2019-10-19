@@ -19,7 +19,7 @@ public class FileErgodic {
     static ExecutorService service =  Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        File file = new File("F:\\");
+        File file = new File("E:\\");
         ergodic(file);
     }
 
@@ -33,8 +33,10 @@ public class FileErgodic {
         } else {
             try {
                 File[] files = file.listFiles();
-                for (File f : files) {
-                    service.execute(() -> ergodic(f));
+                if(files != null){
+                    for (File f : files) {
+                        service.execute(() -> ergodic(f));
+                    }
                 }
             } catch (Exception e){
                 e.printStackTrace();
