@@ -544,6 +544,24 @@ public class CommonTest {
         }
     }
 
+    @Test
+    public void decoder() {
+        String ssds = Base64.getEncoder().encodeToString("12345678".getBytes());
+        System.out.println(ssds);
+        byte[] xxxx = Base64.getDecoder().decode(ssds);
+        String yyyy = new String(xxxx);
+        System.out.println(yyyy);
+    }
+
+
+    @Test
+    public void filter() {
+        List<String> sdsdd = Lists.newArrayList("fssd","aafeefe","dddddddd","tttttttt");
+        List<String> bbbbb = sdsdd.stream().filter(s -> s.contains("f")).collect(Collectors.toList());
+        System.out.println(bbbbb);
+
+    }
+
 }
 
 
