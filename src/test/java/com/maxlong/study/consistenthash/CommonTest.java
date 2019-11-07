@@ -553,13 +553,19 @@ public class CommonTest {
         System.out.println(yyyy);
     }
 
-
     @Test
     public void filter() {
         List<String> sdsdd = Lists.newArrayList("fssd","aafeefe","dddddddd","tttttttt");
         List<String> bbbbb = sdsdd.stream().filter(s -> s.contains("f")).collect(Collectors.toList());
         System.out.println(bbbbb);
+    }
 
+    @Test
+    public void replace() {
+        String aaa = "fsfsferSPA";
+        String bbb = "fsfsferspa";
+        System.out.println(aaa.replace("SPA", ""));
+        System.out.println(bbb.replace("SPA", ""));
     }
 
 }
