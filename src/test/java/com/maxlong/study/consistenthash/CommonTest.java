@@ -1,5 +1,7 @@
 package com.maxlong.study.consistenthash;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.maxlong.study.collections.TreeMap;
@@ -555,7 +557,7 @@ public class CommonTest {
 
     @Test
     public void filter() {
-        List<String> sdsdd = Lists.newArrayList("fssd","aafeefe","dddddddd","tttttttt");
+        List<String> sdsdd = Lists.newArrayList("fssd", "aafeefe", "dddddddd", "tttttttt");
         List<String> bbbbb = sdsdd.stream().filter(s -> s.contains("f")).collect(Collectors.toList());
         System.out.println(bbbbb);
     }
@@ -566,6 +568,17 @@ public class CommonTest {
         String bbb = "fsfsferspa";
         System.out.println(aaa.replace("SPA", ""));
         System.out.println(bbb.replace("SPA", ""));
+    }
+
+    @Test
+    public void readJson1() {
+        String json = FileUtil.readFileToStr("src/main/resources/json/temp.json", "UTF-8");
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        JSONArray data = jsonObject.getJSONArray("data");
+        for (int i = 0; i < data.size(); i++) {
+            JSONObject o = data.getJSONObject(i);
+            System.out.println(o.getString("siteId"));
+        }
     }
 
 }
