@@ -1,18 +1,15 @@
 package com.maxlong.study.dingding;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
-import com.dingtalk.api.request.OapiGettokenRequest;
-import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
-import com.dingtalk.api.request.OapiMessageCorpconversationGetsendprogressRequest;
-import com.dingtalk.api.response.OapiGettokenResponse;
-import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
-import com.dingtalk.api.response.OapiMessageCorpconversationGetsendprogressResponse;
+import com.dingtalk.api.request.*;
+import com.dingtalk.api.response.*;
 import com.google.common.collect.Lists;
 import com.taobao.api.ApiException;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Form;
 
 /**
@@ -22,16 +19,17 @@ import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Req
  */
 public class DingdingUser {
 
-    private static final String agentId = "317088643";
+    private static final String agentId = "294857517";
 
-    private static final String appId = "dingcx2hymkynwylgzyd";
+    private static final String appId = "dingmnqfaiagwzuepve8";
 
-    private static final String appSecret = "voPxPMDDBGrudrgershkGtJQM1F4RoCo4FnDKBaxXZlhcBwEQmYXpQKpRBqJcEMF";
+    private static final String appSecret = "5v6Oy5VKirxBQJRacGtGzj_58N9rJPDQYIxSBT1XJjTQsmAnx7UMt521dIw5e7Xj";
+
+    private static final String accessToken_L = "16e28aa7c0fe3cefb9414b825bf30fb9";
 
     public static void main(String[] args) throws ApiException {
-        String accessToken = getAccessToken();
-        long taskId = sendMessage(accessToken, "275406665838761686", "oa");
-        getsendprogress(taskId, accessToken);
+        long taskId = sendMessage(accessToken_L, "275406665838761686", "oa");
+        getsendprogress(taskId, accessToken_L);
     }
 
     private static String getAccessToken() throws ApiException {
@@ -43,6 +41,48 @@ public class DingdingUser {
         OapiGettokenResponse response = client.execute(request);
         return response.getAccessToken();
     }
+
+    private static List<OapiUserSimplelistResponse.Userlist> getSimplelist(String accessToken, Long departmentId ) throws ApiException {
+        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/simplelist");
+        OapiUserSimplelistRequest request = new OapiUserSimplelistRequest();
+        request.setDepartmentId(departmentId);
+        request.setOffset(0L);
+        request.setSize(10L);
+        request.setHttpMethod("GET");
+        OapiUserSimplelistResponse response = client.execute(request, accessToken);
+        return response.getUserlist();
+    }
+
+    private static String getUser(String accessToken, String userId) throws ApiException {
+        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/get");
+        OapiUserGetRequest request = new OapiUserGetRequest();
+        request.setUserid(userId);
+        request.setHttpMethod("GET");
+        OapiUserGetResponse response = client.execute(request, accessToken);
+        return response.getName();
+    }
+
+    private static List<OapiDepartmentListResponse.Department> getDepartment(String accessToken, String id) throws ApiException {
+        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/department/list");
+        OapiDepartmentListRequest request = new OapiDepartmentListRequest();
+        request.setId(id);
+        request.setHttpMethod("GET");
+        OapiDepartmentListResponse response = client.execute(request, accessToken);
+
+        return response.getDepartment();
+    }
+
+    private static List<OapiUserGetAdminResponse.AdminList> getAdmin(String accessToken) throws ApiException {
+
+        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/get_admin");
+        OapiUserGetAdminRequest request = new OapiUserGetAdminRequest();
+        request.setHttpMethod("GET");
+
+        OapiUserGetAdminResponse response = client.execute(request, accessToken);
+
+        return response.getAdminList();
+    }
+
 
     private static Long sendMessage(String accessToken, String userList, String type) throws ApiException {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2");
@@ -80,8 +120,14 @@ public class DingdingUser {
             case "markdown":
                 msg.setMsgtype("markdown");
                 msg.setMarkdown(new OapiMessageCorpconversationAsyncsendV2Request.Markdown());
-                msg.getMarkdown().setText("##### test33");
-                msg.getMarkdown().setTitle("### Title333");
+                msg.getMarkdown().setText("# opstores \n " +
+                        "#### 您有产品明天将预售下架，请确保明天的全网销量达到指标。\n " +
+                        " \n " +
+                        "    | 站点名   |  产品编号   | 销量  | \n " +
+                        "    | :----   |  :----  | :----  | \n " +
+                        "    | Cometgarden |  PUBDSDS  | 500  | \n " +
+                        "    | Cometgarden2| PUBDSDS2  | 600 | \n ");
+                msg.getMarkdown().setTitle("opstores");
                 break;
             case "oa":
                 msg.setMsgtype("oa");
@@ -89,20 +135,25 @@ public class DingdingUser {
                 msg.getOa().setHead(new OapiMessageCorpconversationAsyncsendV2Request.Head());
                 msg.getOa().getHead().setText("head");
                 msg.getOa().getHead().setBgcolor("FFBBBBBB");
-
                 msg.getOa().setBody(new OapiMessageCorpconversationAsyncsendV2Request.Body());
-                Form productNo = new Form();
-                productNo.setKey("产品编号：");
-                productNo.setValue("PUBDSDS");
-                Form salesVolume = new Form();
-                salesVolume.setKey("销量：");
-                salesVolume.setValue("200");
-                Form siteName = new Form();
-                siteName.setKey("站点名：");
-                siteName.setValue("Cometgarden");
-                msg.getOa().getBody().setForm(Lists.newArrayList(productNo, salesVolume, siteName));
 
-                msg.getOa().getBody().setContent("您有产品明天将预售下架，请确保明天的全网销量达到指标。");
+//                Form productNo = new Form();
+//                productNo.setKey("产品编号：");
+//                productNo.setValue("PUBDSDS");
+//                Form salesVolume = new Form();
+//                salesVolume.setKey("销量：");
+//                salesVolume.setValue("200");
+//                Form siteName = new Form();
+//                siteName.setKey("站点名：");
+//                siteName.setValue("Cometgarden");
+//                msg.getOa().getBody().setForm(Lists.newArrayList(productNo, salesVolume, siteName));
+                StringBuilder builder = new StringBuilder();
+                builder.append("您有产品明天即将预售下架，请确保明天的全网销量达到指标。\n");
+                String content = "%s(%s)\t\t%s\n";
+                builder.append(String.format(content, "产品编号", "销量", "站点"));
+                builder.append(String.format(content, "PUBDSDS", "200", "Cometgarden"));
+                builder.append(String.format(content, "PUBDSDS2", "200", "Cometgarden2"));
+                msg.getOa().getBody().setContent(builder.toString());
                 break;
             case "action_card":
                 msg.setMsgtype("action_card");

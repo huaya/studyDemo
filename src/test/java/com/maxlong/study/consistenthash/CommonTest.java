@@ -581,6 +581,22 @@ public class CommonTest {
         }
     }
 
+    @Test
+    public void listlist() {
+        String[] arrays = new String[]{"1","2","3","4","5","6","7","8"};
+
+        List<List<String>> siteIdList = new ArrayList<>();
+        List<String> sites = new ArrayList<>();
+        siteIdList.add(sites);
+        for (String siteId : arrays) {
+            if(sites.size() >= 5){
+                sites = new ArrayList<>();
+                siteIdList.add(sites);
+            }
+            sites.add(siteId);
+        }
+        System.out.println(JSONObject.toJSONString(siteIdList));
+    }
 }
 
 
