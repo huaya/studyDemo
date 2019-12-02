@@ -595,7 +595,18 @@ public class CommonTest {
             }
             sites.add(siteId);
         }
-        System.out.println(JSONObject.toJSONString(siteIdList));
+
+    }
+
+    @Test
+    public void nullsLast() {
+        List<UserInfo> userInfos = new ArrayList<>();
+        userInfos.add(new UserInfo(null, "fsfsf"));
+        userInfos.add(new UserInfo("1121", "fsfsf"));
+        userInfos.add(new UserInfo(null, "fsfsf"));
+        userInfos.add(new UserInfo("1121", "fsfsf"));
+        userInfos.sort(Comparator.comparing(a -> a.getUserId(), Comparator.nullsLast(String::compareTo)));
+        System.out.println(JSONObject.toJSONString(userInfos));
     }
 }
 

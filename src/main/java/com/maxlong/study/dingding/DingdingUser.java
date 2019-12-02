@@ -28,8 +28,8 @@ public class DingdingUser {
     private static final String accessToken_L = "16e28aa7c0fe3cefb9414b825bf30fb9";
 
     public static void main(String[] args) throws ApiException {
-        long taskId = sendMessage(accessToken_L, "275406665838761686", "oa");
-        getsendprogress(taskId, accessToken_L);
+        long taskId = sendMessage(getAccessToken(), "275406665838761686", "oa");
+//        getsendprogress(taskId, accessToken_L);
     }
 
     private static String getAccessToken() throws ApiException {
@@ -133,8 +133,8 @@ public class DingdingUser {
                 msg.setMsgtype("oa");
                 msg.setOa(new OapiMessageCorpconversationAsyncsendV2Request.OA());
                 msg.getOa().setHead(new OapiMessageCorpconversationAsyncsendV2Request.Head());
-                msg.getOa().getHead().setText("head");
-                msg.getOa().getHead().setBgcolor("FFBBBBBB");
+                msg.getOa().getHead().setBgcolor("FF3333CC");
+                msg.getOa().setPcMessageUrl("www.baidu.com");
                 msg.getOa().setBody(new OapiMessageCorpconversationAsyncsendV2Request.Body());
 
 //                Form productNo = new Form();
@@ -147,11 +147,14 @@ public class DingdingUser {
 //                siteName.setKey("站点名：");
 //                siteName.setValue("Cometgarden");
 //                msg.getOa().getBody().setForm(Lists.newArrayList(productNo, salesVolume, siteName));
+
+                msg.getOa().getBody().setTitle("产品预售下架通知");
                 StringBuilder builder = new StringBuilder();
                 builder.append("您有产品明天即将预售下架，请确保明天的全网销量达到指标。\n");
                 String content = "%s(%s)\t\t%s\n";
-                builder.append(String.format(content, "产品编号", "销量", "站点"));
                 builder.append(String.format(content, "PUBDSDS", "200", "Cometgarden"));
+                builder.append(String.format(content, "PUBDSDS2", "200", "Cometgarden2"));
+                builder.append(String.format(content, "PUBDSDS2", "200", "Cometgarden2"));
                 builder.append(String.format(content, "PUBDSDS2", "200", "Cometgarden2"));
                 msg.getOa().getBody().setContent(builder.toString());
                 break;
