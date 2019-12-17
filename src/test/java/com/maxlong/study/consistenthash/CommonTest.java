@@ -612,6 +612,8 @@ public class CommonTest {
     @Test
     public void join() {
         System.out.println(StringUtils.joinWith(",", "a", "b"));
+        System.out.println(StringUtils.join("a", ","));
+        System.out.println(StringUtils.joinWith(",", "a"));
     }
 
     @Test
@@ -621,6 +623,12 @@ public class CommonTest {
             sdsdd.remove(s);
             System.out.println(sdsdd);
         }
+    }
+
+    @Test
+    public void replaceTest() {
+        String xxx = "2222-333-445";
+        System.out.println(xxx.replaceAll("\\D", ""));
     }
 }
 

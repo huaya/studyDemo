@@ -1,16 +1,16 @@
 package com.maxlong.study.dingding;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.*;
 import com.dingtalk.api.response.*;
-import com.google.common.collect.Lists;
+import com.maxlong.study.redis.RedisPool;
+import com.maxlong.study.utils.StringUtil;
 import com.taobao.api.ApiException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Form;
 
 /**
  * Created on 2019/11/14.
@@ -28,21 +28,26 @@ public class DingdingUser {
     private static final String accessToken_L = "16e28aa7c0fe3cefb9414b825bf30fb9";
 
     public static void main(String[] args) throws ApiException {
-        long taskId = sendMessage(getAccessToken(), "275406665838761686", "oa");
+        long taskId = sendMessage(getAccessToken(), "080726172337700948,275406665838761686", "markdown");
 //        getsendprogress(taskId, accessToken_L);
     }
 
-    private static String getAccessToken() throws ApiException {
+    public static String getAccessToken() throws ApiException {
+        String accessToken = RedisPool.get("accessToken");
+        if(StringUtils.isNoneBlank(accessToken)) {
+            return accessToken;
+        }
         DefaultDingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/gettoken");
         OapiGettokenRequest request = new OapiGettokenRequest();
         request.setAppkey(appId);
         request.setAppsecret(appSecret);
         request.setHttpMethod("GET");
         OapiGettokenResponse response = client.execute(request);
+        RedisPool.setEx("accessToken", response.getAccessToken(), 7200);
         return response.getAccessToken();
     }
 
-    private static List<OapiUserSimplelistResponse.Userlist> getSimplelist(String accessToken, Long departmentId ) throws ApiException {
+    public static List<OapiUserSimplelistResponse.Userlist> getSimplelist(String accessToken, Long departmentId ) throws ApiException {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/simplelist");
         OapiUserSimplelistRequest request = new OapiUserSimplelistRequest();
         request.setDepartmentId(departmentId);
@@ -53,7 +58,7 @@ public class DingdingUser {
         return response.getUserlist();
     }
 
-    private static String getUser(String accessToken, String userId) throws ApiException {
+    public static String getUser(String accessToken, String userId) throws ApiException {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/get");
         OapiUserGetRequest request = new OapiUserGetRequest();
         request.setUserid(userId);
@@ -62,7 +67,7 @@ public class DingdingUser {
         return response.getName();
     }
 
-    private static List<OapiDepartmentListResponse.Department> getDepartment(String accessToken, String id) throws ApiException {
+    public static List<OapiDepartmentListResponse.Department> getDepartment(String accessToken, String id) throws ApiException {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/department/list");
         OapiDepartmentListRequest request = new OapiDepartmentListRequest();
         request.setId(id);
@@ -72,7 +77,7 @@ public class DingdingUser {
         return response.getDepartment();
     }
 
-    private static List<OapiUserGetAdminResponse.AdminList> getAdmin(String accessToken) throws ApiException {
+    public static List<OapiUserGetAdminResponse.AdminList> getAdmin(String accessToken) throws ApiException {
 
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/get_admin");
         OapiUserGetAdminRequest request = new OapiUserGetAdminRequest();
@@ -84,7 +89,7 @@ public class DingdingUser {
     }
 
 
-    private static Long sendMessage(String accessToken, String userList, String type) throws ApiException {
+    public static Long sendMessage(String accessToken, String userList, String type) throws ApiException {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2");
 
         OapiMessageCorpconversationAsyncsendV2Request request = new OapiMessageCorpconversationAsyncsendV2Request();
@@ -110,23 +115,23 @@ public class DingdingUser {
                 msg.getFile().setMediaId("@lADOdvRYes0CbM0CbA");
                 break;
             case "link":
+                String url = "dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fwww.baidu.com&pc_slide=true";
+//                String url = "dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fwww.baidu.com&pc_slide=false";
+
                 msg.setMsgtype("link");
                 msg.setLink(new OapiMessageCorpconversationAsyncsendV2Request.Link());
-                msg.getLink().setTitle("test");
-                msg.getLink().setText("test");
-                msg.getLink().setMessageUrl("test");
-                msg.getLink().setPicUrl("test");
+                msg.getLink().setTitle("link");
+                msg.getLink().setText("link");
+                msg.getLink().setMessageUrl(url);
+                msg.getLink().setPicUrl("link");
                 break;
             case "markdown":
                 msg.setMsgtype("markdown");
                 msg.setMarkdown(new OapiMessageCorpconversationAsyncsendV2Request.Markdown());
-                msg.getMarkdown().setText("# opstores \n " +
-                        "#### 您有产品明天将预售下架，请确保明天的全网销量达到指标。\n " +
-                        " \n " +
-                        "    | 站点名   |  产品编号   | 销量  | \n " +
-                        "    | :----   |  :----  | :----  | \n " +
-                        "    | Cometgarden |  PUBDSDS  | 500  | \n " +
-                        "    | Cometgarden2| PUBDSDS2  | 600 | \n ");
+                StringBuilder builderM = new StringBuilder();
+                builderM.append("[Opstores](dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fopstores.orderplus.com&pc_slide=true) \n ");
+                builderM.append(" \n 您有一条新的[开户申请](dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fopstores.orderplus.com&pc_slide=true)待处理，单号444，请登录Opstores查看并操作");
+                msg.getMarkdown().setText(builderM.toString());
                 msg.getMarkdown().setTitle("opstores");
                 break;
             case "oa":
@@ -173,7 +178,7 @@ public class DingdingUser {
         return response.isSuccess() ? response.getTaskId() : null;
     }
 
-    private static void getsendprogress(Long taskId, String accessToken) throws ApiException {
+    public static void getsendprogress(Long taskId, String accessToken) throws ApiException {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/message/corpconversation/getsendprogress");
         OapiMessageCorpconversationGetsendprogressRequest request = new OapiMessageCorpconversationGetsendprogressRequest();
         request.setAgentId(Long.valueOf(agentId));
@@ -195,9 +200,9 @@ public class DingdingUser {
         S_1(1L, "处理中"),
         S_2(2L, "处理完毕");
 
-        private Long status;
+        public Long status;
 
-        private String desc;
+        public String desc;
 
         Progress(Long status, String desc) {
             this.status = status;
