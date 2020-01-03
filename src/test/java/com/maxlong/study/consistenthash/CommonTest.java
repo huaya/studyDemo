@@ -630,6 +630,11 @@ public class CommonTest {
         String xxx = "2222-333-445";
         System.out.println(xxx.replaceAll("\\D", ""));
     }
+
+    @Test
+    public void uuid() {
+        System.out.println(UUID.randomUUID().toString());
+    }
 }
 
 
