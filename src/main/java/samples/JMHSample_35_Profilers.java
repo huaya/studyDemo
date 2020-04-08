@@ -30,6 +30,7 @@
  */
 package samples;
 
+import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.profile.ClassloaderProfiler;
 import org.openjdk.jmh.profile.LinuxPerfProfiler;

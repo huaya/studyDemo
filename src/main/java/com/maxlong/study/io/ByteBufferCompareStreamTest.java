@@ -14,16 +14,16 @@ import java.time.Instant;
 public class ByteBufferCompareStreamTest {
 
     public static void main(String[] args) throws IOException {
-        File sourceFile = new File("E:\\软件备份\\ideaIU-2018.1.8.exe");
-        File targetFile = new File("C:\\Users\\OrderPlus\\Desktop\\ideaIU-2018.1.8.exe");
+        File sourceFile = new File("C:\\Users\\OrderPlus\\Desktop\\xxxxx.rar");
+        File targetFile = new File("C:\\Users\\OrderPlus\\Desktop\\xxxxx222.rar");
         targetFile.delete();
         Instant begin = Instant.now();
-//        copyByByteBuffer(sourceFile, targetFile);
-        copyByStream(sourceFile, targetFile);
+        copyByByteBuffer(sourceFile, targetFile);
+//        copyByStream(sourceFile, targetFile);
         System.out.println("耗时：" + Duration.between(begin, Instant.now()).toMillis());
     }
 
-    private static void copyByStream(File sourceFile, File targetFile) {
+    public static void copyByStream(File sourceFile, File targetFile) {
         try (
                 FileInputStream inputStream = new FileInputStream(sourceFile);
                 FileOutputStream outputStream = new FileOutputStream(targetFile)
@@ -39,7 +39,7 @@ public class ByteBufferCompareStreamTest {
         }
     }
 
-    private static void copyByByteBuffer(File sourceFile, File targetFile) {
+    public static void copyByByteBuffer(File sourceFile, File targetFile) {
         try (
                 FileChannel sourceChannel = new FileInputStream(sourceFile).getChannel();
                 FileChannel targetChannel = new FileOutputStream(targetFile).getChannel()

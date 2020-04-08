@@ -1,4 +1,4 @@
-package jmh.counter;
+package moe.cnkirito.jmh.counter;
 
 import moe.cnkirito.jmh.counter.cliff.ConcurrentAutoTable;
 import moe.cnkirito.jmh.counter.jdk7.AtomicLongBackport;

@@ -1,4 +1,4 @@
-package jmh.random;
+package moe.cnkirito.jmh.random;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;

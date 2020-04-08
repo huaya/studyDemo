@@ -1,4 +1,4 @@
-package jmh.queue;
+package moe.cnkirito.jmh.queue;
 
 /**
  * @author kirito.moe@foxmail.com

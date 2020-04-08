@@ -1,4 +1,4 @@
-package jmh.queue;
+package moe.cnkirito.jmh.queue;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;

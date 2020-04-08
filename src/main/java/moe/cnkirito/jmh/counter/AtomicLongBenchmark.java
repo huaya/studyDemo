@@ -1,4 +1,4 @@
-package jmh.counter;
+package moe.cnkirito.jmh.counter;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;

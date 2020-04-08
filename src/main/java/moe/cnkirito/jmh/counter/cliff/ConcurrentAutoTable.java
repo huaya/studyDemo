@@ -2,7 +2,7 @@
  * Written by Cliff Click and released to the public domain, as explained at
  * http://creativecommons.org/licenses/publicdomain
  */
-package jmh.counter.cliff;
+package moe.cnkirito.jmh.counter.cliff;
 
 import moe.cnkirito.jmh.counter.util.UnsafeAccess;
 import sun.misc.Unsafe;

@@ -1,4 +1,4 @@
-package jmh.queue;
+package moe.cnkirito.jmh.queue;
 
 import org.jctools.queues.MpscArrayQueue;
 import org.openjdk.jmh.annotations.CompilerControl;
