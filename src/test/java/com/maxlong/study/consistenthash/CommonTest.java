@@ -12,16 +12,17 @@ import com.maxlong.study.utils.DateFormat;
 import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tools.ant.filters.StringInputStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StopWatch;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
@@ -634,6 +635,22 @@ public class CommonTest {
     @Test
     public void uuid() {
         System.out.println(UUID.randomUUID().toString());
+    }
+
+    @Test
+    public void writeFile() {
+        try (
+                RandomAccessFile randomTargetFile = new RandomAccessFile("C:\\Users\\OrderPlus\\Desktop\\xxxx.text", "rw");
+                FileChannel fileChannel = randomTargetFile.getChannel()
+        ) {
+            ByteBuffer byteBuffer = ByteBuffer.wrap("fsdfefefaefwa".getBytes());
+            fileChannel.write(byteBuffer);
+            byteBuffer.clear();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
