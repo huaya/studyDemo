@@ -29,7 +29,7 @@ public class ByteBufferCompareStreamTest {
                 FileOutputStream outputStream = new FileOutputStream(targetFile)
         ) {
             byte[] readb = new byte[1024 * 1024];
-            while (inputStream.read(readb) != -1){
+            while (inputStream.read(readb) != -1) {
                 outputStream.write(readb);
             }
         } catch (FileNotFoundException e) {
@@ -41,8 +41,10 @@ public class ByteBufferCompareStreamTest {
 
     public static void copyByByteBuffer(File sourceFile, File targetFile) {
         try (
-                FileChannel sourceChannel = new FileInputStream(sourceFile).getChannel();
-                FileChannel targetChannel = new FileOutputStream(targetFile).getChannel()
+                RandomAccessFile sourceRFile = new RandomAccessFile(sourceFile, "r");
+                RandomAccessFile targetRFile = new RandomAccessFile(targetFile, "rw");
+                FileChannel sourceChannel = sourceRFile.getChannel();
+                FileChannel targetChannel = targetRFile.getChannel()
         ) {
 
             ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);

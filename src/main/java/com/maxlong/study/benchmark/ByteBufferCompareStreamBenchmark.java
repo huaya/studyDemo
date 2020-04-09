@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(1)
-@Warmup(iterations = 3, time = 5)
-@Measurement(iterations = 3, time = 5)
+@Warmup(iterations = 1, time = 2)
+@Measurement(iterations = 5, time = 2)
 public class ByteBufferCompareStreamBenchmark {
 
     File sourceFile;
@@ -29,18 +29,18 @@ public class ByteBufferCompareStreamBenchmark {
 
     @Setup
     public void buildFile() {
-        sourceFile = new File("C:\\Users\\OrderPlus\\Desktop\\xxxxx.rar");
-        targetFile = new File("C:\\Users\\OrderPlus\\Desktop\\xxxxx222.rar");
+        sourceFile = new File("E:\\软件备份\\ideaIU-2018.1.8.exe");
+        targetFile = new File("E:\\软件备份\\ideaIU-2018.1.8.exe.bak");
     }
 
     @Benchmark
-    public void copyByByteBuffer() {
-        ByteBufferCompareStreamTest.copyByByteBuffer(sourceFile, targetFile);
-    }
-
-    @Benchmark
-    public void copyByStream() {
+    public void copyBy1Stream() {
         ByteBufferCompareStreamTest.copyByStream(sourceFile, targetFile);
+    }
+
+    @Benchmark
+    public void copyBy2ByteBuffer() {
+        ByteBufferCompareStreamTest.copyByByteBuffer(sourceFile, targetFile);
     }
 
     @TearDown
