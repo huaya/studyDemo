@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Fork(1)
-@Warmup(iterations = 5, time = 1)
+@Warmup(iterations = 1, time = 1)
 @Measurement(iterations = 5, time = 1)
 public class FalseShareBenchmark {
 

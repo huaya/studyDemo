@@ -29,8 +29,8 @@ public class ByteBufferCompareStreamBenchmark {
 
     @Setup
     public void buildFile() {
-        sourceFile = new File("E:\\软件备份\\ideaIU-2018.1.8.exe");
-        targetFile = new File("E:\\软件备份\\ideaIU-2018.1.8.exe.bak");
+        sourceFile = new File("E:\\resources\\maxlong_1g.txt");
+        targetFile = new File("E:\\resources\\maxlong_1g_bak.txt");
     }
 
     @Benchmark
@@ -41,6 +41,11 @@ public class ByteBufferCompareStreamBenchmark {
     @Benchmark
     public void copyBy2ByteBuffer() {
         ByteBufferCompareStreamTest.copyByByteBuffer(sourceFile, targetFile);
+    }
+
+    @Benchmark
+    public void copyBy3MapByteBuffer() {
+        ByteBufferCompareStreamTest.copyByMapByteBuffer(sourceFile, targetFile);
     }
 
     @TearDown

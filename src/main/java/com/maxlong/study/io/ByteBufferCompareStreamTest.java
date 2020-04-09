@@ -1,7 +1,10 @@
 package com.maxlong.study.io;
 
+import com.maxlong.common.Constant;
+
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.time.Duration;
 import java.time.Instant;
@@ -14,12 +17,11 @@ import java.time.Instant;
 public class ByteBufferCompareStreamTest {
 
     public static void main(String[] args) throws IOException {
-        File sourceFile = new File("C:\\Users\\OrderPlus\\Desktop\\xxxxx.rar");
-        File targetFile = new File("C:\\Users\\OrderPlus\\Desktop\\xxxxx222.rar");
+        File sourceFile = new File("E:\\resources\\maxlong_1g.txt");
+        File targetFile = new File("E:\\resources\\maxlong_1g_bak.txt");
         targetFile.delete();
         Instant begin = Instant.now();
-        copyByByteBuffer(sourceFile, targetFile);
-//        copyByStream(sourceFile, targetFile);
+        copyByMapByteBuffer(sourceFile, targetFile);
         System.out.println("耗时：" + Duration.between(begin, Instant.now()).toMillis());
     }
 
@@ -58,4 +60,33 @@ public class ByteBufferCompareStreamTest {
         }
     }
 
+    public static void copyByMapByteBuffer(File sourceFile, File targetFile) {
+        long size = sourceFile.length();
+        long position = 0;
+        int bufferSize = (int) (size > Constant._1G ? Constant._1G : size);
+        long partSize = size > Constant._1G ? Constant._1G : size;
+
+        while (size > 0) {
+            try (
+                    RandomAccessFile sourceRFile = new RandomAccessFile(sourceFile, "r");
+                    RandomAccessFile targetRFile = new RandomAccessFile(targetFile, "rw")
+            ) {
+                MappedByteBuffer inByteBuffer = sourceRFile.getChannel().map(FileChannel.MapMode.READ_ONLY, position, bufferSize);
+                MappedByteBuffer outByteBuffer = targetRFile.getChannel().map(FileChannel.MapMode.READ_WRITE, position, partSize);
+
+                int length = inByteBuffer.remaining();
+                byte[] memo = new byte[length];
+                inByteBuffer.get(memo, 0, length);
+                outByteBuffer.put(memo);
+
+                outByteBuffer.force();
+
+                size = size - length;
+                position = position + length;
+                partSize = size > Constant._1G ? Constant._1G : size;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
