@@ -47,7 +47,7 @@ public class ByteBufferCompareStreamTest {
                 FileChannel targetChannel = targetRFile.getChannel()
         ) {
 
-            ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024 * 1024);
             while (sourceChannel.read(byteBuffer) != -1) {
                 byteBuffer.flip();
                 targetChannel.write(byteBuffer);
