@@ -20,6 +20,7 @@ public class ByteBufferCompareStreamTest {
         File sourceFile = new File("E:\\resources\\maxlong_1g.txt");
         File targetFile = new File("E:\\resources\\maxlong_1g_bak.txt");
         targetFile.delete();
+        targetFile.deleteOnExit();
         Instant begin = Instant.now();
         copyByMapByteBuffer(sourceFile, targetFile);
         System.out.println("耗时：" + Duration.between(begin, Instant.now()).toMillis());
