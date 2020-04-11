@@ -18,7 +18,7 @@ public class TablePath {
     public static void main(String[] args) {
         List<TablePath> paths = new ArrayList<>();
 
-        int xSize = 3;
+        int xSize = 4;
         int ySize = 6;
 
         for(int q = 0; q < 1000; q++){
