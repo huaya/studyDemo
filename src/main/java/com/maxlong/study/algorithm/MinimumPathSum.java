@@ -17,14 +17,21 @@ public class MinimumPathSum {
         int iLength = table.length;
         int jLength = table[0].length;
 
-        int i = 0;
-        int j = 0;
-        int pathNum = 0;
-        while (i <= iLength && j <= jLength) {
+        for(int i = 0; i < iLength; i++){
+            for(int j = 0; j < jLength; j++){
+                if(i == 0 && j == 0) continue;
 
-
-
+                if(i == 0){
+                    table[i][j] += table[i][j-1];
+                }
+                if(j == 0){
+                    table[i][j] += table[i-1][j];
+                }
+                if(i > 0 && j > 0){
+                    table[i][j] += Math.min(table[i-1][j], table[i][j-1]);
+                }
+            }
         }
-        return pathNum;
+        return table[iLength-1][jLength-1];
     }
 }
