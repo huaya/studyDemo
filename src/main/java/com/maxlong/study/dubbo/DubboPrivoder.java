@@ -18,7 +18,7 @@ public class DubboPrivoder {
         serviceConfig.setApplication(new ApplicationConfig("first-dubbo-provider"));
         serviceConfig.setRegistry(new RegistryConfig("zookeeper://192.168.128.128:2181"));
         serviceConfig.setInterface(GreetingService.class);
-        serviceConfig.setRef(new GreetingServiceImpl());
+        serviceConfig.setRef(new GreetingService1Impl());
         serviceConfig.export();
         System.in.read();
     }
