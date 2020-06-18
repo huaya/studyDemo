@@ -11,7 +11,7 @@ public class SingleNumber {
      * @param a: An integer array
      * @return: An integer
      */
-    public int singleNumber(int[] a) {
+    public static int singleNumber(int[] a) {
         if (a.length == 1) return a[0];
         for (int i = 0; i < a.length - 1; i++) {
             for (int j = 0; j < a.length - i - 1; j++) {
@@ -36,13 +36,12 @@ public class SingleNumber {
         return 0;
     }
 
-    public static void main(String[] args) {
-        int[] a = {1, 1, 2, 2, 5, 3, 3, 4, 4};
-
+    public static int singleNumber2(int[] a) {
         int tmp = a[0];
         for (int i = 1; i < a.length; i++) {
             tmp = tmp ^ a[i];
         }
-        System.out.println(tmp);
+        return tmp;
     }
+
 }
