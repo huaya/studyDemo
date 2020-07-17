@@ -122,9 +122,9 @@ public class CommonTest {
 
     @Test
     public void hash3() {
-        int key = 1200000;
-        int i = 7 & key;
-        System.out.println(i);
+        int key = 7;
+        int i = 2 & key;
+        System.out.print(i);
     }
 
     @Test
