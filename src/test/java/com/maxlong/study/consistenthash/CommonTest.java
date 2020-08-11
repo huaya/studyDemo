@@ -2,6 +2,7 @@ package com.maxlong.study.consistenthash;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.maxlong.study.collections.TreeMap;
@@ -11,15 +12,14 @@ import com.maxlong.study.service.impl.UserServiceImpl;
 import com.maxlong.study.utils.DateFormat;
 import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tools.ant.filters.StringInputStream;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.util.StopWatch;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -99,6 +99,11 @@ public class CommonTest {
     }
 
     @Test
+    public void string2() throws UnsupportedEncodingException {
+        byte[] content = new byte[0];
+        System.out.println(new String(content, "UTF-8"));
+    }
+    @Test
     public void capacity() {
         System.out.println(1 << 30);
     }
@@ -122,9 +127,9 @@ public class CommonTest {
 
     @Test
     public void hash3() {
-        int key = 1200000;
-        int i = 7 & key;
-        System.out.println(i);
+        int key = 7;
+        int i = 2 & key;
+        System.out.print(i);
     }
 
     @Test
@@ -140,7 +145,6 @@ public class CommonTest {
     public void isNaN() {
         System.out.println(Float.isNaN(0.0f / 0.0f));
     }
-
 
     @Test
     public void containsKey() {
@@ -158,7 +162,6 @@ public class CommonTest {
         String userName = (String) UserInfo.U.getObjectVolatile(userInfo, UserInfo.USERNAME);
         System.out.println("userId: " + userId + ", userName: " + userName);
     }
-
 
     @Test
     public void offset2() {
@@ -241,15 +244,6 @@ public class CommonTest {
             System.out.println("concurrentHashMap key and value not null");
         }
 
-    }
-
-    @Test
-    public void test() {
-        String aaa = "";
-        String bbb = "";
-        aaa = bbb = "xxxx";
-        System.out.println(aaa);
-        System.out.println(bbb);
     }
 
     @Test
@@ -383,21 +377,6 @@ public class CommonTest {
         System.out.println(mealsets);
     }
 
-    @Test
-    public void regex() {
-        String regex = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
-        String mealset1 = "Zookeeper.java";
-        String mealset2 = "Zookeeper111.java";
-        String mealset3 = "sdszookeeper111.java";
-        String mealset4 = "sdszk111.java";
-
-        System.out.println(mealset1.matches(regex));
-        System.out.println(mealset2.matches(regex));
-        System.out.println(mealset3.matches(regex));
-        System.out.println(mealset4.matches(regex));
-    }
-
-    @Test
     public void booleanTest() {
         System.out.println(new Date(Integer.MIN_VALUE));
     }
@@ -478,7 +457,7 @@ public class CommonTest {
     public void integerSort() {
         List<Integer> list = Lists.newArrayList(10, 2, 5, 1000, 555, 148);
         System.out.println(list);
-        list.sort((a, b) -> (a - b));
+        list.sort(Comparator.comparingInt(a -> a));
         System.out.println(list);
     }
 
@@ -651,6 +630,88 @@ public class CommonTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void positiveNumber(){
+        System.out.println(Integer.parseInt("null"));
+    }
+
+    @Test
+    public void write() throws IOException {
+        String filePath = "opstores-core-model/";
+        FileUtils.write(new File(filePath + "test"), "fefefefgagae", "UTF-8");
+    }
+
+    @Test
+    public void joinWith(){
+        List<String> subAccs = new ArrayList<>();
+        subAccs.add("dsdsds");
+        subAccs.add("xdsfsfd");
+        String result3 = subAccs.stream().collect(Collectors.joining("\n"));
+        System.out.println(result3);
+    }
+
+    @Test
+    public void joinWith2(){
+        System.out.println(StringUtils.joinWith("-", "aaa", null));
+    }
+
+    @Test
+    public void firstNonBlank(){
+        String dd = StringUtils.firstNonBlank("", null,"1", "2");
+        System.out.println(dd);
+    }
+
+    @Test
+    public void getZore(){
+        String personInCharge = "afsfwefwefwe";
+        System.out.println(personInCharge.split(",")[0]);
+    }
+
+    @Test
+    public void join2(){
+        List<String> domains = Lists.newArrayList("a","b", "c");
+        System.out.println(StringUtils.join(domains, ","));
+    }
+
+
+    @Test
+    public void martch() throws UnsupportedEncodingException {
+        String domain = "589715031475584 ";
+        System.out.println(URLEncoder.encode(domain.trim(), "UTF-8"));
+    }
+
+    @Test
+    public void intdsdsd(){
+        Date date = new Date(-1);
+        System.out.println(DateUtil.dateToStr(date, DateFormat.STYLE8));
+    }
+
+    @Test
+    public void regex(){
+        String regex = "^((?i)(ap|sc|rs)|[0-9])[0-9].*";
+        String applyId = "12121";
+        System.out.println(applyId.matches(regex));
+        System.out.println(applyId.substring(2));
+    }
+    @Test
+    public void regex2() {
+        String regex = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
+        String mealset1 = "Zookeeper.java";
+        String mealset2 = "Zookeeper111.java";
+        String mealset3 = "sdszookeeper111.java";
+        String mealset4 = "sdszk111.java";
+        System.out.println(mealset1.matches(regex));
+        System.out.println(mealset2.matches(regex));
+        System.out.println(mealset3.matches(regex));
+        System.out.println(mealset4.matches(regex));
+    }
+
+    @Test
+    public void febDays(){
+        Date date = DateUtil.strToDate("2020-03-29", DateFormat.STYLE2);
+        System.out.println(DateUtil.addMonth(date, -1, DateFormat.STYLE2));
     }
 }
 
