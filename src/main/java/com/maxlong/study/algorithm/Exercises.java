@@ -338,6 +338,84 @@ public class Exercises {
             }
 
         }
+        fixNum();
+    }
+
+    /**
+     * 写出一个程序，接受一个正浮点数值，输出该数值的近似整数值。如果小数点后数值大于等于5,向上取整；小于5，则向下取整。
+     *
+     */
+    public static void fixNum() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        while ((str = reader.readLine()) != null) {
+            Double num = Double.valueOf(str);
+            int intNum = num.intValue();
+            double floNum = num - intNum;
+            if(floNum >= 0.5){
+                System.out.println(intNum  + 1);
+            } else {
+                System.out.println(intNum);
+            }
+        }
+    }
+
+    public static void primes2() throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String str = "";
+        while (null != (str = bf.readLine())) {
+            System.out.println(factor(Integer.valueOf(str)));
+        }
+    }
+
+    public static String factor(int num) {
+        StringBuffer sb = new StringBuffer();
+        for(int i =2;i<Math.sqrt(num);i++){
+            if(num%i==0){
+                sb.append(i).append(" ");
+                num /= i;
+                i --;
+            }
+        }
+        return  sb.append(num).append(" ").toString();
+    }
+
+    /**
+     * 功能:输入一个正整数，按照从小到大的顺序输出它的所有质因子（重复的也要列举）（如180的质因子为2 2 3 3 5 ）
+     *
+     * 最后一个数后面也要有空格
+     */
+    public static void primes() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        while ((str = reader.readLine()) != null) {
+            Long num = Long.valueOf(str);
+            if(num <= 1){
+                System.out.print(num + " ");
+            }
+            while (num > 1) {
+                for(long i = 2; i <= num; i++){
+                    if(num % i == 0){
+                        System.out.print(i + " ");
+                        num = num/i;
+                        i = 1;
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    private static boolean isPrime(Long num) {
+        if(num <= 2){
+            return true;
+        }
+        for(int i = 2; i * i < num; i++) {
+            if(num%i == 0){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
