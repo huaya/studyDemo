@@ -688,6 +688,22 @@ public class CommonTest {
         System.out.println(DateUtil.dateToStr(date, DateFormat.STYLE8));
     }
 
+
+    @Test
+    public void compare(){
+        int n1 = 4200;
+        int n2 = 1100;
+        int a1 = 1230;
+        int a2 = 410;
+
+        float x1 = (float)n1/n2;
+        float x2 = (float)a1/a2;
+        System.out.println(x2);
+        System.out.println(x1);
+        System.out.println(x2 - x1);
+        System.out.println(x2 - x1 > 0);
+    }
+
     @Test
     public void regex(){
         String regex = "^((?i)(ap|sc|rs)|[0-9])[0-9].*";

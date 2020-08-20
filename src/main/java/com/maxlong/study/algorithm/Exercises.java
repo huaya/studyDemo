@@ -1,5 +1,7 @@
 package com.maxlong.study.algorithm;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.*;
 import java.util.*;
 
@@ -14,6 +16,40 @@ public class Exercises {
 
     public static void main(String[] args) throws IOException {
         knapsack();
+    }
+
+    public static void knapsack2() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str = br.readLine();
+        int N = Integer.parseInt(str.split(" ")[0])/10; // 此处总钱数除以10，后续单价同样除以10
+        int m = Integer.parseInt(str.split(" ")[1]);
+        int[] v= new int[m+1];
+        int[] p= new int[m+1];
+        int[] q= new int[m+1];
+        boolean[] flags = new boolean[m+1];
+        int[][] res = new int[m+1][N+1];
+        for (int i = 1; i <= m; i++) {
+            String[] strings = br.readLine().split(" ");
+            v[i] = (Integer.parseInt(strings[0]))/10;  //价格都是10的倍数，可以减少循环次数
+            p[i] = Integer.parseInt(strings[1]) * v[i];    // Integer.parseInt(strings[1]):重要度，只可能为12345  p[i]表示所求总和的单个元素
+            q[i] = Integer.parseInt(strings[2]);      // 标识主件还是附件，p=0为主件，p>0为附件，对应主件编号，此处对应索引i
+        }
+
+        // 动态规划思想
+        for (int i = 1; i <= m; i++) {
+            for(int j = 1; j<=N; j++){ // j表示可支配的钱
+                if(q[i] == 0) { // 主件
+                    if(v[i] <= j){ // 当前物品价格有足够的钱支付
+                        res[i][j] = Math.max(res[i-1][j], res[i-1][j-v[i]] + p[i]);
+                    }
+                }else{ // 附件， 此时q[i]表示所对应的主件的编号
+                    if(v[i] + v[q[i]] <= j){  // 附件的价值加上主件的价值不少于可支配的钱，即可以一起购买附件
+                        res[i][j] = Math.max(res[i-1][j], res[i-1][j-v[i]] + p[i]);
+                    }
+                }
+            }
+        }
+        System.out.println(res[m][N] * 10);
     }
 
     /**
@@ -45,33 +81,17 @@ public class Exercises {
             String[] line1 = str.split(" ");
             Integer money = Integer.valueOf(line1[0]);
             Integer num = Integer.valueOf(line1[1]);
-            Map<Integer, Good> goodMap = new HashMap<>();
-
+            Good.goods.clear();
             for (int i = 0; i < num; i++) {
                 String[] line = b.readLine().split(" ");
                 Integer price = Integer.valueOf(line[0]);
                 Integer weight = Integer.valueOf(line[1]);
                 Integer index = Integer.valueOf(line[2]);
-                Good good;
-                if(index == 0){
-                    good = new Good(i + 1, price, weight);
-                } else {
-                    good = goodMap.get(index);
-                    if(good != null){
-                        good.addAnnex(price, weight);
-                    }
-                }
-                if(good != null){
-                    if(good.getTotalPrice() <= money){
-                        goodMap.put(good.index, good);
-                    } else {
-                        goodMap.remove(good.index);
-                    }
-                }
+                new Good(index, price, weight);
             }
-            List<Good> goods = new ArrayList<>(goodMap.values());
-            goods.sort((g1, g2) -> {
-                if(g2.getWeightPriceRate() - g1.getWeightPriceRate() > 0){
+            List<Good> allGoods = new ArrayList<>(Good.goods);
+            allGoods.sort((g1, g2) -> {
+                if(g2.getWeightPriceRate() - g1.getWeightPriceRate() > 0D){
                     return 1;
                 } else {
                     return -1;
@@ -79,10 +99,30 @@ public class Exercises {
             });
             Integer currPrice = 0;
             Integer costWeight = 0;
-            for (Good good : goods) {
-                if(currPrice + good.getTotalPrice() > money) break;
-                costWeight += good.getAllCostWeight();
-                currPrice += good.getTotalPrice();
+            List<Good> buyGoods = new ArrayList<>();
+            for (Good good : allGoods) {
+                Integer addPrice = 0;
+                Integer addWeight = 0;
+                if(buyGoods.contains(good) || buyGoods.contains(good.master)) {
+                    if(good.index == 0) continue;
+                    addPrice += good.price;
+                    addWeight += good.selfCostWeight;
+                } else {
+                    addPrice += good.getTotalPrice();
+                    addWeight += good.getAllCostWeight();
+                }
+                if(currPrice + addPrice > money) continue;
+                currPrice += addPrice;
+                costWeight += addWeight;
+
+                buyGoods.add(good);
+                if(good.master != null && !buyGoods.contains(good.master)){
+                    buyGoods.add(good.master);
+                }
+            }
+            for (Good good : buyGoods) {
+                System.out.println(good.index + " " + good.price + " " + good.weight + " " +
+                        good.getTotalPrice() + " " + good.selfCostWeight + " " + good.getWeightPriceRate());
             }
             System.out.println(costWeight);
         }
@@ -90,46 +130,51 @@ public class Exercises {
 
     public static class Good {
 
+        public static List<Good> goods = new ArrayList<>();
+
         private Integer index;
 
         private Integer price;
 
         private Integer weight;
 
-        private List<Good> annex = new ArrayList<>();
+        private Integer selfCostWeight;
+
+        private Good master;
 
         public Good(Integer index, Integer price, Integer weight) {
             this.index = index;
             this.price = price;
             this.weight = weight;
+            this.selfCostWeight = price * weight;
+            goods.add(this);
         }
 
-        public void addAnnex(Integer price, Integer weight){
-            this.annex.add(new Good(this.index, price, weight));
+        public Good getMaster(){
+            if(this.master == null && this.index > 0){
+                this.master = goods.get(this.index - 1);
+            }
+            return this.master;
         }
 
-        public double getWeightPriceRate(){
-            return getAllCostWeight()/getTotalPrice();
+        public float getWeightPriceRate(){
+            return (float)getAllCostWeight()/getTotalPrice();
         }
 
         public Integer getTotalPrice(){
             Integer price = this.price;
-            for (Good good : annex) {
-                price += good.price;
+            if(getMaster() != null){
+                price += getMaster().price;
             }
             return price;
         }
 
         public Integer getAllCostWeight(){
-            Integer costWeight = this.price * weight;
-            for (Good good : annex) {
-                costWeight += good.getSelfCostWeight();
+            Integer costWeight = this.selfCostWeight;
+            if(getMaster() != null){
+                costWeight += getMaster().selfCostWeight;
             }
             return costWeight;
-        }
-
-        public Integer getSelfCostWeight(){
-            return this.price * weight;
         }
 
     }
