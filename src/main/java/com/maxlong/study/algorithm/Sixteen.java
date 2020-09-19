@@ -57,13 +57,15 @@ public class Sixteen {
 
         System.out.println(f[N]);
     }
-}
 
-class Good {
-    int v;
-    int vp;
-    public Good(int v, int vp) {
-        this.v = v;
-        this.vp = vp;
+    public static class Good {
+        int v;
+        int vp;
+        public Good(int v, int vp) {
+            this.v = v;
+            this.vp = vp;
+        }
     }
 }
+
+

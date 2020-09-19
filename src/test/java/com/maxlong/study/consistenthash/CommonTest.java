@@ -32,6 +32,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -688,6 +689,12 @@ public class CommonTest {
         System.out.println(DateUtil.dateToStr(date, DateFormat.STYLE8));
     }
 
+    @Test
+    public void pattern(){
+        byte a = -121;
+        System.out.println(a & 0XFF);
+
+    }
 
     @Test
     public void compare(){
@@ -711,6 +718,7 @@ public class CommonTest {
         System.out.println(applyId.matches(regex));
         System.out.println(applyId.substring(2));
     }
+
     @Test
     public void regex2() {
         String regex = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
