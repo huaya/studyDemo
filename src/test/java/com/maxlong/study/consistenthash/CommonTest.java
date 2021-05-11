@@ -474,6 +474,18 @@ public class CommonTest {
     }
 
     @Test
+    public void json() {
+        User user = new User();
+        UserInfo userInfo = new UserInfo("mxl", "afefawer");
+        List<UserInfo> users = new ArrayList<>();
+        for(int i=0;i<200;i++){
+            users.add(userInfo);
+        }
+        user.setUsers(users);
+        System.out.println(JSONObject.toJSONString(user));
+    }
+
+    @Test
     public void diamonds() {
         BigDecimal diamonds = new BigDecimal("123.1122");
         BigDecimal diamonds2 = new BigDecimal("123.5422");
