@@ -12,8 +12,9 @@ import java.util.concurrent.Executors;
 public class FileFind {
 
 //    final static String pattern  = "(.*)(?i)zookeeper(.*)\\.java$|(.*)(?i)zk(.*)\\.java$";
-    final static String pattern  = "(.*)(?i)DateUtil(.*)\\.java$";
-    final static String path = "D:\\workspace-gj";
+//    final static String pattern  = "(.*)(?i)DateUtil(.*)\\.java$";
+    final static String pattern  = "^47.75.143.94$";
+    final static String path = "D:\\Users\\OrderPlus";
     final static ExecutorService service =  Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
@@ -22,16 +23,17 @@ public class FileFind {
     }
 
     public static void ergodic(File file){
-        if(file.isFile()){
-            String fileName = file.getName();
-            if(fileName.matches(pattern)){
-                System.out.println(file.getPath());
-            }
-        } else {
+        String fileName = file.getName();
+        if(fileName.matches(pattern)){
+            System.out.println(file.getPath());
+        }
+        if(file.isDirectory()){
             try {
                 File[] files = file.listFiles();
-                for (File f : files) {
-                    service.execute(() -> ergodic(f));
+                if(files != null) {
+                    for (File f : files) {
+                        service.execute(() -> ergodic(f));
+                    }
                 }
             } catch (Exception e){
                 e.printStackTrace();

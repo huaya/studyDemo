@@ -757,69 +757,6 @@ public class CommonTest {
 
     private static final String hostname = "https://admins.chimpone.com/api";
 
-    @org.junit.jupiter.api.Test
-    public void contextLoads() {
-        List<String> currDatas = FileUtil.readLineFromFile("E:\\workspace-cloud\\finance-tools\\src\\test\\resources\\siteDomains.txt", "UTF-8");
-        Map<Integer, List<JSONObject>> siteDataMap = new HashMap<>();
-        for (String currData : currDatas) {
-            String[] dataArray = StringUtils.splitPreserveAllTokens(currData, "|");
-            Integer siteId = Integer.valueOf(dataArray[2]);
-
-            List<JSONObject> siteDatas = siteDataMap.computeIfAbsent(siteId, k -> new ArrayList<>());
-
-            JSONObject dt = new JSONObject();
-            dt.put("id", dataArray[0]);
-            dt.put("yn", dataArray[1]);
-            dt.put("siteId", dataArray[2]);
-            dt.put("domain", dataArray[3]);
-            dt.put("logo", dataArray[4]);
-            dt.put("favicon", dataArray[5]);
-            String size = "0";
-            if(StringUtils.isNotBlank(dataArray[4]) && dataArray[4].contains("?")){
-                size = dataArray[4].substring(dataArray[4].indexOf("?") + 1);
-            }
-            dt.put("logoSize", size);
-            siteDatas.add(dt);
-        }
-
-        File file = new File("C:\\Users\\OrderPlus\\Desktop\\data-prod.csv");
-
-        // 创建CSV写对象
-        CsvWriter csvWriter = new CsvWriter(file, "GBK", new CsvWriterSettings());
-
-        csvWriter.writeHeaders("hostname", "siteId", "data");
-
-        List<String> datas = FileUtil.readLineFromFile("E:\\workspace-cloud\\webflux\\src\\test\\resources\\data.txt", "UTF-8");
-
-        int index = 0;
-        for (Integer siteId : SITEIDS) {
-
-            List<String> domains = datas.subList(index, index + 10);
-
-            JSONObject data = new JSONObject();
-            JSONArray childDomains = new JSONArray();
-            data.put("childDomains", childDomains);
-
-            List<JSONObject> siteDatas = siteDataMap.get(siteId);
-            if(!CollectionUtils.isEmpty(siteDatas)){
-                childDomains.addAll(siteDatas);
-            }
-
-            for (String domain : domains) {
-                String[] dataArray = domain.split("\\|");
-                JSONObject dt = new JSONObject();
-                dt.put("domain", dataArray[0]);
-                dt.put("logo", dataArray[1]);
-                dt.put("favicon", "");
-                dt.put("logoSize", "150");
-                childDomains.add(dt);
-            }
-            String[] content = {hostname, siteId.toString(), data.toJSONString()};
-            csvWriter.writeRow(content);
-            index = index + 10;
-        }
-        csvWriter.close();
-    }
 }
 
 
