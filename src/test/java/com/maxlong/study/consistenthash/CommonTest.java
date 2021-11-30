@@ -15,6 +15,7 @@ import com.maxlong.study.utils.FileUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
 
 import java.io.*;
@@ -474,6 +475,18 @@ public class CommonTest {
     }
 
     @Test
+    public void json() {
+        User user = new User();
+        UserInfo userInfo = new UserInfo("mxl", "afefawer");
+        List<UserInfo> users = new ArrayList<>();
+        for(int i=0;i<200;i++){
+            users.add(userInfo);
+        }
+        user.setUsers(users);
+        System.out.println(JSONObject.toJSONString(user));
+    }
+
+    @Test
     public void diamonds() {
         BigDecimal diamonds = new BigDecimal("123.1122");
         BigDecimal diamonds2 = new BigDecimal("123.5422");
@@ -737,6 +750,13 @@ public class CommonTest {
         Date date = DateUtil.strToDate("2020-03-29", DateFormat.STYLE2);
         System.out.println(DateUtil.addMonth(date, -1, DateFormat.STYLE2));
     }
+    private static final List<Integer> SITEIDS = org.assertj.core.util.Lists.newArrayList(
+            41758, 1013, 1454, 43255, 1327, 859, 19879, 29957, 43256, 39052, 36178, 43255, 24610, 30235, 1630, 24895,
+            27712, 20297, 24984, 38037, 32463, 34002, 31358, 39060, 29294, 24760, 43604, 27722, 20291, 30391);
+
+
+    private static final String hostname = "https://admins.chimpone.com/api";
+
 }
 
 

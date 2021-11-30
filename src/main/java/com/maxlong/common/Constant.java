@@ -7,11 +7,11 @@ package com.maxlong.common;
  */
 public interface Constant {
 
-    int _1K = 1 * 1024;
+    int _1K = 1024;
 
-    int _1M = 1 * 1024 * 1024;
+    int _1M = 1024 * 1024;
 
-    long _1G = 1 * 1024 * 1024 * 1024;
+    long _1G = 1024 * 1024 * 1024;
 
-    long _10G = 10 * 1024 * 1024 * 1024;
+    long _10G = 10L * 1024 * 1024 * 1024;
 }
