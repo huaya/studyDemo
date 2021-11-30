@@ -1,5 +1,6 @@
 package com.maxlong.study.dingding;
 
+import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.*;
@@ -28,23 +29,33 @@ public class DingdingUser {
     private static final String accessToken_L = "16e28aa7c0fe3cefb9414b825bf30fb9";
 
     public static void main(String[] args) throws ApiException {
-        long taskId = sendMessage(getAccessToken(), "080726172337700948,275406665838761686", "markdown");
-//        getsendprogress(taskId, accessToken_L);
+        String token = getAccessToken();
+        List<OapiDepartmentListResponse.Department> departments = getDepartment(token);
+        for (OapiDepartmentListResponse.Department department : departments) {
+            System.out.println(JSON.toJSONString(department));
+        }
     }
 
     public static String getAccessToken() throws ApiException {
-        String accessToken = RedisPool.get("accessToken");
-        if(StringUtils.isNoneBlank(accessToken)) {
-            return accessToken;
-        }
         DefaultDingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/gettoken");
         OapiGettokenRequest request = new OapiGettokenRequest();
         request.setAppkey(appId);
         request.setAppsecret(appSecret);
         request.setHttpMethod("GET");
         OapiGettokenResponse response = client.execute(request);
-        RedisPool.setEx("accessToken", response.getAccessToken(), 7200);
         return response.getAccessToken();
+    }
+
+    public static List<OapiDepartmentListResponse.Department> getDepartment(String accessToken) throws ApiException {
+        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/department/list");
+        OapiDepartmentListRequest request = new OapiDepartmentListRequest();
+        request.setLang("zh_CN");
+        request.setFetchChild(true);
+        request.setId("1");
+        request.setHttpMethod("GET");
+        OapiDepartmentListResponse rsp = client.execute(request, accessToken);
+
+        return rsp.getDepartment();
     }
 
     public static List<OapiUserSimplelistResponse.Userlist> getSimplelist(String accessToken, Long departmentId ) throws ApiException {
