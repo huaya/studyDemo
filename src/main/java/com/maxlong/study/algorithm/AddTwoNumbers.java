@@ -12,22 +12,44 @@ import java.math.BigDecimal;
  */
 public class AddTwoNumbers {
 
+    public static int[] addTwoNumbers2(int[] n1, int[] n2) {
+        int len1 =  n1.length, len2 = n2.length;
+        int len = len1 > len2 ? len1 + 1: len2 + 1;
+
+        int[] ret = new int[len];
+
+        int dn1 = len - len1, dn2 = len - len2;
+        int tmp = 0;
+        for (int i = len - 1; i >= 0; i--) {
+
+            int x = i - dn1 >= 0 ? n1[i - dn1] : 0;
+            int y = i - dn2 >= 0 ? n2[i - dn2] : 0;
+
+            int add = x + y + tmp;
+
+            int rn = add%10;
+            tmp = add/10;
+            ret[i] = rn;
+        }
+        return ret;
+    }
+
 
     public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
         ListNode l3 = new ListNode(0);
-        ListNode p = l1,q = l2,temp = l3;
+        ListNode p = l1, q = l2, temp = l3;
         int carry = 0;
-        while (p != null || q != null){
-            int i = p == null?0:p.val;
-            int j = q == null?0:q.val;
-            temp.next = new ListNode((i + j + carry)%10);
-            carry = (i + j  + carry)/10;
-            p = p == null?null:p.next;
-            q = q == null?null:q.next;
+        while (p != null || q != null) {
+            int i = p == null ? 0 : p.val;
+            int j = q == null ? 0 : q.val;
+            temp.next = new ListNode((i + j + carry) % 10);
+            carry = (i + j + carry) / 10;
+            p = p == null ? null : p.next;
+            q = q == null ? null : q.next;
             temp = temp.next;
         }
-        if(carry > 0){
-            temp.next  = new ListNode(carry);
+        if (carry > 0) {
+            temp.next = new ListNode(carry);
         }
         return l3.next;
     }
@@ -41,21 +63,21 @@ public class AddTwoNumbers {
         System.out.println(num3);
         String num3Str = num3.toString();
 
-        ListNode l3 = new ListNode(Integer.parseInt(num3Str.substring(0,1)));
-        for(int i = 1; i<num3Str.length();i++){
-            ListNode x = new ListNode(Integer.parseInt(num3Str.substring(i,i+1)));
+        ListNode l3 = new ListNode(Integer.parseInt(num3Str.substring(0, 1)));
+        for (int i = 1; i < num3Str.length(); i++) {
+            ListNode x = new ListNode(Integer.parseInt(num3Str.substring(i, i + 1)));
             x.next = l3;
             l3 = x;
         }
         return l3;
     }
 
-    public static BigDecimal toNumber(ListNode listNode){
+    public static BigDecimal toNumber(ListNode listNode) {
         ListNode temp = listNode;
         BigDecimal num = BigDecimal.ZERO;
         BigDecimal tenPow = BigDecimal.ONE;
-        for(int i = 0; temp != null; i++){
-            num =  num.add(new BigDecimal(temp.val).multiply(tenPow));
+        for (int i = 0; temp != null; i++) {
+            num = num.add(new BigDecimal(temp.val).multiply(tenPow));
             temp = temp.next;
             tenPow = tenPow.multiply(new BigDecimal(10));
         }
@@ -63,29 +85,36 @@ public class AddTwoNumbers {
     }
 
     public static void main(String[] args) {
-        ListNode l1 =  makeListNode(new int[]{6,1,7});
-        ListNode l2 = makeListNode2(new int[]{5,6,4});
+//        ListNode l1 = makeListNode(new int[]{6, 1, 7});
+//        ListNode l2 = makeListNode2(new int[]{5, 6, 4});
 //        ListNode l1 =  makeListNode(new int[]{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1});
 //        ListNode l2 = makeListNode2(new int[]{5,6,4});
-        ListNode l3 = addTwoNumbers2(l1,l2);
-        System.out.println(toNumber(l3));
+//        ListNode l3 = addTwoNumbers2(l1, l2);
+        int[] ret = addTwoNumbers2(new int[]{6, 1, 8}, new int[]{5, 6, 4});
+        String rets = "";
+        for (int i : ret) {
+            if (i > 0) {
+                rets = rets + i;
+            }
+        }
+        System.out.println(rets);
     }
 
-    public static ListNode makeListNode(int[] array){
+    public static ListNode makeListNode(int[] array) {
         ListNode listNode = null;
-        for(int i = array.length - 1; i >= 0; i--){
-          ListNode temp =  new ListNode(array[i]);
-          temp.setNext(listNode);
-          listNode = temp;
+        for (int i = array.length - 1; i >= 0; i--) {
+            ListNode temp = new ListNode(array[i]);
+            temp.setNext(listNode);
+            listNode = temp;
         }
         return listNode;
     }
 
-    public static ListNode makeListNode2(int[] array){
+    public static ListNode makeListNode2(int[] array) {
         ListNode listNode = new ListNode(0);
         ListNode temp = listNode;
 
-        for(int i = 0; i < array.length; i++){
+        for (int i = 0; i < array.length; i++) {
             temp.next = new ListNode(array[i]);
             temp = temp.next;
         }
@@ -101,7 +130,7 @@ public class AddTwoNumbers {
             val = x;
         }
 
-        ListNode setNext(ListNode next){
+        ListNode setNext(ListNode next) {
             this.next = next;
             return this;
         }
