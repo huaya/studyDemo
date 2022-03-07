@@ -10,8 +10,9 @@ package com.maxlong.study.algorithm;
 public class ClimbingStairs {
 
     public static void main(String[] args) {
-        int result = climbing(1);
-        System.out.println(result);
+        int result = climbing(20);
+        int result2 = climbing2(20);
+        System.out.println(result + "-" + result2);
     }
 
     private static int climbing(int stairs) {
@@ -26,6 +27,12 @@ public class ClimbingStairs {
             s++;
         }
         return st;
+    }
+
+    private static int climbing2(int stairs) {
+        if(stairs == 1) return 1;
+        if(stairs == 2) return 2;
+        return climbing2(stairs - 1) + climbing2(stairs - 2);
     }
 
 }
