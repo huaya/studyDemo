@@ -1,4 +1,4 @@
-package com.maxlong.study.algorithm;
+package com.maxlong.study.algorithm.huawei;
 
 /**
  * Created on 2022/3/7.
