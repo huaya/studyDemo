@@ -8,7 +8,18 @@ public class Main {
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             int nums = in.nextInt();
+            System.out.println(isPrime(nums));
         }
     }
 
+    public static boolean isPrime(int num){
+        if(num <= 2) return true;
+
+        for(int i = 2; i <= num/2; i++){
+            if(num % i ==0 ){
+                return false;
+            }
+        }
+        return true;
+    }
 }
