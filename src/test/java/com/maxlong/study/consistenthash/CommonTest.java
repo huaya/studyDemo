@@ -49,6 +49,16 @@ public class CommonTest {
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
 
     @Test
+    public void errors() {
+        Map<String, Integer> errors = new LinkedHashMap();
+        errors.put("aaa", 1);
+        errors.put("bbb", 1);
+        errors.put("ccc", 1);
+        errors.put("aaa", 2);
+        System.out.println(JSONObject.toJSONString(errors));
+    }
+
+    @Test
     public void jdkHash() {
         String a = "a";
         String ab = "ab";
