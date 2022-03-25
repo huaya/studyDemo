@@ -15,6 +15,11 @@ import com.maxlong.study.utils.FileUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.redisson.Redisson;
+import org.redisson.api.RBucket;
+import org.redisson.api.RedissonClient;
+import org.redisson.client.codec.StringCodec;
+import org.redisson.config.Config;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
 
@@ -47,6 +52,22 @@ import java.util.stream.Stream;
 public class CommonTest {
 
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
+
+    @Test
+    public void redission() {
+        Config config = new Config();
+        config.useSingleServer()
+                .setAddress("redis://127.0.0.1:6379");
+        config.setCodec(StringCodec.INSTANCE);
+
+        RedissonClient redisson = Redisson.create(config);
+
+        RBucket<String> banner = redisson.getBucket("redisson-test");
+        banner.trySet("afaefef");
+        String afafa = banner.get();
+        System.out.println(afafa);
+
+    }
 
     @Test
     public void errors() {

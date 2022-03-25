@@ -32,7 +32,13 @@ public class RedisPool {
     }
 
     public static void main(String[] args) {
-        setEx("maxlong", "1234567890", 60);
-        System.out.println(get("maxlong"));
+        Jedis jedis = jedisPool.getResource();
+        for(int i = 0; i < 10000000; i++){
+            jedis.zadd("test_get_remove", i, String.valueOf(i));
+        }
+    }
+
+    public static JedisPool getJedisPool() {
+        return jedisPool;
     }
 }
