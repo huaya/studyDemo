@@ -35,8 +35,9 @@ public class RedissionGarJob extends GarJob {
             redisson.getSet(onKey).addAll(members);
             redisson.getScoredSortedSet(waitKey).removeAll(members);
             return members.stream()
-                    .filter(item -> StringUtils.isNotBlank(item.toString()) && NumberUtils.isDigits(item.toString()))
-                    .map(item -> Long.valueOf(item.toString())).collect(Collectors.toSet());
+                    .map(Object::toString)
+                    .filter(item -> StringUtils.isNotBlank(item) && NumberUtils.isDigits(item))
+                    .map(Long::valueOf).collect(Collectors.toSet());
         } finally {
             rLock.unlock();
         }
