@@ -1,5 +1,6 @@
-package com.maxlong.study.redis;
+package com.maxlong.study.redis.gar;
 
+import com.maxlong.study.redis.RedisPool;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;

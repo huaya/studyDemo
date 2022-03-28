@@ -13,7 +13,7 @@ import org.redisson.config.Config;
  */
 public class RedssionClientHolder {
 
-    public static RedissonClient redisson;
+    public static final RedissonClient redisson;
     static {
         Config config = new Config();
         config.useSingleServer()

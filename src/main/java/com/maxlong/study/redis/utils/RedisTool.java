@@ -1,4 +1,4 @@
-package com.maxlong.utils;
+package com.maxlong.study.redis.utils;
 
 import com.google.common.collect.Lists;
 import lombok.extern.log4j.Log4j2;

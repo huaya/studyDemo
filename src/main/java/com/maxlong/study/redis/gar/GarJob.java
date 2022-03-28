@@ -1,5 +1,6 @@
-package com.maxlong.study.redis;
+package com.maxlong.study.redis.gar;
 
+import com.maxlong.study.redis.JobExecute;
 import lombok.AllArgsConstructor;
 
 import java.util.Set;
