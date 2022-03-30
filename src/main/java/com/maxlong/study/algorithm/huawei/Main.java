@@ -1,5 +1,6 @@
 package com.maxlong.study.algorithm.huawei;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {

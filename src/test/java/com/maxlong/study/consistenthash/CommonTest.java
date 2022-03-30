@@ -41,7 +41,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+import java.util.Arrays;
 /**
  * Created by IntelliJ IDEA.
  *
@@ -52,6 +52,13 @@ import java.util.stream.Stream;
 public class CommonTest {
 
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
+
+    @Test
+    public void array() {
+        int[] temp = {1, 2,3 ,0,1,1,5};
+        int[] temp2 = Arrays.stream(temp).filter(a -> a != 0).sorted().toArray();
+        System.out.println(Arrays.toString(temp2));
+    }
 
     @Test
     public void redission() {
