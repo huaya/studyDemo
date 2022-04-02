@@ -1,7 +1,9 @@
 package com.maxlong.study.algorithm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,12 +13,52 @@ import java.util.List;
  * 类说明:
  */
 public class Greedy {
-    public static void main(String[] args) {
-//        int[] house = {1,2,3,4,5};int radii = 1;
-        int[] house = {2,4,5,6,7,9,11,12};int radii = 2;
 
+    public static void main(String[] args) {
+        int[] houses = {2, 4, 5, 6, 7, 9, 11, 12};
+        int radii = 2;
+
+        //int num = greedyNum(0, houses, radii);
+        int num = greedyNum2(houses, radii);
+        System.out.println(num);
+    }
+
+    private static int greedyNum(int start, int[] houses, int radii) {
+        if (start >= houses.length) {
+            return 0;
+        }
+        int house = houses[start];
+        int te = house + radii;
+
+        int jzinx = start;
+        for(int i = start + 1; i < houses.length; i++){
+            int next = houses[i];
+            if(next > te){
+                break;
+            } else {
+                jzinx = i;
+            }
+        }
+
+        int jzhs= houses[jzinx];
+
+        int nextStart = jzinx + 1;
+        for(int i = nextStart; i < houses.length; i++){
+            if(houses[i] > jzhs + 2){
+                nextStart = i;
+                break;
+            }
+        }
+        for(int i = start; i < nextStart; i++){
+            System.out.print(houses[i] + " ");
+        }
+        System.out.println();
+        return 1 + greedyNum(nextStart, houses, radii);
+    }
+
+    private static int greedyNum2(int[] houses, int radii) {
         List<List<Integer>> childs = new ArrayList<>();
-        List<Integer> temp = creareList(house);
+        List<Integer> temp = Arrays.stream(houses).mapToObj(a -> Integer.valueOf(a)).collect(Collectors.toList());
 
         while (temp.size()>0){
             int begin = temp.get(0);
@@ -36,15 +78,7 @@ public class Greedy {
             childs.add(child);
         }
 
-        System.out.println(childs.size());
         System.out.println(childs);
-    }
-
-    private static List<Integer> creareList(int[] house) {
-        List<Integer> list = new ArrayList<>();
-        for(int i : house){
-            list.add(i);
-        }
-        return list;
+        return childs.size();
     }
 }
