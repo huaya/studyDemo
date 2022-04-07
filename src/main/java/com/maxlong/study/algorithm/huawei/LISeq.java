@@ -17,7 +17,7 @@ public class LISeq {
 
     public static void main(String[] args) {
         int[] seq = new int[]{186, 186, 150, 200, 160, 130, 197, 200};
-//        dpLISeq(seq);
+        dpLISeq(seq);
         binarySearchLISeq(seq);
     }
 
@@ -32,8 +32,8 @@ public class LISeq {
         for(int i = 0; i < seq.length; i++){
             if(seq[i] > nums[index]){
                 nums[++index] = seq[i];
-                mcs = index;
-            } else if (seq[i] < nums[index]){
+                mcs[i] = index;
+            } else if (seq[i] <= nums[index]){
                 int s = 0, e = index;
                 while (s < e) {
                     int mid = (s + e)/2;
@@ -45,9 +45,9 @@ public class LISeq {
                         break;
                     }
                 }
-                l = s;
+                nums[s] = seq[i];
+                mcs[i] = s;
             }
-            mcs[i] = l;
         }
         System.out.println(Arrays.toString(mcs));
     }
