@@ -1,6 +1,8 @@
 package com.maxlong.study.sort;
 
 import com.maxlong.study.sort.impl.BubbleSort;
+import com.maxlong.study.sort.impl.InsertionSort;
+import com.maxlong.study.sort.impl.SelectionSort;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,12 +17,18 @@ public class SortFactory {
         switch (sortType){
             case BUBBLE:
                 return new BubbleSort();
+            case SELECTION:
+                return new SelectionSort();
+            case INSERTION:
+                return new InsertionSort();
             default:
                 throw new IllegalArgumentException();
         }
-
     }
+
     public enum SortType{
-        BUBBLE
+        BUBBLE,
+        SELECTION,
+        INSERTION
     }
 }

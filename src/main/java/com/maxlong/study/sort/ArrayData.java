@@ -14,13 +14,18 @@ import java.util.Random;
 public class ArrayData {
 
     public static int[] createBigArray(){
+        return createBigArray(100000);
+    }
+
+    public static int[] createBigArray(int len){
         Random random = new Random();
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
-            list.add(random.nextInt(100000));
+        for (int i = 0; i < len; i++) {
+            list.add(random.nextInt(len));
         }
         return list.stream().mapToInt(Integer::valueOf).toArray();
     }
+
 
     public static int[] createSingleNumArray(int length){
         int[] a = new int[length];
