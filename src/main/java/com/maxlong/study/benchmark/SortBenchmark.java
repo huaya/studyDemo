@@ -36,17 +36,17 @@ public class SortBenchmark {
         copyArray = Arrays.copyOf(array, array.length);
     }
 
-    @Benchmark
-    public void bubbleSort() {
-        Sort sort = SortFactory.build(SortFactory.SortType.BUBBLE);
-        sort.sort(copyArray);
-    }
+//    @Benchmark
+//    public void bubbleSort() {
+//        Sort sort = SortFactory.build(SortFactory.SortType.BUBBLE);
+//        sort.sort(copyArray);
+//    }
 
-    @Benchmark
-    public void selectionSort() {
-        Sort sort = SortFactory.build(SortFactory.SortType.SELECTION);
-        sort.sort(copyArray);
-    }
+//    @Benchmark
+//    public void selectionSort() {
+//        Sort sort = SortFactory.build(SortFactory.SortType.SELECTION);
+//        sort.sort(copyArray);
+//    }
 
     @Benchmark
     public void insertionSort() {
