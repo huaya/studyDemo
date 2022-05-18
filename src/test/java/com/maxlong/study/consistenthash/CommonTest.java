@@ -2,6 +2,12 @@ package com.maxlong.study.consistenthash;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.OSSException;
+import com.aliyun.oss.model.OSSObjectSummary;
+import com.aliyun.oss.model.ObjectListing;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.maxlong.study.collections.TreeMap;
@@ -51,7 +57,7 @@ import java.util.Arrays;
 public class CommonTest {
 
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
-
+    
     @Test
     public void sort() {
         int[] array = ArrayData.createBigArray();
