@@ -18,6 +18,23 @@ public class SolutionFindSmallestSetOfVertices {
         System.out.println(result);
     }
 
+    public List<Integer> findSmallestSetOfVertices3(int n, List<List<Integer>> edges) {
+        Set<Integer> in = new HashSet<>();
+        Set<Integer> out = new HashSet<>();
+        for (List<Integer> list : edges) {
+            in.add(list.get(0));
+            out.add(list.get(1));
+        }
+        List<Integer> result = new ArrayList<>();
+        for (Integer integer : in) {
+            if(!out.contains(integer)){
+                result.add(integer);
+            }
+        }
+        // result.sort(Integer::compareTo);
+        return result;
+    }
+
     public List<Integer> findSmallestSetOfVertices2(int n, List<List<Integer>> edges) {
         int[] arr = new int[n];
         for (List<Integer> list : edges) {
