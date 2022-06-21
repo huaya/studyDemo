@@ -54,6 +54,11 @@ public class CommonTest {
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
 
     @Test
+    public void jisuan() {
+        System.out.println(-7%2);
+    }
+
+    @Test
     public void array() {
         int[] temp = {1, 2,3 ,0,1,1,5};
         int[] temp2 = Arrays.stream(temp).filter(a -> a != 0).sorted().toArray();
