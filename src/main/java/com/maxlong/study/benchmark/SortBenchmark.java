@@ -9,6 +9,7 @@ import com.maxlong.study.sort.ArrayData;
 import com.maxlong.study.sort.Sort;
 import com.maxlong.study.sort.SortFactory;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -26,20 +27,31 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 3, time = 5, timeUnit = TimeUnit.SECONDS)
 public class SortBenchmark {
 
-    private Sort sort;
-
     private int[] array = ArrayData.createBigArray();
 
-    SortFactory.SortType sortType = SortFactory.SortType.BUBBLE;
+    private int[] copyArray;
 
     @Setup
-    public void buildMeCounterHearty() {
-        sort = SortFactory.build(sortType);
+    public void initArray() {
+        copyArray = Arrays.copyOf(array, array.length);
     }
 
+//    @Benchmark
+//    public void bubbleSort() {
+//        Sort sort = SortFactory.build(SortFactory.SortType.BUBBLE);
+//        sort.sort(copyArray);
+//    }
+
+//    @Benchmark
+//    public void selectionSort() {
+//        Sort sort = SortFactory.build(SortFactory.SortType.SELECTION);
+//        sort.sort(copyArray);
+//    }
+
     @Benchmark
-    public void sort() {
-        sort.sort(array);
+    public void insertionSort() {
+        Sort sort = SortFactory.build(SortFactory.SortType.INSERTION);
+        sort.sort(copyArray);
     }
 
     public static void main(String[] args) throws RunnerException {

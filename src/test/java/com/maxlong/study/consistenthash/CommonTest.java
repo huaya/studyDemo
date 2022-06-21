@@ -2,13 +2,20 @@ package com.maxlong.study.consistenthash;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.OSSException;
+import com.aliyun.oss.model.OSSObjectSummary;
+import com.aliyun.oss.model.ObjectListing;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.maxlong.study.collections.TreeMap;
 import com.maxlong.study.serializable.UserInfo;
 import com.maxlong.study.service.UserService;
 import com.maxlong.study.service.impl.UserServiceImpl;
+import com.maxlong.study.sort.ArrayData;
+import com.maxlong.study.sort.impl.InsertionSort;
 import com.maxlong.study.utils.DateFormat;
 import com.maxlong.study.utils.DateUtil;
 import com.maxlong.study.utils.FileUtil;
@@ -20,7 +27,6 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.StringCodec;
 import org.redisson.config.Config;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
 
 import java.io.*;
@@ -38,7 +44,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.Arrays;
@@ -52,6 +57,20 @@ import java.util.Arrays;
 public class CommonTest {
 
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
+    
+    @Test
+    public void sort() {
+        int[] array = ArrayData.createBigArray();
+        InsertionSort sort = new InsertionSort();
+        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(sort.sort(array)));
+    }
+
+    @Test
+    public void floor() {
+        System.out.println(Math.floor(5 / 3));
+        System.out.println(5 / 3);
+    }
 
     @Test
     public void jisuan() {
