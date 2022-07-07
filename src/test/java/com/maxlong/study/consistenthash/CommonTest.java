@@ -57,7 +57,15 @@ import java.util.Arrays;
 public class CommonTest {
 
     private static final String[] aaa = new String[]{"xxx", "yyy", "zzz"};
-    
+
+    @Test
+    public void charnum() {
+        System.out.println((int)'a');
+        System.out.println((int)'z');
+        System.out.println((int)'A');
+        System.out.println((int)'Z');
+    }
+
     @Test
     public void sort() {
         int[] array = ArrayData.createBigArray();
